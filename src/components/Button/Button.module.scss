@@ -1,7 +1,22 @@
 .primary {
   background-color: $primary;
+//   color: $background;
+
+outline: 2px solid $primary-hover;
+  &:hover {
+    // box-shadow: 0 2px 16px $primary;
+    background-color: $primary-hover;
+    // transform: scale(1.02);
+  }
 }
 
 .secondary {
+  outline: 2px solid $secondary-hover;
   background-color: $secondary;
+  color: $text;
+
+  &:hover {
+    background-color: $secondary-hover;
+    // box-shadow: 0 8px 16px $secondary;
+  }
 }

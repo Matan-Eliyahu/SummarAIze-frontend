@@ -1,21 +1,15 @@
 import styles from "./Button.module.scss";
-import { FaRegUser } from "react-icons/fa";
 
 interface ButtonProps {
-  text: string;
   theme: "primary" | "secondary";
-  size: "s" | "m" | "l";
+  children: React.ReactNode; // Allow using text in the tag
   onClick: () => void;
 }
 
-function Button({ text, theme, onClick, size }: ButtonProps) {
+function Button({ theme, children, onClick }: ButtonProps) {
   return (
-    <button
-      className={theme == "primary" ? styles.primary : styles.secondary}
-      onClick={onClick}
-    >
-      {text}
-      <FaRegUser className={styles.icon} />
+    <button className={theme == "primary" ? styles.primary : styles.secondary} onClick={onClick}>
+      {children}
     </button>
   );
 }

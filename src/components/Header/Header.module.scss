@@ -1,0 +1,16 @@
+.header {
+  @extend .vbox;
+  justify-content: center;
+  background: $primary;
+  width: 100vw;
+  // margin-left: 4%;
+  height: 1.7rem;
+  position: absolute ;
+  top: 0;
+}
+
+.headerImg {
+  width: 200px;
+  height: auto;
+  margin-top: 0.4rem;
+}

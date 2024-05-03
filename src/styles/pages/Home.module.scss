@@ -1,0 +1,104 @@
+@import url("https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap");
+
+.welcomeBox {
+  @extend .vbox;
+  justify-content: center;
+  // width: 400px;
+  margin-bottom: -0.5rem;
+}
+
+.welcomeText {
+  color: $text-dark;
+  font-size: 0.9rem;
+  font-weight: 400;
+}
+
+.catchwordBox {
+  @extend .vbox;
+  justify-content: center;
+  gap: 0.3rem;
+  padding: 10px 40px;
+  background-color: $background-dark;
+  border-radius: 16px;
+  margin-bottom: 1rem;
+}
+
+.catchwordText {
+  font-family: "Caveat", sans-serif;
+  color: $primary;
+  font-size: 1rem;
+}
+
+.iconBox {
+  @extend .hbox;
+  justify-content: center;
+  gap: 0.1rem;
+}
+
+.icon {
+  width: 30px;
+}
+
+.buttonBox {
+  @extend .vbox;
+  justify-content: center;
+  gap: 0.3rem;
+  padding: 32px 40px;
+  background-color: $background-soft;
+  border-radius: 32px;
+  margin-bottom: 0.5rem;
+}
+
+.googleButton {
+  background-color: #41a01e;
+
+  &:hover {
+    transform: scale(1.005);
+    outline: 1px solid #41a01e;
+    background-color: #4bad28;
+  }
+}
+
+.facebookButton {
+  background-color: #144f86;
+
+  &:hover {
+    transform: scale(1.005);
+    outline: 1px solid #144f86;
+    background-color: #195994;
+  }
+}
+
+.facebookIcon {
+  color: #51a1eb;
+}
+
+.appleButton {
+  background-color: #0d0d0d;
+
+  &:hover {
+    transform: scale(1.005);
+    outline: 1px solid #0d0d0d;
+    background-color: #1a1919;
+  }
+}
+
+.signupButton {
+  background-color: $primary;
+
+  &:hover {
+    transform: scale(1.005);
+    outline: 1px solid $primary-hover;
+    background-color: $primary-hover;
+  }
+}
+
+.descriptionText {
+  margin-top: 1rem;
+  text-align: center;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 18px;
+  color: $text-dark;
+  width: 500px;
+}
