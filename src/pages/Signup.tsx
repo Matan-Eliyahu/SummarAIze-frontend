@@ -5,12 +5,43 @@ import pdfIcon from "../assets/pdf-icon.png";
 import docIcon from "../assets/doc-icon.png";
 import audoiIcon from "../assets/audio-icon.png";
 import styles from "../styles/pages/Home.module.scss";
-import styles2 from "../styles/pages/Signup.module.scss";
-
+import Form from "../components/Form/Form";
+import { FormType } from "../common/types";
 
 function Signup() {
 
   const navigate = useNavigate();
+
+  const signUpForm: FormType = {
+    formId: "signUpForm",
+    elements: [
+      {
+        label: "Username",
+        name: "username",
+        type: "text"
+      },
+      {
+        label: "Email",
+        name: "email",
+        type: "email"
+      },
+      {
+        label: "Password",
+        name: "password",
+        type: "password"
+      },
+      {
+        label: "confirm Password",
+        name: "confirmPassword",
+        type: "password"
+      },
+    ],
+    confirmButton: {
+      text: "Sign Up",
+      className: "signupButton",
+      handler: handleButtonClick
+    }
+  }
 
   function handleButtonClick() {
     //vlidations and send to server 
@@ -34,31 +65,10 @@ function Signup() {
       </div>
 
       <div className={styles.buttonBox}>
-        <form className={styles2.form}>
-          <label>
-          Username
-            <input type="text" name="username" className={styles2.input} />
-          </label>
-          <label>
-          Email
-            <input type="email" name="email" className={styles2.input} />
-          </label>
-          <label>
-          Password
-            <input type="password" name="password" className={styles2.input} />
-          </label>
-          <label>
-          Confirm Password
-            <input type="password" name="confirmPassword" className={styles2.input} />
-          </label>
-        </form>
-
-          <button className={styles.signupButton} onClick={handleButtonClick}>
-            Sign up
-          </button>
-          <div className={styles.descriptionText}>already have an account?</div>
-          <a href="/">Sign in</a>
-      </div>        
+        <Form formId={signUpForm.formId} elements={signUpForm.elements} confirmButton={signUpForm.confirmButton}></Form>
+        <div className={styles.descriptionText}>already have an account?</div>
+        <a href="/">Sign in</a>
+      </div>
     </div>
   );
 }

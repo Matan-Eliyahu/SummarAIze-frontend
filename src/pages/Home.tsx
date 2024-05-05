@@ -4,14 +4,36 @@ import pdfIcon from "../assets/pdf-icon.png";
 import docIcon from "../assets/doc-icon.png";
 import audoiIcon from "../assets/audio-icon.png";
 import styles from "../styles/pages/Home.module.scss";
-import styles2 from "../styles/pages/Signup.module.scss";
 import { FcGoogle } from "react-icons/fc";
 import { MdFacebook } from "react-icons/md";
+import { FormType } from "../common/types";
+import Form from "../components/Form/Form";
 
 function Home() {
   const navigate = useNavigate();
 
-  function handleButton2Click() {
+  const signInForm: FormType = {
+    formId: "signInForm",
+    elements: [
+      {
+        label: "Email",
+        name: "email",
+        type: "email"
+      },
+      {
+        label: "Password",
+        name: "password",
+        type: "password"
+      },
+    ],
+    confirmButton: {
+      text: "Sign In",
+      className: "signinButton",
+      handler: handleButtonClick
+    }
+  }
+
+  function handleButtonClick() {
     navigate("summarize");
   }
 
@@ -32,20 +54,7 @@ function Home() {
       </div>
 
       <div className={styles.buttonBox}>
-        <form className={styles2.form}>
-          <label>
-            Email
-            <input type="email" name="email" className={styles2.input} />
-          </label>
-          <label>
-            Password
-            <input type="password" name="password" className={styles2.input} />
-          </label>
-        </form>
-
-        <button className={styles.signinButton} onClick={handleButton2Click}>
-          Sign in
-        </button>
+      <Form formId={signInForm.formId} elements={signInForm.elements} confirmButton={signInForm.confirmButton}></Form>
 
         <div className={styles.boxSeparator}>
           <hr className={styles.boxSeparatorItem}></hr>
@@ -53,15 +62,15 @@ function Home() {
           <hr className={styles.boxSeparatorItem}></hr>
         </div>
 
-        <button className={styles.googleButton} onClick={handleButton2Click}>
+        <button className={styles.googleButton} onClick={handleButtonClick}>
           <FcGoogle size={25} />
           Continue with Google
         </button>
-        <button className={styles.facebookButton} onClick={handleButton2Click}>
+        <button className={styles.facebookButton} onClick={handleButtonClick}>
           <MdFacebook size={25} className={styles.facebookIcon} />
           Continue with Facebook
         </button>
-        <button className={styles.appleButton} onClick={handleButton2Click}>
+        <button className={styles.appleButton} onClick={handleButtonClick}>
           Continue with Apple
         </button>
 
