@@ -1,13 +1,11 @@
 import { useNavigate } from "react-router-dom";
-import logo from "../assets/logo-large.png";
-import pdfIcon from "../assets/pdf-icon.png";
-import docIcon from "../assets/doc-icon.png";
-import audoiIcon from "../assets/audio-icon.png";
+
 import styles from "../styles/pages/Home.module.scss";
 import { FcGoogle } from "react-icons/fc";
 import { MdFacebook } from "react-icons/md";
 import { FormType } from "../common/types";
 import Form from "../components/Form/Form";
+import Welcome from "../components/Welcome/Welcome";
 
 function Home() {
   const navigate = useNavigate();
@@ -39,22 +37,9 @@ function Home() {
 
   return (
     <div className="home">
-      <div className={styles.welcomeBox}>
-        <div className={styles.welcomeText}>Welcome to</div>
-        <img src={logo} alt="logo" style={{ width: "370px" }} />
-      </div>
-
-      <div className={styles.catchwordBox}>
-        <div className={styles.catchwordText}>Transforming Text with AI</div>
-        <div className={styles.iconBox}>
-          <img src={pdfIcon} alt="pdf-icon" className={styles.icon} />
-          <img src={docIcon} alt="doc-icon" className={styles.icon} />
-          <img src={audoiIcon} alt="audio-icon" className={styles.icon} />
-        </div>
-      </div>
-
+      <Welcome />
       <div className={styles.buttonBox}>
-      <Form formId={signInForm.formId} elements={signInForm.elements} confirmButton={signInForm.confirmButton}></Form>
+        <Form formId={signInForm.formId} elements={signInForm.elements} confirmButton={signInForm.confirmButton}></Form>
 
         <div className={styles.boxSeparator}>
           <hr className={styles.boxSeparatorItem}></hr>
