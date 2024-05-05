@@ -1,0 +1,23 @@
+.form {
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    background-color: $background-soft;
+    border-radius: 32px;
+    margin-bottom: 0.5rem;
+}
+
+.input {
+    background-color: $input;
+}
+
+.signinButton,
+.signupButton {
+  background-color: $primary;
+
+  &:hover {
+    transform: scale(1.005);
+    outline: 1px solid $primary-hover;
+    background-color: $primary-hover;
+  }
+}
