@@ -37,7 +37,14 @@ body {
 a {
   font-weight: bold;
   text-decoration: inherit;
-  color: $text;
+  color: $primary-hover;
+  font-size: 0.5rem;
+  text-decoration: underline;
+}
+
+label{
+  font-size: 0.5rem;
+  margin: 0.2rem;
 }
 
 h2,
@@ -64,6 +71,11 @@ div {
   font-weight: bold;
 }
 
+span {
+  font-family: "Lato", sans-serif;
+  font-size: medium
+}
+
 button,
 input {
   @extend .hbox;
@@ -73,14 +85,18 @@ input {
   outline: none;
   border: none;
   min-width: 9rem;
-  font-size: 0.5rem;
-  font-weight: 600;
+  font-size: 0.4rem;
+  font-weight: bold;
   border-radius: 8px;
-  padding: 10px 32px;
+  padding: 8px 16px;
   white-space: nowrap;
   color: $text;
   cursor: pointer;
   transition: box-shadow 0.3s, transform 0.1s ease-in-out;
+}
+
+input {
+  cursor: text;
 }
 
 // pages
@@ -93,7 +109,7 @@ input {
   min-height: 100vh;
   min-width: 100vw;
   background-color: $background;
-  font-size: 34px;
+  font-size: 32px;
   color: $text;
   overflow: auto;
 }
