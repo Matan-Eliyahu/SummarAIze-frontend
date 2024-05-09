@@ -1,26 +1,11 @@
 import React from "react"
 import styles from './Welcome.module.scss'
 import logo from "../../assets/logo.png";
-import pdfIcon from "../../assets/pdf-icon.png";
-import docIcon from "../../assets/doc-icon.png";
-import audoiIcon from "../../assets/audio-icon.png";
+import icons from '../../common/icons'
 
 const Welcome: React.FC = () => {
 
-    const icons = [
-        {
-            src:pdfIcon,
-            alt: "pdf-icon"
-        },
-        {
-            src:docIcon,
-            alt: "doc-icon"
-        },
-        {
-            src:audoiIcon,
-            alt: "audio-icon"
-        },
-    ]
+    
     return (
         <>
             <div className={styles.welcomeBox}>

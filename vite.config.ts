@@ -9,6 +9,13 @@ export default defineConfig({
       usePolling: true,
     },
   },
+  optimizeDeps: {
+    esbuildOptions: {
+      supported: {
+        "top-level-await": true
+      },
+    },
+  },
   css: {
     preprocessorOptions: {
       scss: {

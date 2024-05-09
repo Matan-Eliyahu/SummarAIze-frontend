@@ -1,0 +1,10 @@
+.summary {
+    width: 50%;
+    height: 75%;
+    color: $text-dark;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    background-color: $board;
+    font-size: small;
+    overflow-y: auto;
+}

@@ -1,7 +1,7 @@
 import React from 'react';
 import { FormType, InputFormElement } from "../../common/types";
 import styles from "./Form.module.scss";
-import PasswordInput from '../passwordInput/passwordInput';
+import PasswordInput from './PasswordInput/PasswordInput';
 
 const Form: React.FC<FormType> = (props) => {
     const { formId, elements, confirmButton } = props

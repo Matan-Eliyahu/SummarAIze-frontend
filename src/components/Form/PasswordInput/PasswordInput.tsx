@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa'; // Import eye icons from react-icons library
-import styles from './passwordInput.module.scss'
-import { InputFormElement } from '../../common/types';
+import styles from './PasswordInput.module.scss'
+import { InputFormElement } from '../../../common/types';
 
 interface PasswordInputProps {
     elem: InputFormElement;
