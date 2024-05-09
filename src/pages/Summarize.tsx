@@ -1,16 +1,20 @@
-import { Link } from "react-router-dom";
-import logo from "../assets/logo.png";
+import Button from "../components/Button/Button";
+import DragDrop from "../components/DragDrop/DragDrop";
 import Header from "../components/Header/Header";
+import logo from "../assets/logo.png";
+import styles from '../styles/pages/Summarize.module.scss'
+import { useNavigate } from "react-router-dom";
 
 function Summarize() {
+
+  const navigate = useNavigate();
+
   return (
     <>
       <Header />
       <div className="page">
-        Summarize
-        <Link to="/">
-          <img src={logo} alt="logo" style={{ width: "200px" }} />
-        </Link>
+        <DragDrop></DragDrop>
+        <Button theme="primary" children={<img className={styles.sumBtnImg} src={logo} alt="logo" />} onClick={()=> {navigate("/summary")}}></Button>
       </div>
     </>
   );

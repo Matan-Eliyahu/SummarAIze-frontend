@@ -42,7 +42,7 @@ function Signup() {
 
   function handleButtonClick() {
     //vlidations and send to server 
-    navigate("summarize");
+    navigate("/summarize");
   }
 
   return (

@@ -1,0 +1,46 @@
+.dragAndDropBox {
+    border: dashed 0.2rem;
+    height: 60%;
+    width: 80%;
+    animation: none;
+    /* Disable animation by default */
+    transition: border-color 0.3s ease;
+    /* Add transition for smoother effect */
+}
+
+.draggingOver {
+    border: dashed 0.2rem;
+    height: 60%;
+    width: 80%;
+    border-color: $primary;
+    background-color: $background-soft;
+    /* Change border color when dragging over */
+    transform: 0.5s ease forwards;
+    ;
+    /* Enlarge the drop area */
+}
+
+@keyframes bounce {
+
+    0%,
+    100% {
+        transform: translateY(0);
+        /* Cloud starts at its original position */
+    }
+
+    50% {
+        transform: translateY(-10px);
+        /* Cloud reaches its highest point */
+    }
+}
+
+.cloud {
+    width: 5rem;
+    height: 2rem;
+    left: 45%;
+    top: 70%;
+    background-color: $primary;
+    border-radius: 50%;
+    position: absolute;
+    animation: bounce 2s infinite;
+}
