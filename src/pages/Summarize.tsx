@@ -13,7 +13,7 @@ function Summarize() {
     <>
       <Header />
       <div className="page">
-        <DragDrop></DragDrop>
+        <DragDrop />
         <Button theme="primary" children={<img className={styles.sumBtnImg} src={logo} alt="logo" />} onClick={()=> {navigate("/summary")}}></Button>
       </div>
     </>

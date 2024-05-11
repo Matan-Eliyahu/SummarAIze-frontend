@@ -1,14 +1,20 @@
 .form {
-    justify-content: center;
-    display: flex;
-    flex-direction: column;
-    background-color: $background-soft;
-    border-radius: 32px;
-    margin-bottom: 0.5rem;
+  @extend .vbox;
+  // background-color: $background-soft;
+  // gap: 8px;
 }
 
 .input {
-    background-color: $input;
+  background-color: $text;
+  color: $background;
+}
+
+.inputLabel {
+  @extend .vbox;
+  align-items: start;
+  font-size: 14px;
+  color: $text-dark;
+  gap: 2px;
 }
 
 .signinButton,

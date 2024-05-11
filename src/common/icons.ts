@@ -1,5 +1,5 @@
 import pdfIcon from "../../src/assets/pdf-icon.png";
-import docIcon from "../../src/assets/doc-icon.png";
+import imageIcon from "../../src/assets/image-icon.png";
 import audoiIcon from "../../src/assets/audio-icon.png";
 
 export default [
@@ -10,8 +10,8 @@ export default [
     },
     {
         type: ['pptx'],
-        src:docIcon,
-        alt: "doc-icon"
+        src:imageIcon,
+        alt: "image-icon"
     },
     {
         src:audoiIcon,

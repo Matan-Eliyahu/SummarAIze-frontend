@@ -16,22 +16,15 @@ const PasswordInput: React.FC<PasswordInputProps> = (props) => {
     };
 
     return (
-        <label key={`${elem.name}Lbl`}>
-            {elem.label}
-            <div className={styles.passwordInputContainer}>
-                <input
-                    key={elem.name}
-                    type={showPassword ? 'text' : 'password'}
-                    name={elem.name}
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    className={styles.input}
-                />
-                <div className={styles.passwordToggle} onClick={handleTogglePassword}>
-                    {showPassword ? <FaEyeSlash /> : <FaEye />}
-                </div>
-            </div>
-        </label>
+      <label className={styles.inputLabel} key={`${elem.name}Lbl`}>
+        {elem.label}
+        <div className={styles.passwordInputContainer}>
+          <input key={elem.name} type={showPassword ? "text" : "password"} name={elem.name} value={password} onChange={(e) => setPassword(e.target.value)} className={styles.input} />
+          <div className={styles.passwordToggle} onClick={handleTogglePassword}>
+            {showPassword ? <FaEyeSlash /> : <FaEye />}
+          </div>
+        </div>
+      </label>
     );
 };
 

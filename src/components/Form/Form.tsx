@@ -10,7 +10,7 @@ const Form: React.FC<FormType> = (props) => {
         switch (elem.type) {
             case 'email':
             case 'text':
-                return <label key={`${elem.name}Lbl`}>
+                return <label className={styles.inputLabel} key={`${elem.name}Lbl`}>
                             {elem.label}
                             <input key={elem.name} type={elem.type} name={elem.name} className={styles.input} />
                         </label>

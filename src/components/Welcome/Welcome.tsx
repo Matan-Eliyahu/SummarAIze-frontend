@@ -1,11 +1,9 @@
 import React from "react"
 import styles from './Welcome.module.scss'
-import logo from "../../assets/logo.png";
+import logo from "../../assets/logo3.png";
 import icons from '../../common/icons'
 
 const Welcome: React.FC = () => {
-
-    
     return (
         <>
             <div className={styles.welcomeBox}>

@@ -1,12 +1,11 @@
 @import url("https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap");
 
-
 .buttonBox {
   @extend .vbox;
   justify-content: center;
   gap: 0.3rem;
-  padding: 32px 40px;
-  background-color: $background-soft;
+  padding: 32px 32px;
+  background-color: $background-dark;
   border-radius: 32px;
 }
 
@@ -44,16 +43,31 @@
   }
 }
 
+.appleIcon {
+  color: white;
+}
+
 .boxSeparator {
   @extend .hbox;
   width: 100%;
 }
 
 .boxSeparatorItem {
+  margin: 16px 0px;
   flex: 1;
   width: 33.33%; /* Each item occupies 33.33% of the container's width */
   box-sizing: border-box; /* Include border in width calculation */
   text-align: center; /* Center-align content */
+  color: $text-dark;
+}
+
+.boxSeparatorLine {
+  flex: 1;
+  width: 33.33%; /* Each item occupies 33.33% of the container's width */
+  box-sizing: border-box; /* Include border in width calculation */
+  text-align: center; /* Center-align content */
+  height: 1px;
+  background-color: $input;
 }
 
 .descriptionText {
