@@ -6,6 +6,7 @@ import { FaApple } from "react-icons/fa";
 import { FormType } from "../common/types";
 import Form from "../components/Form/Form";
 import Welcome from "../components/Welcome/Welcome";
+import AuthService from "../services/AuthService";
 
 function Home() {
   const navigate = useNavigate();
@@ -31,8 +32,9 @@ function Home() {
     }
   }
 
-  function handleButtonClick() {
-    navigate("summarize");
+  async function handleButtonClick() {
+    // navigate("summarize");
+    // const {request,cancel} = AuthService.login()
   }
 
   return (
