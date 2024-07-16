@@ -23,11 +23,11 @@ class AuthService {
     return { request, cancel: () => controller.abort() };
   }
 
-//   refreshTokens() {
-//     const controller = new AbortController();
-//     const request = apiClient.get<IAuth>(`${this.path}/refresh`, { headers: { "X-Use-Refresh-Token": "true" }, signal: controller.signal });
-//     return { request, cancel: () => controller.abort() };
-//   }
+  refreshTokens() {
+    const controller = new AbortController();
+    const request = apiClient.get<IAuth>(`${this.path}/refresh`, { headers: { "X-Use-Refresh-Token": "true" }, signal: controller.signal });
+    return { request, cancel: () => controller.abort() };
+  }
 }
 
 export default new AuthService();

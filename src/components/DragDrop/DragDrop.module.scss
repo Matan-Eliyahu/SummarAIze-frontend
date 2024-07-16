@@ -1,4 +1,7 @@
 .dragAndDropBox {
+  @extend .vbox;
+  gap: 1rem;
+  padding: 16px;
   border: dashed 0.2rem;
   height: 60%;
   width: 80%;
@@ -45,4 +48,14 @@
   border-radius: 50%;
   position: absolute;
   animation: bounce 2s infinite;
+}
+
+.fileIconBox {
+  @extend .vbox;
+  gap: 0.5rem;
+  width: 5rem;
+  justify-content: center;
+  padding: 16px;
+  border-radius: 16px;
+  background-color: $background;
 }

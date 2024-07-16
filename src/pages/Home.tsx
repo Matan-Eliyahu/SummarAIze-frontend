@@ -6,9 +6,10 @@ import { FaApple } from "react-icons/fa";
 import { FormType } from "../common/types";
 import Form from "../components/Form/Form";
 import Welcome from "../components/Welcome/Welcome";
-import AuthService from "../services/AuthService";
+import { useAuth } from "../hooks/useAuth";
 
 function Home() {
+  const { login } = useAuth();
   const navigate = useNavigate();
 
   const signInForm: FormType = {
@@ -17,24 +18,24 @@ function Home() {
       {
         label: "Email",
         name: "email",
-        type: "email"
+        type: "email",
       },
       {
         label: "Password",
         name: "password",
-        type: "password"
+        type: "password",
       },
     ],
     confirmButton: {
       text: "Sign In",
       className: "signinButton",
-      handler: handleButtonClick
-    }
-  }
+      handler: handleLogin,
+    },
+  };
 
-  async function handleButtonClick() {
-    // navigate("summarize");
-    // const {request,cancel} = AuthService.login()
+  async function handleLogin(formData: { [key: string]: string }) {
+    const { email, password } = formData;
+    await login(email, password);
   }
 
   return (
@@ -49,15 +50,15 @@ function Home() {
           <div className={styles.boxSeparatorLine}></div>
         </div>
 
-        <button className={styles.googleButton} onClick={handleButtonClick}>
+        <button className={styles.googleButton} onClick={() => navigate("signup")}>
           <FcGoogle size={20} />
           Continue with Google
         </button>
-        <button className={styles.facebookButton} onClick={handleButtonClick}>
+        <button className={styles.facebookButton} onClick={() => navigate("signup")}>
           <MdFacebook size={20} className={styles.facebookIcon} />
           Continue with Facebook
         </button>
-        <button className={styles.appleButton} onClick={handleButtonClick}>
+        <button className={styles.appleButton} onClick={() => navigate("signup")}>
           <FaApple size={20} className={styles.appleIcon} />
           Continue with Apple
         </button>

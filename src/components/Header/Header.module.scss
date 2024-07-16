@@ -1,11 +1,11 @@
 .header {
-  @extend .vbox;
+  @extend .hbox;
   justify-content: center;
   background: $primary;
   width: 100vw;
   // margin-left: 4%;
   height: 1.7rem;
-  position: absolute ;
+  position: absolute;
   top: 0;
 }
 
@@ -13,4 +13,15 @@
   width: 200px;
   height: auto;
   margin-top: 0.4rem;
+}
+
+.logoutButton {
+  min-width: 3rem;
+  background-color: $danger;
+  position: absolute;
+  left: 20px;
+
+  &:hover {
+    background-color: $danger-hover;
+  }
 }

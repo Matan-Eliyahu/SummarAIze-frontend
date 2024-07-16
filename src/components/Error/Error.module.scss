@@ -1,0 +1,102 @@
+.errorContainer {
+  position: absolute;
+  @extend .vbox;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  top: 9rem;
+  animation: fadeInBlur 0.4s ease-in-out forwards;
+}
+
+@keyframes fadeInBlur {
+  from {
+    backdrop-filter: blur(0px);
+  }
+  to {
+    backdrop-filter: blur(4px);
+  }
+}
+
+.errorBox {
+  @extend .vbox;
+  justify-content: center;
+  margin-top: -16rem;
+  border-radius: 16px;
+  border: 2px solid $input;
+  padding: 24px 32px;
+  background-color: $secondary;
+  width: 25%;
+  height: 20%;
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.errorTextBox {
+  @extend .vbox;
+  justify-content: center;
+  text-align: center;
+  width: 95%;
+  height: 80%;
+}
+
+.buttonBox {
+  @extend .hbox;
+  justify-content: center;
+  gap: 1rem;
+  padding: 8px 16px;
+  width: 50%;
+}
+
+.button {
+  padding: 10px 32px;
+  background-color: $input;
+
+  &:hover {
+    background-color: $background-dark;
+  }
+}
+
+.button.danger {
+  @extend .button;
+  background-color: $danger;
+  color: $input;
+
+  &:hover {
+    background-color: $danger-hover;
+  }
+}
+
+.button.create {
+  @extend .button;
+  background-color: $create;
+
+  &:hover {
+    background-color: $create-hover;
+  }
+}
+
+.button.primary {
+  @extend .button;
+  background-color: $primary;
+
+  &:hover {
+    background-color: $secondary;
+  }
+}
+
+.button.secondary {
+  @extend .button;
+  background-color: $secondary;
+
+  &:hover {
+    background-color: $primary;
+  }
+}

@@ -1,7 +1,7 @@
 import React from "react"
 import styles from './Welcome.module.scss'
 import logo from "../../assets/logo3.png";
-import icons from '../../common/icons'
+import { fileIconMap } from "../../common/icons";
 
 const Welcome: React.FC = () => {
     return (
@@ -14,8 +14,8 @@ const Welcome: React.FC = () => {
         <div className={styles.catchwordBox}>
           <div className={styles.catchwordText}>Transforming Text with AI</div>
           <div className={styles.iconBox}>
-            {icons.map((icon, index) => (
-              <img src={icon.src} key={index} alt={icon.alt} className={styles.icon} />
+            {Object.values(fileIconMap).map((iconSrc, index) => (
+              <img src={iconSrc} key={index} alt={"icon"} className={styles.icon} />
             ))}
           </div>
         </div>

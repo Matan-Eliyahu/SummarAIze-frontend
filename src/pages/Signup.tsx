@@ -1,13 +1,13 @@
-
 import { useNavigate } from "react-router-dom";
-import { FormType } from "../common/types";
+import { FormType, IUser } from "../common/types";
 import styles from "../styles/pages/Home.module.scss";
 import Form from "../components/Form/Form";
 import Welcome from "../components/Welcome/Welcome";
+import { useAuth } from "../hooks/useAuth";
 
 function Signup() {
-
   const navigate = useNavigate();
+  const { register } = useAuth();
 
   const signUpForm: FormType = {
     formId: "signUpForm",
@@ -15,34 +15,40 @@ function Signup() {
       {
         label: "Username",
         name: "username",
-        type: "text"
+        type: "text",
       },
       {
         label: "Email",
         name: "email",
-        type: "email"
+        type: "email",
       },
       {
         label: "Password",
         name: "password",
-        type: "password"
+        type: "password",
       },
       {
         label: "confirm Password",
         name: "confirmPassword",
-        type: "password"
+        type: "password",
       },
     ],
     confirmButton: {
       text: "Sign Up",
       className: "signupButton",
-      handler: handleButtonClick
-    }
-  }
+      handler: handleRegister,
+    },
+  };
 
-  function handleButtonClick() {
-    //vlidations and send to server 
-    navigate("/summarize");
+  async function handleRegister(formData: { [key: string]: string }) {
+    const { email, username, password } = formData;
+    const user: IUser = {
+      email,
+      fullName: username,
+      password,
+    };
+    await register(user);
+    navigate("/");
   }
 
   return (
@@ -57,4 +63,4 @@ function Signup() {
   );
 }
 
-export default Signup
+export default Signup;

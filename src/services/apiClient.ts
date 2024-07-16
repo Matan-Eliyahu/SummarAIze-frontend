@@ -1,5 +1,6 @@
 import axios, { CanceledError, AxiosError } from "axios";
-import { getLocalStorageAuth } from "../utils/localStorage";
+import { clearLocalStorageAuth, getLocalStorageAuth, setLocalStorageAuth } from "../utils/localStorage";
+import AuthService from "./AuthService";
 
 export { CanceledError, AxiosError };
 
@@ -14,15 +15,39 @@ apiClient.interceptors.request.use(
     const auth = getLocalStorageAuth();
     if (auth) {
       if (config.headers["X-Use-Refresh-Token"]) {
-        config.headers["Authorization"] = `JWT ${auth.refreshToken}`;
+        config.headers["Authorization"] = `JWT ${auth.tokens.refreshToken}`;
         delete config.headers["X-Use-Refresh-Token"];
       } else {
-        config.headers["Authorization"] = `JWT ${auth.accessToken}`;
+        config.headers["Authorization"] = `JWT ${auth.tokens.accessToken}`;
       }
     }
     return config;
   },
   (error) => Promise.reject(error)
+);
+
+apiClient.interceptors.response.use(
+  (response) => response,
+  async (error) => {
+    const originalRequest = error.config;
+    if (error.response?.status === 401 && !originalRequest._retry) {
+      originalRequest._retry = true;
+      const auth = getLocalStorageAuth();
+
+      if (auth) {
+        try {
+          const { data: newAuth } = await AuthService.refreshTokens().request;
+          setLocalStorageAuth(newAuth);
+          originalRequest.headers["Authorization"] = `JWT ${newAuth.tokens.accessToken}`;
+          return apiClient(originalRequest);
+        } catch (error) {
+          clearLocalStorageAuth();
+        }
+      }
+    }
+
+    return Promise.reject(error);
+  }
 );
 
 export default apiClient;

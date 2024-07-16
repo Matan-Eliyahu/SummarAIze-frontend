@@ -1,20 +1,10 @@
-import pdfIcon from "../../src/assets/pdf-icon.png";
-import imageIcon from "../../src/assets/image-icon.png";
-import audoiIcon from "../../src/assets/audio-icon.png";
+import pdfIcon from "../assets/pdf-icon.png";
+import imageIcon from "../assets/image-icon.png";
+import audoiIcon from "../assets/audio-icon.png";
+import { FileType } from "./types";
 
-export default [
-    {
-        type: ['pdf'],
-        src:pdfIcon,
-        alt: "pdf-icon"
-    },
-    {
-        type: ['pptx'],
-        src:imageIcon,
-        alt: "image-icon"
-    },
-    {
-        src:audoiIcon,
-        alt: "audio-icon"
-    },
-]
+export const fileIconMap: Record<FileType, string> = {
+  audio: audoiIcon,
+  image: imageIcon,
+  pdf: pdfIcon,
+};
