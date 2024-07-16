@@ -8,7 +8,7 @@ const Welcome: React.FC = () => {
       <>
         <div className={styles.welcomeBox}>
           <div className={styles.welcomeText}>Welcome to</div>
-          <img src={logo} alt="logo" style={{ width: "370px" }} />
+          <img src={logo} alt="logo" className={styles.logo} />
         </div>
 
         <div className={styles.catchwordBox}>

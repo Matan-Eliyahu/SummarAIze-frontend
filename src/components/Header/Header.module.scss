@@ -1,18 +1,18 @@
 .header {
   @extend .hbox;
+  align-items: center;
   justify-content: center;
   background: $primary;
   width: 100vw;
-  // margin-left: 4%;
-  height: 1.7rem;
+  height: 1.3rem;
+  padding: 8px;
   position: absolute;
   top: 0;
 }
 
 .headerImg {
   width: 200px;
-  height: auto;
-  margin-top: 0.4rem;
+  margin-top: 4px;
 }
 
 .logoutButton {

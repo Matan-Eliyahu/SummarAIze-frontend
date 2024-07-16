@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router-dom";
-import { FormType, IUser } from "../common/types";
-import styles from "../styles/pages/Home.module.scss";
-import Form from "../components/Form/Form";
-import Welcome from "../components/Welcome/Welcome";
-import { useAuth } from "../hooks/useAuth";
+import { useAuth } from "../../hooks/useAuth";
+import { FormType, IUser } from "../../common/types";
+import Form from "../../components/Form/Form";
+import Welcome from "../../components/Welcome/Welcome";
+import styles from "./Signup.module.scss";
 
 function Signup() {
   const navigate = useNavigate();

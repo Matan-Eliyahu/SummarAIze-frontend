@@ -1,0 +1,22 @@
+.spinnerIcon {
+  color: $primary;
+  font-size: 1.3rem;
+  animation: animate 1.8s infinite;
+}
+
+@keyframes animate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(720deg);
+  }
+}
+
+.fullPageBox {
+  @extend .vbox;
+  gap: 1.5rem;
+  font-size: 1.2rem;
+  justify-content: center;
+  height: 100%;
+}

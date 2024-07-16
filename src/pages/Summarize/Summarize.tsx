@@ -1,12 +1,12 @@
-import Button from "../components/Button/Button";
-import DragDrop from "../components/DragDrop/DragDrop";
-import Header from "../components/Header/Header";
-import logo from "../assets/logo.png";
-import styles from "../styles/pages/Summarize.module.scss";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import SummaryService, { AxiosError } from "../services/SummaryService";
-import { useError } from "../hooks/useError";
+import { useError } from "../../hooks/useError";
+import SummaryService, { AxiosError } from "../../services/SummaryService";
+import Layout from "../../components/Layout/Layout";
+import Button from "../../components/Button/Button";
+import DragDrop from "../../components/DragDrop/DragDrop";
+import logo from "../../assets/logo.png";
+import styles from "./Summarize.module.scss";
 
 function Summarize() {
   const { setAlert } = useError();
@@ -25,7 +25,7 @@ function Summarize() {
     try {
       const response = await request;
       const summary = response.data;
-      navigate("/summary", {state:summary});
+      navigate("/summary", { state: summary });
     } catch (error) {
       if (error instanceof AxiosError) setAlert({ error });
       console.log("Summarize error: ", error);
@@ -39,13 +39,10 @@ function Summarize() {
   }
 
   return (
-    <>
-      <Header />
-      <div className="page">
-        <DragDrop onFileDrop={handleFileDrop} />
-        {loading ? <div>Loading...</div> : <Button theme="primary" children={<img className={styles.sumBtnImg} src={logo} alt="logo" />} onClick={handleSummarize}></Button>}
-      </div>
-    </>
+    <Layout loading={loading}>
+      <DragDrop onFileDrop={handleFileDrop} />
+      <Button theme="primary" children={<img className={styles.sumBtnImg} src={logo} alt="logo" />} onClick={handleSummarize}></Button>
+    </Layout>
   );
 }
 

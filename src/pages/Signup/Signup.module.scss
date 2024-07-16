@@ -1,0 +1,18 @@
+.buttonBox {
+  @extend .vbox;
+  justify-content: center;
+  gap: 0.3rem;
+  padding: 32px 32px;
+  background-color: $background-dark;
+  border-radius: 32px;
+}
+
+.descriptionText {
+  margin-top: 0.3rem;
+  text-align: center;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 18px;
+  color: $text-dark;
+  width: 500px;
+}

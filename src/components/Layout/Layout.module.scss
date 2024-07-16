@@ -1,0 +1,12 @@
+.pageLayout {
+  @extend .vbox;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1.3rem;
+  height: calc(100vh - 1.3rem);
+  width: 100vw;
+  background-color: $background;
+  font-size: 32px;
+  color: $text;
+  overflow: auto;
+}

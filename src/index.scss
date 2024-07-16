@@ -84,11 +84,11 @@ input {
   font-family: "Lato", sans-serif;
   outline: none;
   border: none;
-  min-width: 9rem;
+  min-width: 8rem;
   font-size: 0.4rem;
   font-weight: bold;
-  border-radius: 8px;
-  padding: 12px 16px;
+  border-radius: 6px;
+  padding: 12px;
   white-space: nowrap;
   color: $text;
   cursor: pointer;
@@ -97,9 +97,8 @@ input {
 
 input {
   cursor: text;
+  min-width: 9rem;
 }
-
-// pages
 
 .home,
 .signup {
@@ -112,10 +111,4 @@ input {
   font-size: 32px;
   color: $text;
   overflow: auto;
-}
-
-.page {
-  @extend .home;
-  margin-top: 1.7rem;
-  height: calc(100vh - 1.7rem);
 }

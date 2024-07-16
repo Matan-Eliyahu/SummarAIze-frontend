@@ -1,12 +1,17 @@
 @import url("https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap");
 
-.buttonBox {
+.homeBox {
+  @extend .hbox;
+  justify-content: center;
+  gap: 15%;
+  width: 100%;
+  height: 100%;
+}
+
+.welcomeBox {
   @extend .vbox;
   justify-content: center;
-  gap: 0.3rem;
-  padding: 32px 32px;
-  background-color: $background-dark;
-  border-radius: 32px;
+  gap: 1rem;
 }
 
 .googleButton {
@@ -50,6 +55,8 @@
 .boxSeparator {
   @extend .hbox;
   width: 100%;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .boxSeparatorItem {
@@ -70,12 +77,24 @@
   background-color: $input;
 }
 
+.buttonBox {
+  @extend .vbox;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 32px 16px;
+  background-color: $background-dark;
+  border-radius: 32px;
+  width: 13rem;
+  height: 17rem;
+}
+
 .descriptionText {
   margin-top: 0.3rem;
   text-align: center;
   font-style: italic;
   font-weight: 400;
   font-size: 18px;
-  color: $text-dark;
+  margin-top: -0.5rem;
+  color: $input;
   width: 500px;
 }
