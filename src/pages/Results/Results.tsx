@@ -9,7 +9,6 @@ function Results() {
 
   return (
     <Layout>
-      <div className="page">
         <SummaryDisplay></SummaryDisplay>
         <Button
           theme="primary"
@@ -18,7 +17,6 @@ function Results() {
             navigate("/summarize");
           }}
         ></Button>
-      </div>
     </Layout>
   );
 }
