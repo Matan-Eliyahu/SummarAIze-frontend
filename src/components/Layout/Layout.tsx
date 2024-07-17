@@ -9,7 +9,7 @@ interface LayoutProps {
 }
 
 const Layout = ({ children, loading, text }: LayoutProps) => {
-  return <div className={styles.pageLayout}>{loading ? <Spinner size="l" fullPage text={text} /> : children}</div>;
+  return <div className={styles.pageLayout}>{loading ? <Spinner size="m" fullPage text={text} /> : children}</div>;
 };
 
 export default Layout;

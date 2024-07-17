@@ -1,11 +1,13 @@
 import React, { createContext, ReactNode } from "react";
-import { IAuth,IUser } from "../common/types";
+import { IAuth, IUser } from "../common/types";
 import useAuthentication from "../hooks/useAuthenticatio";
+import { CredentialResponse } from "@react-oauth/google";
 
 interface AuthContextType {
   auth: IAuth | null;
   register: (user: IUser) => Promise<void>;
   login: (email: string, password: string) => Promise<void>;
+  googleSignin: (credential: CredentialResponse) => Promise<void>;
   logout: () => Promise<void>;
 }
 

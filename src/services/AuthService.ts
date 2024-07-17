@@ -1,3 +1,4 @@
+import { CredentialResponse } from "@react-oauth/google";
 import { IAuth, IUser } from "../common/types";
 import apiClient, { CanceledError, AxiosError } from "./apiClient";
 export { CanceledError, AxiosError };
@@ -14,6 +15,12 @@ class AuthService {
   login(email: string, password: string) {
     const controller = new AbortController();
     const request = apiClient.post<IAuth>(`${this.path}/login`, { email, password }, { signal: controller.signal });
+    return { request, cancel: () => controller.abort() };
+  }
+
+  googleSignin(credential: CredentialResponse) {
+    const controller = new AbortController();
+    const request = apiClient.post<IAuth>(`${this.path}/google`, credential, { signal: controller.signal });
     return { request, cancel: () => controller.abort() };
   }
 

@@ -98,3 +98,11 @@
   color: $input;
   width: 500px;
 }
+
+.signupBox {
+  @extend .vbox;
+  padding: 32px;
+  gap: 0.5rem;
+  justify-content: center;
+  width: 100%;
+}

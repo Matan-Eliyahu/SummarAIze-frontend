@@ -16,7 +16,7 @@ function Summarize() {
 
   async function handleSummarize() {
     if (!file) {
-      console.log("No file!");
+      setAlert({text:"There is no file"})
       return;
     }
 

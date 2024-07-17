@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import AuthService, { AxiosError } from "../services/AuthService";
-import { IAuth,IUser } from "../common/types";
+import { IAuth, IUser } from "../common/types";
 import { useError } from "./useError";
 import { clearLocalStorageAuth, getLocalStorageAuth, setLocalStorageAuth } from "../utils/localStorage";
+import { CredentialResponse } from "@react-oauth/google";
 
 export interface ExtendedAuth extends IAuth {
   expirationDate: Date;
@@ -44,6 +45,19 @@ const useAuthentication = () => {
     }
   }
 
+  async function googleSignin(credential: CredentialResponse) {
+    try {
+      const { request } = AuthService.googleSignin(credential);
+      const response = await request;
+      const auth: IAuth = response.data;
+      setLocalStorageAuth(auth);
+      setAuth(auth);
+    } catch (error) {
+      if (error instanceof AxiosError) setAlert({ error });
+      console.error("Google singin error:", error);
+    }
+  }
+
   async function logout() {
     if (auth) {
       try {
@@ -58,7 +72,7 @@ const useAuthentication = () => {
     }
   }
 
-  return { auth, register, login, logout };
+  return { auth, register, login, logout, googleSignin };
 };
 
 export default useAuthentication;
