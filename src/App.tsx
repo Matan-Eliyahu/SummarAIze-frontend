@@ -1,10 +1,11 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import Home from "./pages/Home/Home";
-import Summarize from "./pages/Summarize/Summarize";
+import Dashboard from "./pages/Dashboard/Dashboard";
 import Signup from "./pages/Signup/Signup";
 import Results from "./pages/Results/Results";
 import { useAuth } from "./hooks/useAuth";
 import Header from "./components/Header/Header";
+import Settings from "./pages/Settings/Settings";
 function App() {
   const { auth } = useAuth();
 
@@ -24,10 +25,11 @@ function App() {
     <Router>
       <Header />
       <Routes>
-        <Route path="/" element={<Navigate to="summarize" />} />
-        <Route path="/summarize" Component={Summarize} />
+        <Route path="/" element={<Navigate to="dashboard" />} />
+        <Route path="/dashboard" Component={Dashboard} />
+        <Route path="/settings" Component={Settings} />
         <Route path="/summary" Component={Results} />
-        <Route path="/*" element={<Navigate to="summarize" />} />
+        <Route path="/*" element={<Navigate to="dashboard" />} />
       </Routes>
     </Router>
   );

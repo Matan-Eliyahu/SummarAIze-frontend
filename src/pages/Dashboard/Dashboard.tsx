@@ -1,15 +1,15 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useError } from "../../hooks/useError";
+import { useAuth } from "../../hooks/useAuth";
 import SummaryService, { AxiosError } from "../../services/SummaryService";
 import Layout from "../../components/Layout/Layout";
 import Button from "../../components/Button/Button";
 import DragDrop from "../../components/DragDrop/DragDrop";
 import logo from "../../assets/logo.png";
-import styles from "./Summarize.module.scss";
-import { useAuth } from "../../hooks/useAuth";
+import styles from "./Dashboard.module.scss";
 
-function Summarize() {
+function Dashboard() {
   const { loadingAuth } = useAuth();
   const { setAlert } = useError();
   const [file, setFile] = useState<File | null>(null);
@@ -48,4 +48,4 @@ function Summarize() {
   );
 }
 
-export default Summarize;
+export default Dashboard;

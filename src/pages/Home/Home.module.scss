@@ -54,7 +54,7 @@
   @extend .vbox;
   justify-content: center;
   gap: 0.7rem;
-  padding: 48px 80px;
+  padding: 48px 64px;
   background-color: $background-dark;
   border-radius: 32px;
   opacity: 0;
@@ -105,9 +105,8 @@
 }
 
 .googleButton {
-    gap: 10px;
     color: $text-dark;
-    // outline: 2px solid $text-dark;
+    padding: 8px;
     width: 70%;
 
     &:hover {

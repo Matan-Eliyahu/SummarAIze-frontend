@@ -8,9 +8,12 @@ import { useEffect, useState } from "react";
 import Layout from "../../components/Layout/Layout";
 import { FcGoogle } from "react-icons/fc";
 import { TokenResponse, useGoogleLogin } from "@react-oauth/google";
+import { AxiosError } from "axios";
+import { useError } from "../../hooks/useError";
 
 function Home() {
   const { login, googleLogin } = useAuth();
+  const { setAlert, clearAlert } = useError();
   const [loading, setLoading] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
 
@@ -37,7 +40,7 @@ function Home() {
       try {
         await googleLogin(tokenResponse);
       } catch (error) {
-        console.log(error);
+        if (error instanceof AxiosError) handleAlert(error);
       }
     },
   });
@@ -48,8 +51,18 @@ function Home() {
     try {
       await login(email, password);
     } catch (error) {
-      console.log(error);
+      if (error instanceof AxiosError) handleAlert(error);
     }
+  }
+
+  function handleAlert(error: AxiosError) {
+    setAlert({
+      error,
+      onButtonClick: () => {
+        setLoading(false);
+        clearAlert();
+      },
+    });
   }
 
   return (

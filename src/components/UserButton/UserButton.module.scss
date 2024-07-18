@@ -8,8 +8,8 @@
 
 .userTagButton {
   @extend .hbox;
-  padding: 8px 16px;
-  min-width: 3rem;
+  padding: 8px 12px;
+  min-width: 1rem;
   gap: 8px;
   border-radius: 8px;
   background-color: rgba(255, 255, 255, 0.192);
@@ -36,17 +36,17 @@
   // justify-content: center;
   gap: 0.5rem;
   position: absolute;
-  width: 200px;
+  min-width: 200px;
   // height: 100px;
-  top: calc(1.3rem + 8px);
-  left: -8px;
-  background-color: $background-dark;
-  // border: 2px solid $background;
+  top: calc(1.3rem + 4px);
+  right: 0px;
+  background: linear-gradient(to bottom, $background, $background-dark);
+  border: 2px solid $background-soft;
   font-size: 16px;
   font-weight: 400;
   border-radius: 12px;
   padding: 16px;
-  box-shadow: 0 0 4px 2px $background-soft;
+  // box-shadow: 0 0 4px 2px $background-soft;
   z-index: 1;
   white-space: nowrap;
   opacity: 0;
@@ -82,10 +82,12 @@
 }
 
 .logoutButton {
-  padding: 8px;
+  padding: 4px;
   min-width: 3rem;
+  min-height: 38px;
   font-size: 14px;
   gap: 8px;
+  font-weight: 400;
   border-radius: 8px;
   background-color: rgba(255, 0, 0, 0.418);
 
@@ -96,4 +98,22 @@
 
 .logoutIcon {
   font-size: 14px;
+}
+
+.titleBox {
+  @extend .hbox;
+  // justify-content: center;
+  gap: 8px;
+  background-color: $background-dark;
+  border-radius: 4px;
+  padding: 8px 12px;
+  width: 90%;
+  font-size: 14px;
+  font-weight: 400;
+  color: $text-dark;
+}
+
+.titleIcon {
+  color: $text-dark;
+  font-size: 16px;
 }
