@@ -4,10 +4,10 @@ import AuthService from "./AuthService";
 
 export { CanceledError, AxiosError };
 
-const baseURL = import.meta.env.VITE_BASE_URL;
+export const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 const apiClient = axios.create({
-  baseURL: baseURL,
+  baseURL: BASE_URL,
 });
 
 apiClient.interceptors.request.use(

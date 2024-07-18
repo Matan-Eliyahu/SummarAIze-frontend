@@ -12,18 +12,22 @@ export type InputFormElement = {
   label: string;
   name: string;
   type: string;
+  autocomplete?: string;
 };
 
 export interface IUser {
   fullName: string;
   email: string;
   password: string;
+  imageUrl: string;
   refreshTokens?: string[];
 }
 
 export interface IAuth {
   id: string;
+  fullName:string;
   email: string;
+  imageUrl: string;
   tokens: ITokens;
 }
 

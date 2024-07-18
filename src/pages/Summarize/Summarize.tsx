@@ -7,8 +7,10 @@ import Button from "../../components/Button/Button";
 import DragDrop from "../../components/DragDrop/DragDrop";
 import logo from "../../assets/logo.png";
 import styles from "./Summarize.module.scss";
+import { useAuth } from "../../hooks/useAuth";
 
 function Summarize() {
+  const { loadingAuth } = useAuth();
   const { setAlert } = useError();
   const [file, setFile] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
@@ -16,7 +18,7 @@ function Summarize() {
 
   async function handleSummarize() {
     if (!file) {
-      setAlert({text:"There is no file"})
+      setAlert({ text: "There is no file" });
       return;
     }
 
@@ -39,7 +41,7 @@ function Summarize() {
   }
 
   return (
-    <Layout loading={loading}>
+    <Layout loading={loading || loadingAuth}>
       <DragDrop onFileDrop={handleFileDrop} />
       <Button theme="primary" children={<img className={styles.sumBtnImg} src={logo} alt="logo" />} onClick={handleSummarize}></Button>
     </Layout>

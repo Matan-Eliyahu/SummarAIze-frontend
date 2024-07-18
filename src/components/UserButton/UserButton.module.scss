@@ -1,0 +1,99 @@
+.userButtonContainer {
+  @extend .hbox;
+  justify-content: center;
+  gap: 8px;
+  position: relative;
+  // display: inline-block;
+}
+
+.userTagButton {
+  @extend .hbox;
+  padding: 8px 16px;
+  min-width: 3rem;
+  gap: 8px;
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.192);
+  transition: background-color 0.3s;
+
+  &.hover,
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.438);
+  }
+}
+
+.userTagImage {
+  width: 25px;
+  border-radius: 50%;
+}
+
+.userNameText {
+  font-size: 14px;
+}
+
+.tooltip {
+  @extend .vbox;
+  // align-items: start;
+  // justify-content: center;
+  gap: 0.5rem;
+  position: absolute;
+  width: 200px;
+  // height: 100px;
+  top: calc(1.3rem + 8px);
+  left: -8px;
+  background-color: $background-dark;
+  // border: 2px solid $background;
+  font-size: 16px;
+  font-weight: 400;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 0 4px 2px $background-soft;
+  z-index: 1;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+
+.tooltip.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.tooltip p {
+  margin: 0;
+  padding: 5px 0;
+  // cursor: pointer;
+}
+
+.settingsButton {
+  padding: 8px 12px;
+  min-width: 1rem;
+  gap: 8px;
+  border-radius: 8px;
+  background-color: transparent;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.11);
+  }
+}
+
+.settingsIcon {
+  font-size: 22px;
+}
+
+.logoutButton {
+  padding: 8px;
+  min-width: 3rem;
+  font-size: 14px;
+  gap: 8px;
+  border-radius: 8px;
+  background-color: rgba(255, 0, 0, 0.418);
+
+  &:hover {
+    background-color: $danger-hover;
+  }
+}
+
+.logoutIcon {
+  font-size: 14px;
+}

@@ -3,7 +3,7 @@ import AuthService, { AxiosError } from "../services/AuthService";
 import { IAuth, IUser } from "../common/types";
 import { useError } from "./useError";
 import { clearLocalStorageAuth, getLocalStorageAuth, setLocalStorageAuth } from "../utils/localStorage";
-import { CredentialResponse } from "@react-oauth/google";
+import { TokenResponse } from "@react-oauth/google";
 
 export interface ExtendedAuth extends IAuth {
   expirationDate: Date;
@@ -27,6 +27,7 @@ const useAuthentication = () => {
     } catch (error) {
       if (error instanceof AxiosError) setAlert({ error });
       console.error("Register error:", error);
+      throw error;
     }
   }
 
@@ -42,12 +43,13 @@ const useAuthentication = () => {
     } catch (error) {
       if (error instanceof AxiosError) setAlert({ error });
       console.error("Login error:", error);
+      throw error;
     }
   }
 
-  async function googleSignin(credential: CredentialResponse) {
+  async function googleLogin(tokenResponse: TokenResponse) {
     try {
-      const { request } = AuthService.googleSignin(credential);
+      const { request } = AuthService.googleLogin(tokenResponse);
       const response = await request;
       const auth: IAuth = response.data;
       setLocalStorageAuth(auth);
@@ -55,6 +57,7 @@ const useAuthentication = () => {
     } catch (error) {
       if (error instanceof AxiosError) setAlert({ error });
       console.error("Google singin error:", error);
+      throw error;
     }
   }
 
@@ -68,11 +71,12 @@ const useAuthentication = () => {
       } catch (error) {
         console.error("Logout error:", error);
         if (error instanceof AxiosError) setAlert({ error });
+        throw error;
       }
     }
   }
 
-  return { auth, register, login, logout, googleSignin };
+  return { auth, register, login, logout, googleLogin };
 };
 
 export default useAuthentication;

@@ -1,3 +1,4 @@
+import { CgDanger } from "react-icons/cg";
 import styles from "./Error.module.scss";
 
 export interface ErrorProps {
@@ -14,7 +15,10 @@ function Error({ text, buttonText, onButtonClick, secondButtonText, onSecondButt
   return (
     <div className={styles.errorContainer}>
       <div className={styles.errorBox}>
+        <div className={styles.contentBox}>
+        <CgDanger size={20}/>
         <div className={styles.errorTextBox}>{text}</div>
+        </div>
         <div className={styles.buttonBox}>
           <button className={`${styles.button} ${buttonColor ? styles[buttonColor] : ""}`} onClick={onButtonClick}>
             {buttonText}

@@ -1,29 +1,22 @@
 .form {
   @extend .vbox;
-  // background-color: $background-soft;
-  // gap: 8px;
-}
-
-.input {
-  background-color: $text;
-  color: $background;
+  padding: 8px;
+  width: 100%;
+  margin-bottom: -0.5rem;
 }
 
 .inputLabel {
   @extend .vbox;
+  width: 100%;
   align-items: start;
   font-size: 14px;
   color: $text-dark;
-  gap: 2px;
+  gap: 4px;
 }
 
-.signinButton,
-.signupButton {
-  background-color: $primary;
-
-  &:hover {
-    transform: scale(1.005);
-    outline: 1px solid $primary-hover;
-    background-color: $primary-hover;
-  }
+.buttonBox {
+  @extend .hbox;
+  justify-content: center;
+  width: 80%;
+  height: 1.5rem;
 }

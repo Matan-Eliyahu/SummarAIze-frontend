@@ -1,15 +1,16 @@
 import React from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import styles from "./PasswordInput.module.scss";
-import { InputFormElement } from "../../../common/types";
+import { FormElement } from "../Form";
 
 interface PasswordInputProps {
-  elem: InputFormElement;
+  elem: FormElement;
   value: string;
   onChange: (value: string) => void;
+  disabled?:boolean
 }
 
-const PasswordInput: React.FC<PasswordInputProps> = ({ elem, value, onChange }) => {
+const PasswordInput: React.FC<PasswordInputProps> = ({ elem, value, onChange,disabled }) => {
   const [showPassword, setShowPassword] = React.useState(false);
 
   const handleTogglePassword = () => {
@@ -21,10 +22,10 @@ const PasswordInput: React.FC<PasswordInputProps> = ({ elem, value, onChange }) 
   };
 
   return (
-    <label className={styles.inputLabel} key={`${elem.name}Lbl`}>
+    <label className={styles.inputLabel}>
       {elem.label}
       <div className={styles.passwordInputContainer}>
-        <input key={elem.name} type={showPassword ? "text" : "password"} name={elem.name} value={value} onChange={handleInputChange} className={styles.input} />
+        <input key={elem.key} type={showPassword ? "text" : "password"} name={elem.key} value={value} autoComplete="current-password" onChange={handleInputChange} className={styles.input} disabled={disabled} />
         <div className={styles.passwordToggle} onClick={handleTogglePassword}>
           {showPassword ? <FaEyeSlash /> : <FaEye />}
         </div>

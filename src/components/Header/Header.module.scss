@@ -1,7 +1,6 @@
 .header {
   @extend .hbox;
-  align-items: center;
-  justify-content: center;
+  // justify-content: center;
   background: $primary;
   width: 100vw;
   height: 1.3rem;
@@ -10,18 +9,22 @@
   top: 0;
 }
 
-.headerImg {
-  width: 200px;
-  margin-top: 4px;
+.buttonBox {
+  @extend .hbox;
+  gap: 8px;
+  padding: 8px;
 }
 
-.logoutButton {
-  min-width: 3rem;
-  background-color: $danger;
+.logoBox {
+  @extend .hbox;
   position: absolute;
-  left: 20px;
+  top: 8px;
+  left: 45%;
+  height: 1.3rem;
+  width: 200px;
+  user-select: none;
+}
 
-  &:hover {
-    background-color: $danger-hover;
-  }
+.logo {
+  width: 100%;
 }

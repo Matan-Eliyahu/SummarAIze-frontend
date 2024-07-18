@@ -11,10 +11,10 @@ function Spinner({ size, fullPage, text }: SpinnerProps) {
   return fullPage ? (
     <div className={styles.fullPageBox}>
       {text && text}
-      <FaCircleNotch className={styles.spinnerIcon} style={{ fontSize: size == "xs" ? "1rem" : size == "s" ? "1.3rem" : size == "m" ? "1.5rem" : "1.8rem" }} />
+      <FaCircleNotch className={styles.spinnerIcon} style={{ fontSize: size == "xs" ? "0.5rem" : size == "s" ? "0.7rem" : size == "m" ? "0.9rem" : "1.1rem" }} />
     </div>
   ) : (
-    <FaCircleNotch className={styles.spinnerIcon} style={{ fontSize: size == "xs" ? "1rem" : size == "s" ? "1.3rem" : size == "m" ? "1.5rem" : "1.8rem" }} />
+    <FaCircleNotch className={styles.spinnerIcon} style={{ fontSize: size == "xs" ? "0.5rem" : size == "s" ? "0.7rem" : size == "m" ? "0.9rem" : "1.1rem" }} />
   );
 }
 

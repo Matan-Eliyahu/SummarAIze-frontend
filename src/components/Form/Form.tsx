@@ -1,54 +1,89 @@
 import React, { useState } from "react";
-import { InputFormElement, FormType } from "../../common/types";
 import styles from "./Form.module.scss";
 import PasswordInput from "./PasswordInput/PasswordInput";
+import Spinner from "../Spinner/Spinner";
 
-const Form: React.FC<FormType> = (props) => {
-  const { formId, elements, confirmButton } = props;
+export interface FormProps {
+  elements: FormElement[];
+  buttonText: string;
+  theme?: "primary" | "secondary" | "success";
+  onSubmit: (formData: { [key: string]: string }) => void;
+  loading: boolean;
+}
 
+export type FormElement = {
+  label: string;
+  key: string;
+  type: "text" | "email" | "password";
+};
+
+function Form({ elements, buttonText, theme, onSubmit, loading }: FormProps) {
   const [formData, setFormData] = useState<{ [key: string]: string }>({});
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  function handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
     setFormData({ ...formData, [event.target.name]: event.target.value });
-  };
+  }
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    console.log("Form submitted with data:", formData);
-  };
+  }
 
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  function handleClick(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     event.preventDefault();
-    confirmButton.handler(formData);
-  };
+    onSubmit(formData);
+  }
 
-  const formSwitch = (elem: InputFormElement, index: number): JSX.Element => {
+  function getButtonClassName(buttonTheme?: "primary" | "secondary" | "success") {
+    if (!buttonTheme) return styles.primaryButton;
+    switch (buttonTheme) {
+      case "primary":
+        return styles.primaryButton;
+      case "secondary":
+        return styles.secondaryButton;
+      case "success":
+        return styles.successButton;
+      default:
+        return styles.primaryButton;
+    }
+  }
+
+  const formSwitch = (elem: FormElement, index: number): JSX.Element => {
     switch (elem.type) {
       case "email":
+        return (
+          <label className={styles.inputLabel} key={index}>
+            {elem.label}
+            <input key={elem.key} type={elem.type} name={elem.key} value={formData[elem.key] || ""} autoComplete="email" onChange={handleInputChange} disabled={loading} />
+          </label>
+        );
       case "text":
         return (
           <label className={styles.inputLabel} key={index}>
             {elem.label}
-            <input key={elem.name} type={elem.type} name={elem.name} value={formData[elem.name] || ""} onChange={handleInputChange} className={styles.input} />
+            <input key={elem.key} type={elem.type} name={elem.key} value={formData[elem.key] || ""} onChange={handleInputChange} disabled={loading} />
           </label>
         );
       case "password":
-        return <PasswordInput key={index} elem={elem} value={formData[elem.name] || ""} onChange={(value: string) => setFormData({ ...formData, [elem.name]: value })} />;
-      default:
-        return <></>;
+        return <PasswordInput key={index} elem={elem} value={formData[elem.key] || ""} onChange={(value: string) => setFormData({ ...formData, [elem.key]: value })} disabled={loading} />;
     }
   };
 
   return (
     <>
-      <form id={formId} className={styles.form} onSubmit={handleSubmit}>
+      <form className={styles.form} onSubmit={handleSubmit}>
         {elements.map((elem, index) => formSwitch(elem, index))}
       </form>
-      <button id={`${formId}Btn`} className={styles[confirmButton.className]} onClick={handleClick}>
-        {confirmButton.text}
-      </button>
+      <div className={styles.buttonBox}>
+        {loading ? (
+          <Spinner size="m" />
+        ) : (
+          <button className={getButtonClassName(theme)} onClick={handleClick}>
+            {buttonText}
+          </button>
+        )}
+      </div>
     </>
   );
-};
+}
 
 export default Form;

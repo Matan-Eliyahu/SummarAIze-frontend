@@ -14,42 +14,33 @@
   gap: 1rem;
 }
 
-.googleButton {
-  background-color: #41a01e;
-
-  &:hover {
-    transform: scale(1.005);
-    outline: 1px solid #41a01e;
-    background-color: #4bad28;
-  }
+.signinText {
+  font-size: 16px;
+  margin: 16px;
 }
 
-.facebookButton {
-  background-color: #144f86;
-
-  &:hover {
-    transform: scale(1.005);
-    outline: 1px solid #144f86;
-    background-color: #195994;
-  }
+.loginText {
+  // color: $primary;
+  // margin-bottom: 0.5rem;
 }
 
-.facebookIcon {
-  color: #51a1eb;
+.buttonBox {
+  @extend .vbox;
+  justify-content: center;
+  padding: 16px;
+  width: 100%;
 }
 
-.appleButton {
-  background-color: #0d0d0d;
-
-  &:hover {
-    transform: scale(1.005);
-    outline: 1px solid #0d0d0d;
-    background-color: #1a1919;
-  }
+.lightText {
+  text-align: center;
+  font-style: italic;
+  color: $input;
+  font-weight: 400;
 }
 
-.appleIcon {
-  color: white;
+.descriptionText {
+  @extend .lightText;
+  width: 500px;
 }
 
 .boxSeparator {
@@ -59,10 +50,41 @@
   margin-bottom: 0.5rem;
 }
 
+.singinBox {
+  @extend .vbox;
+  justify-content: center;
+  gap: 0.7rem;
+  padding: 48px 80px;
+  background-color: $background-dark;
+  border-radius: 32px;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+
+  &.visible {
+    opacity: 1;
+  }
+}
+
+.signupBox {
+  @extend .hbox;
+  padding: 8px;
+  gap: 0.3rem;
+  font-size: 0.6rem;
+  justify-content: center;
+  width: 100%;
+}
+
+.boxSeparator {
+  @extend .hbox;
+  width: 110%;
+  margin: -16px;
+}
+
 .boxSeparatorItem {
+  font-size: 14px;
   margin: 16px 0px;
   flex: 1;
-  width: 33.33%; /* Each item occupies 33.33% of the container's width */
+  min-width: 30%; /* Each item occupies 33.33% of the container's width */
   box-sizing: border-box; /* Include border in width calculation */
   text-align: center; /* Center-align content */
   color: $text-dark;
@@ -70,7 +92,7 @@
 
 .boxSeparatorLine {
   flex: 1;
-  width: 33.33%; /* Each item occupies 33.33% of the container's width */
+  width: 33.33%;
   box-sizing: border-box; /* Include border in width calculation */
   text-align: center; /* Center-align content */
   height: 1px;
@@ -79,30 +101,20 @@
 
 .buttonBox {
   @extend .vbox;
-  justify-content: center;
-  gap: 0.5rem;
-  padding: 32px 16px;
-  background-color: $background-dark;
-  border-radius: 32px;
-  width: 13rem;
-  height: 17rem;
+  padding: 8px;
 }
 
-.descriptionText {
-  margin-top: 0.3rem;
-  text-align: center;
-  font-style: italic;
-  font-weight: 400;
-  font-size: 18px;
-  margin-top: -0.5rem;
-  color: $input;
-  width: 500px;
+.googleButton {
+    gap: 10px;
+    color: $text-dark;
+    // outline: 2px solid $text-dark;
+    width: 70%;
+
+    &:hover {
+        background-color: $text;
+    }
 }
 
-.signupBox {
-  @extend .vbox;
-  padding: 32px;
-  gap: 0.5rem;
-  justify-content: center;
-  width: 100%;
+.googleIcon {
+    font-size: 30px;
 }

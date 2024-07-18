@@ -1,23 +1,18 @@
-import { Link } from "react-router-dom";
 import logo from "../../assets/logo.png";
 import styles from "./Header.module.scss";
-import { useAuth } from "../../hooks/useAuth";
+import UserButton from "../UserButton/UserButton";
 
 function Header() {
-  const { logout } = useAuth();
-
-  async function handleLogout() {
-    await logout();
-  }
-
   return (
     <div className={styles.header}>
-      <button className={styles.logoutButton} onClick={handleLogout}>
-        Logout
-      </button>
-      <Link to="/">
-        <img className={styles.headerImg} src={logo} alt="logo" />
-      </Link>
+      <div className={styles.buttonBox}>
+        <UserButton />
+      </div>
+      <div className={styles.container}>
+        <div className={styles.logoBox}>
+          <img className={styles.logo} src={logo} alt="logo" />
+        </div>
+      </div>
     </div>
   );
 }

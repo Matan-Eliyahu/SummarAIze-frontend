@@ -1,7 +1,9 @@
-import { CredentialResponse } from "@react-oauth/google";
+import { TokenResponse } from "@react-oauth/google";
 import { IAuth, IUser } from "../common/types";
 import apiClient, { CanceledError, AxiosError } from "./apiClient";
 export { CanceledError, AxiosError };
+
+export const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
 
 class AuthService {
   private path = "/auth";
@@ -18,9 +20,9 @@ class AuthService {
     return { request, cancel: () => controller.abort() };
   }
 
-  googleSignin(credential: CredentialResponse) {
+  googleLogin(tokenResponse: TokenResponse) {
     const controller = new AbortController();
-    const request = apiClient.post<IAuth>(`${this.path}/google`, credential, { signal: controller.signal });
+    const request = apiClient.post<IAuth>(`${this.path}/google`, tokenResponse, { signal: controller.signal });
     return { request, cancel: () => controller.abort() };
   }
 

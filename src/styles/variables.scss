@@ -5,10 +5,11 @@ $background-dark:#1F1F1F;
 $input:#4b4b4b;
 $text:#DCEAF7;
 $text-dark:#7F7F7F;
+$shadow:#a0a0a0;
 $primary: #46B1E1;
-$primary-hover: #5ebce7;
+$primary-hover: #348cb4;
 $secondary: #60C93B;
-$secondary-hover: #68d142;
+$secondary-hover: #4ca12d;
 $accent: #83CBEB;
 $board: #f8f8f8;
 $danger:rgb(241, 7, 7);
@@ -29,3 +30,36 @@ $create-hover:#e07f00;
   flex-direction: column;
   align-items: center;
 }
+
+.primaryButton {
+  background-color: $primary;
+
+  &:hover{
+    background-color: $primary-hover;
+  }
+}
+
+.secondaryButton {
+  background-color: $secondary;
+
+  &:hover{
+    background-color: $secondary-hover;
+  }
+}
+
+.successButton {
+  background-color: $success;
+
+  &:hover{
+    background-color: $success-hover;
+  }
+}
+
+.dangerButton {
+  background-color: $danger;
+
+  &:hover{
+    background-color: $danger-hover;
+  }
+}
+

@@ -1,0 +1,14 @@
+.googleButton {
+    gap: 10px;
+    color: $text-dark;
+    // outline: 2px solid $text-dark;
+    width: 70%;
+
+    &:hover {
+        background-color: $text;
+    }
+}
+
+.googleIcon {
+    font-size: 30px;
+}
