@@ -3,13 +3,13 @@ import { useAuth } from "../../hooks/useAuth";
 // import { FaApple } from "react-icons/fa";
 import Form, { FormElement } from "../../components/Form/Form";
 import Welcome from "../../components/Welcome/Welcome";
-import styles from "./Home.module.scss";
 import { useEffect, useState } from "react";
 import Layout from "../../components/Layout/Layout";
 import { FcGoogle } from "react-icons/fc";
 import { TokenResponse, useGoogleLogin } from "@react-oauth/google";
 import { AxiosError } from "axios";
 import { useError } from "../../hooks/useError";
+import styles from "./Login.module.scss";
 
 function Home() {
   const { login, googleLogin } = useAuth();

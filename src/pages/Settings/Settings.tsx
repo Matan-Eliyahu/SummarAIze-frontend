@@ -1,10 +1,11 @@
 import Layout from "../../components/Layout/Layout";
-// import styles from "./Settings.module.scss";
+import { FaGear } from "react-icons/fa6";
+import styles from "./Settings.module.scss";
 
 export default function Settings() {
   return (
     <Layout>
-      <div>Settings</div>
+      <div className="pageTitleBox"><FaGear className={styles.titleIcon} />Settings</div>
     </Layout>
   );
 }

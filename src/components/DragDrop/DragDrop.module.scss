@@ -1,61 +1,79 @@
 .dragAndDropBox {
   @extend .vbox;
   gap: 1rem;
-  padding: 16px;
-  border: dashed 0.2rem;
-  height: 60%;
-  width: 80%;
-  animation: none;
+  height: 95%;
+  width: 100%;
   background-color: $background-dark;
-  /* Disable animation by default */
-  transition: border-color 0.3s ease;
   border-radius: 32px;
-  border: 2px dashed $background-soft;
-  /* Add transition for smoother effect */
+  // border: 2px dashed $background-soft;
+  overflow: hidden;
 }
 
 .draggingOver {
-  border: 2px dashed;
-  height: 60%;
-  width: 80%;
-  border-color: $text;
-  border-radius: 32px;
-  background-color: $background-soft;
-  /* Change border color when dragging over */
-  transform: 0.5s ease forwards;
-  /* Enlarge the drop area */
+  @extend .dragAndDropBox;
+  outline: 2px dashed;
+  outline-color: $input;
+  // height: 60%;
+  // width: 80%;
+  // border-color: $text;
+  // border-radius: 32px;
+  // background-color: $background-soft;
+  // /* Change border color when dragging over */
+  // transform: 0.5s ease forwards;
+  // overflow: hidden;
 }
 
-@keyframes bounce {
-  0%,
-  100% {
-    transform: translateY(0);
-    /* Cloud starts at its original position */
-  }
+// @keyframes bounce {
+//   0%,
+//   100% {
+//     transform: translateY(0);
+//     /* Cloud starts at its original position */
+//   }
 
-  50% {
-    transform: translateY(-10px);
-    /* Cloud reaches its highest point */
-  }
-}
+//   50% {
+//     transform: translateY(-10px);
+//     /* Cloud reaches its highest point */
+//   }
+// }
 
-.cloud {
-  width: 5rem;
-  height: 2rem;
-  left: 45%;
-  top: 70%;
-  background-color: $primary;
-  border-radius: 50%;
-  position: absolute;
-  animation: bounce 2s infinite;
+.filesContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
 .fileIconBox {
   @extend .vbox;
+  justify-content: center;
   gap: 0.5rem;
   width: 5rem;
-  justify-content: center;
   padding: 16px;
   border-radius: 16px;
-  background-color: $background;
+  background-color: $background-dark;
+
+  &:hover {
+    background-color: $background;
+  }
+}
+
+.fileIcon {
+  width: 50px;
+}
+
+.fileNameText {
+  width: 100%;
+  font-size: 14px;
+  white-space: wrap;
+  color: $text-dark;
+  font-weight: 500;
+}
+
+.dropText {
+  position: absolute;
+  top: 90%;
+  @extend .hbox;
+  gap: 8px;
+  font-size: 16px;
+  font-weight: 400;
+  color: $background-soft;
 }

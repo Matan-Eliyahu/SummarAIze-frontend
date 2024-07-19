@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useAuth } from "../../hooks/useAuth";
-import { FaGear, FaRightFromBracket, FaAt, FaCircleUser } from "react-icons/fa6";
+import { FaGear, FaRightFromBracket, FaEnvelope } from "react-icons/fa6";
 import styles from "./UserButton.module.scss";
 import { useNavigate } from "react-router-dom";
 
@@ -24,7 +24,11 @@ export default function UserButton() {
   }
 
   function handleSettingsClick() {
-    navigate("/settings")
+    navigate("/dashboard/settings");
+  }
+
+  function handleUserClick() {
+    navigate("/dashboard/account");
   }
 
   async function handleLogout() {
@@ -33,7 +37,7 @@ export default function UserButton() {
 
   return (
     <div className={styles.userButtonContainer}>
-      <button className={`${styles.userTagButton} ${buttonHover ? styles.hover : ""}`} onMouseEnter={showTooltip} onMouseLeave={hideTooltip}>
+      <button className={`${styles.userTagButton} ${buttonHover ? styles.hover : ""}`} onMouseEnter={showTooltip} onMouseLeave={hideTooltip} onClick={handleUserClick}>
         <img className={styles.userTagImage} src={imageUrl} alt="user-picture" />
       </button>
       <button className={styles.settingsButton} onClick={handleSettingsClick}>
@@ -41,11 +45,11 @@ export default function UserButton() {
       </button>
       <div className={`${styles.tooltip} ${tooltipVisible ? styles.visible : ""}`} onMouseEnter={showTooltip} onMouseLeave={hideTooltip}>
         <div className={styles.titleBox}>
-          <FaCircleUser className={styles.titleIcon} />
+          <img className={styles.userTagImage} style={{ width: 20 }} src={imageUrl} alt="user-picture" />
           {fullName}
         </div>
         <div className={styles.titleBox}>
-          <FaAt className={styles.titleIcon} />
+          <FaEnvelope className={styles.titleIcon} />
           {email}
         </div>
         <button className={styles.logoutButton} onClick={handleLogout}>

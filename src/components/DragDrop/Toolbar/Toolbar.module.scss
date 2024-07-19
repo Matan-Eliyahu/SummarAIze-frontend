@@ -1,0 +1,50 @@
+.toolbarBox {
+  @extend .hbox;
+  height: 1.8rem;
+  justify-content: center;
+  background-color: $dark;
+  width: 100%;
+}
+
+.backBox {
+  @extend .hbox;
+  margin-left: 20px;
+  margin-right: auto;
+}
+
+.backButton {
+  padding: 8px 24px;
+  border-radius: 8px;
+  background-color: transparent;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.055);
+  }
+}
+
+.backIcon {
+  color: $text-dark;
+  font-size: 20px;
+}
+
+.viewBox {
+  @extend .hbox;
+  gap: 4px;
+  margin-right: 20px;
+  margin-left: auto;
+}
+
+.viewButton {
+  @extend .backButton;
+  padding: 8px 12px;
+}
+
+.viewButtonSelected {
+  @extend .backButton;
+  background-color: rgba(255, 255, 255, 0.055);
+  padding: 8px 12px;
+}
+
+.viewIcon {
+  @extend .backIcon;
+}

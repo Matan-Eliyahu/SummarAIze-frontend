@@ -45,3 +45,8 @@ export interface ISummaryData {
 
 export type FileType = "pdf" | "image" | "audio";
 export const fileTypes = ["pdf", "image", "audio"];
+
+export interface ISettings {
+  allowedFileTypes: FileType[];
+  autoSummarize:boolean;
+}

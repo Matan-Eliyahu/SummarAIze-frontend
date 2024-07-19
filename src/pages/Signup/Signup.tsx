@@ -11,7 +11,7 @@ import Layout from "../../components/Layout/Layout";
 
 function Signup() {
   const { register } = useAuth();
-  const { setAlert } = useError();
+  const { setAlert, clearAlert } = useError();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
@@ -57,14 +57,22 @@ function Signup() {
       setLoading(false);
       navigate("/");
     } catch (error) {
-      console.log(error);
-      setLoading(false);
-      if (error instanceof AxiosError) setAlert({ error });
+      if (error instanceof AxiosError) handleAlert( error );
     }
   }
 
+  function handleAlert(error:AxiosError) {
+    setAlert({
+      error,
+      onButtonClick:()=>{
+        setLoading(false)
+        clearAlert()
+      }
+    })
+  }
+
   return (
-    <Layout fullPage loading={loading}>
+    <Layout fullPage>
       <div className={styles.signupContainer}>
         <div className={`${styles.signupBox} ${isVisible ? styles.visible : ""}`}>
           <div>Create your account</div>

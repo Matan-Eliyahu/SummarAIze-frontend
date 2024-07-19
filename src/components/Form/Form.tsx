@@ -53,7 +53,7 @@ function Form({ elements, buttonText, theme, onSubmit, loading }: FormProps) {
         return (
           <label className={styles.inputLabel} key={index}>
             {elem.label}
-            <input key={elem.key} type={elem.type} name={elem.key} value={formData[elem.key] || ""} autoComplete="email" onChange={handleInputChange} disabled={loading} />
+            <input key={elem.key} type={elem.type} name={elem.key} value={formData[elem.key] || ""} onChange={handleInputChange} disabled={loading} required/>
           </label>
         );
       case "text":

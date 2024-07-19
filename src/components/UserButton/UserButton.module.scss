@@ -8,10 +8,10 @@
 
 .userTagButton {
   @extend .hbox;
-  padding: 8px 12px;
-  min-width: 1rem;
+  padding: 8px 10px;
+  min-height: 0.7rem;
   gap: 8px;
-  border-radius: 8px;
+  border-radius: 6px;
   background-color: rgba(255, 255, 255, 0.192);
   transition: background-color 0.3s;
 
@@ -22,7 +22,7 @@
 }
 
 .userTagImage {
-  width: 25px;
+  width: 24px;
   border-radius: 50%;
 }
 
@@ -38,7 +38,7 @@
   position: absolute;
   min-width: 200px;
   // height: 100px;
-  top: calc(1.3rem + 4px);
+  top: calc(1rem + 12px);
   right: 0px;
   background: linear-gradient(to bottom, $background, $background-dark);
   border: 2px solid $background-soft;
@@ -66,10 +66,8 @@
 }
 
 .settingsButton {
-  padding: 8px 12px;
-  min-width: 1rem;
-  gap: 8px;
-  border-radius: 8px;
+  @extend .userTagButton;
+  // padding: 10px;
   background-color: transparent;
 
   &:hover {
@@ -78,7 +76,7 @@
 }
 
 .settingsIcon {
-  font-size: 22px;
+  font-size: 20px;
 }
 
 .logoutButton {
@@ -104,16 +102,17 @@
   @extend .hbox;
   // justify-content: center;
   gap: 8px;
-  background-color: $background-dark;
-  border-radius: 4px;
+  background-color: $dark;
+  border-radius: 6px;
   padding: 8px 12px;
   width: 90%;
   font-size: 14px;
-  font-weight: 400;
+  // font-weight: 550;
   color: $text-dark;
 }
 
 .titleIcon {
   color: $text-dark;
   font-size: 16px;
+  margin-left: 2px;
 }

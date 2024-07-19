@@ -4,7 +4,7 @@ import audoiIcon from "../assets/audio-icon.png";
 import { FileType } from "./types";
 
 export const fileIconMap: Record<FileType, string> = {
-  audio: audoiIcon,
-  image: imageIcon,
   pdf: pdfIcon,
+  image: imageIcon,
+  audio: audoiIcon,
 };

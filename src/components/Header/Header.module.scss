@@ -1,9 +1,10 @@
 .header {
   @extend .hbox;
   // justify-content: center;
-  background: $primary-hover;
+  // background: $primary-hover;
+    background: linear-gradient(to bottom, $primary, $primary-hover);
   width: 100vw;
-  height: 1.3rem;
+  height: 1rem;
   padding: 8px;
   position: absolute;
   top: 0;
@@ -12,15 +13,16 @@
 .buttonBox {
   @extend .hbox;
   gap: 8px;
-  padding: 8px 16px;
+  padding: 8px 20px;
   margin-left: auto;
 }
 
 .logoBox {
   @extend .hbox;
   justify-content: center;
-  margin-top: 4px;  
-  width: 160px;
+  padding: 0px 8px;
+  margin-top: 4px;
+  width: 150px;
   user-select: none;
 }
 

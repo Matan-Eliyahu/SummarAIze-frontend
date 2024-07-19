@@ -1,4 +1,44 @@
 .sumBtnImg {
-    width: 4rem;
-    height: auto;
-  }
+  width: 4rem;
+  height: auto;
+}
+
+.dashboardBox {
+  @extend .hbox;
+  width: 100%;
+  height: 100%;
+}
+
+.dragDropBox {
+  @extend .vbox;
+  padding: 0 16px;
+  height: 100%;
+  width: 80%;
+}
+
+.infoBox {
+  @extend .vbox;
+  padding: 0 16px;
+  gap: 0.7rem;
+  height: 98%;
+  width: 20%;
+}
+
+.fakeBox {
+  @extend .vbox;
+  justify-content: center;
+  background-color: $background-dark;
+  width: 95%;
+  height: 4rem;
+  border-radius: 24px;
+}
+
+.fakeBox2 {
+  @extend .fakeBox;
+  height: 10rem;
+}
+
+.fakeBox3 {
+  @extend .fakeBox;
+  height: 7rem;
+}

@@ -7,10 +7,10 @@ interface PasswordInputProps {
   elem: FormElement;
   value: string;
   onChange: (value: string) => void;
-  disabled?:boolean
+  disabled?: boolean;
 }
 
-const PasswordInput: React.FC<PasswordInputProps> = ({ elem, value, onChange,disabled }) => {
+const PasswordInput: React.FC<PasswordInputProps> = ({ elem, value, onChange, disabled }) => {
   const [showPassword, setShowPassword] = React.useState(false);
 
   const handleTogglePassword = () => {
@@ -25,7 +25,17 @@ const PasswordInput: React.FC<PasswordInputProps> = ({ elem, value, onChange,dis
     <label className={styles.inputLabel}>
       {elem.label}
       <div className={styles.passwordInputContainer}>
-        <input key={elem.key} type={showPassword ? "text" : "password"} name={elem.key} value={value} autoComplete="current-password" onChange={handleInputChange} className={styles.input} disabled={disabled} />
+        <input
+          key={elem.key}
+          type={showPassword ? "text" : "password"}
+          name={elem.key}
+          value={value}
+          autoComplete="current-password"
+          onChange={handleInputChange}
+          className={styles.input}
+          disabled={disabled}
+          required
+        />
         <div className={styles.passwordToggle} onClick={handleTogglePassword}>
           {showPassword ? <FaEyeSlash /> : <FaEye />}
         </div>
