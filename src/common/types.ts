@@ -47,6 +47,9 @@ export type FileType = "pdf" | "image" | "audio";
 export const fileTypes = ["pdf", "image", "audio"];
 
 export interface ISettings {
+  userId: string;
   allowedFileTypes: FileType[];
-  autoSummarize:boolean;
+  autoSummarizeEnabled: boolean;
+  smartSearchEnabled: boolean;
+  clearFilesAfterDays: 0 | 30 | 60 | 90;
 }

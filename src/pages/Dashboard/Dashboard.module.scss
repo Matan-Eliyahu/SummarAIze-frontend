@@ -11,15 +11,24 @@
 
 .dragDropBox {
   @extend .vbox;
-  padding: 0 16px;
-  height: 100%;
+  padding: 0px 16px;
+  height: 85vh;
   width: 80%;
+  opacity: 0;
+  animation: fadeIn 0.4s forwards;
+  animation-delay: calc(0.1s * var(--i));
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
 }
 
 .infoBox {
   @extend .vbox;
   padding: 0 16px;
-  gap: 0.7rem;
+  gap: 0.5rem;
   height: 98%;
   width: 20%;
 }
@@ -29,16 +38,16 @@
   justify-content: center;
   background-color: $background-dark;
   width: 95%;
-  height: 4rem;
-  border-radius: 24px;
+  height: 20%;
+  border-radius: 16px;
 }
 
 .fakeBox2 {
   @extend .fakeBox;
-  height: 10rem;
+  height: 40%;
 }
 
 .fakeBox3 {
   @extend .fakeBox;
-  height: 7rem;
+  height: 30%;
 }

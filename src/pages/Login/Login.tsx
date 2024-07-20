@@ -1,7 +1,7 @@
 import { useAuth } from "../../hooks/useAuth";
 // import { MdFacebook } from "react-icons/md";
 // import { FaApple } from "react-icons/fa";
-import Form, { FormElement } from "../../components/Form/Form";
+import Form, { FormElement } from "../../components/Forms/Form";
 import Welcome from "../../components/Welcome/Welcome";
 import { useEffect, useState } from "react";
 import Layout from "../../components/Layout/Layout";

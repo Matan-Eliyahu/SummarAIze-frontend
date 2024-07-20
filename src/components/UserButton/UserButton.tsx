@@ -32,6 +32,7 @@ export default function UserButton() {
   }
 
   async function handleLogout() {
+    setTooltipVisible(false);
     await logout();
   }
 

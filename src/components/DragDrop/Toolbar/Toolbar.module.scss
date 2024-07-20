@@ -1,6 +1,7 @@
 .toolbarBox {
   @extend .hbox;
-  height: 1.8rem;
+  min-height: 1.5rem;
+  height: 8%;
   justify-content: center;
   background-color: $dark;
   width: 100%;

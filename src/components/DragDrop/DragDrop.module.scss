@@ -1,7 +1,8 @@
 .dragAndDropBox {
   @extend .vbox;
   gap: 1rem;
-  height: 95%;
+  min-height: 95%;
+  max-height: 95%;
   width: 100%;
   background-color: $background-dark;
   border-radius: 32px;
@@ -39,7 +40,27 @@
 .filesContainer {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  margin-top: -32px;
+  width: 98%;
+  height: 80%;
+  padding: 8px;
+  justify-content: center;
+  gap: 4%;
+  overflow: auto;
+    &::-webkit-scrollbar {
+    width: 0.3rem;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: $dark;
+    // border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: $background;
+    border: 2px solid $dark;
+  }
 }
 
 .fileIconBox {
@@ -47,6 +68,7 @@
   justify-content: center;
   gap: 0.5rem;
   width: 5rem;
+  height: 5rem;
   padding: 16px;
   border-radius: 16px;
   background-color: $background-dark;
@@ -70,10 +92,11 @@
 
 .dropText {
   position: absolute;
-  top: 90%;
+  // top: 90%;
+  bottom: 8%;
   @extend .hbox;
   gap: 8px;
   font-size: 16px;
-  font-weight: 400;
+  font-weight: 500;
   color: $background-soft;
 }

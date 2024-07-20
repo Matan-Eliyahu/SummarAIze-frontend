@@ -1,0 +1,19 @@
+.checkBoxContainer {
+  @extend .hbox;
+  justify-content: center;
+  gap: 8px;
+  font-size: 18px;
+  color: $text-dark;
+  user-select: none;
+}
+
+.checkBox {
+  @extend .hbox;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.checkBoxIcon {
+  font-size: 22px;
+}
+

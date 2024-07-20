@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import { IUser } from "../../common/types";
-import Form, { FormElement } from "../../components/Form/Form";
+import Form, { FormElement } from "../../components/Forms/Form";
 import Welcome from "../../components/Welcome/Welcome";
 import styles from "./Signup.module.scss";
 import { useEffect, useState } from "react";
