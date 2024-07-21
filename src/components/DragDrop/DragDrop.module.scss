@@ -1,41 +1,66 @@
-.dragAndDropBox {
+.dragDropBox {
   @extend .vbox;
-  gap: 1rem;
   min-height: 95%;
   max-height: 95%;
   width: 100%;
   background-color: $background-dark;
   border-radius: 32px;
-  // border: 2px dashed $background-soft;
   overflow: hidden;
+  position: relative;
 }
 
-.draggingOver {
-  @extend .dragAndDropBox;
-  outline: 2px dashed;
-  outline-color: $input;
-  // height: 60%;
-  // width: 80%;
-  // border-color: $text;
-  // border-radius: 32px;
-  // background-color: $background-soft;
-  // /* Change border color when dragging over */
-  // transform: 0.5s ease forwards;
-  // overflow: hidden;
+.filesBox {
+  min-height: 95%;
+  min-width: 100%;
 }
 
-// @keyframes bounce {
-//   0%,
-//   100% {
-//     transform: translateY(0);
-//     /* Cloud starts at its original position */
-//   }
+.draggingOverBox {
+  @extend .filesBox;
+  background-color: $input;
+}
 
-//   50% {
-//     transform: translateY(-10px);
-//     /* Cloud reaches its highest point */
-//   }
-// }
+.filesDisplayBox {
+  display: flex;
+  flex-wrap: wrap;
+  // justify-content: center;
+  gap: 1rem;
+  padding: 16px;
+}
+
+.filesListDisplayBox {
+  @extend .filesDisplayBox;
+  gap: 8px;
+}
+
+.filesLoadingBox {
+  @extend .hbox;
+  justify-content: center;
+  height: 100%;
+  gap: 1rem;
+  padding: 16px;
+}
+
+.noFilesBox {
+  @extend .hbox;
+  justify-content: center;
+  gap: 8px;
+  position: absolute;
+  left: 30%;
+  bottom: 50%;
+  width: 40%;
+  font-size: 20px;
+  font-weight: 500;
+  color: $input;
+}
+
+.progressBox {
+  @extend .vbox;
+  justify-content: center;
+  gap: 0.7rem;
+  width: 30%;
+  font-size: 20px;
+  color: $text-dark;
+}
 
 .filesContainer {
   display: flex;
@@ -47,7 +72,7 @@
   justify-content: center;
   gap: 4%;
   overflow: auto;
-    &::-webkit-scrollbar {
+  &::-webkit-scrollbar {
     width: 0.3rem;
   }
 
@@ -63,40 +88,15 @@
   }
 }
 
-.fileIconBox {
-  @extend .vbox;
-  justify-content: center;
-  gap: 0.5rem;
-  width: 5rem;
-  height: 5rem;
-  padding: 16px;
-  border-radius: 16px;
-  background-color: $background-dark;
-
-  &:hover {
-    background-color: $background;
-  }
-}
-
-.fileIcon {
-  width: 50px;
-}
-
-.fileNameText {
-  width: 100%;
-  font-size: 14px;
-  white-space: wrap;
-  color: $text-dark;
-  font-weight: 500;
-}
-
 .dropText {
-  position: absolute;
-  // top: 90%;
-  bottom: 8%;
   @extend .hbox;
+  justify-content: center;
   gap: 8px;
+  position: absolute;
+  left: 30%;
+  bottom: 5%;
+  width: 40%;
   font-size: 16px;
   font-weight: 500;
-  color: $background-soft;
+  color: $input;
 }

@@ -5,15 +5,15 @@ export { CanceledError, AxiosError };
 class SettingsService {
   private path = "/settings";
 
-  getSettingsByUserId(userId: string) {
+  getSettingsByUserId() {
     const controller = new AbortController();
-    const request = apiClient.get<ISettings>(`${this.path}/${userId}`, { signal: controller.signal });
+    const request = apiClient.get<ISettings>(this.path, { signal: controller.signal });
     return { request, cancel: () => controller.abort() };
   }
 
-  updateSettingsByUserId(userId: string, updateSettings: ISettings) {
+  updateSettingsByUserId(updateSettings: ISettings) {
     const controller = new AbortController();
-    const request = apiClient.put<ISettings>(`${this.path}/${userId}`, updateSettings, { signal: controller.signal });
+    const request = apiClient.put<ISettings>(this.path, updateSettings, { signal: controller.signal });
     return { request, cancel: () => controller.abort() };
   }
 }

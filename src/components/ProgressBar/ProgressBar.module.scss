@@ -1,0 +1,14 @@
+.progressContainer {
+  width: 100%;
+  background-color: #e0e0e0;
+  border-radius: 4px;
+  overflow: hidden;
+  height: 8px;
+}
+
+.progressBar {
+  height: 100%;
+  border-radius: 4px;
+  background: linear-gradient(to right, $primary, $primary-hover);
+  transition: width 0.3s ease;
+}

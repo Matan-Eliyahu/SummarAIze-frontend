@@ -53,18 +53,18 @@ function Form({ elements, buttonText, theme, onSubmit, loading }: FormProps) {
         return (
           <label className={styles.inputLabel} key={index}>
             {elem.label}
-            <input key={elem.key} type={elem.type} name={elem.key} value={formData[elem.key] || ""} onChange={handleInputChange} disabled={loading} required/>
+            <input key={elem.key} type={elem.type} name={elem.key} value={formData[elem.key]} onChange={handleInputChange} disabled={loading} required />
           </label>
         );
       case "text":
         return (
           <label className={styles.inputLabel} key={index}>
             {elem.label}
-            <input key={elem.key} type={elem.type} name={elem.key} value={formData[elem.key] || ""} onChange={handleInputChange} disabled={loading} />
+            <input key={elem.key} type={elem.type} name={elem.key} value={formData[elem.key]} onChange={handleInputChange} disabled={loading} />
           </label>
         );
       case "password":
-        return <PasswordInput key={index} elem={elem} value={formData[elem.key] || ""} onChange={(value: string) => setFormData({ ...formData, [elem.key]: value })} disabled={loading} />;
+        return <PasswordInput key={index} elem={elem} value={formData[elem.key]} onChange={(value: string) => setFormData({ ...formData, [elem.key]: value })} disabled={loading} />;
     }
   };
 

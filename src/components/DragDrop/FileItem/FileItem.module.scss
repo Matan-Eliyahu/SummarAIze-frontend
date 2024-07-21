@@ -1,0 +1,116 @@
+.fileItemBox {
+  @extend .vbox;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 4rem;
+  padding: 16px;
+  border-radius: 16px;
+  background-color: $background-dark;
+  position: relative;
+
+  &:hover {
+    background-color: $background;
+
+    .fileNameText {
+      color: $shadow;
+    }
+  }
+}
+
+.fileStatusBox {
+  @extend .vbox;
+  width: 25px;
+  height: 25px;
+  top: 4%;
+  left: 62%;
+  position: absolute;
+}
+
+.fileListStatusBox {
+  @extend .vbox;
+    min-width: 2%;
+  //   background-color: red;
+}
+
+.fileIcon {
+  width: 50px;
+}
+
+.fileListIcon {
+  width: 25px;
+}
+
+.fileNameText {
+  @extend .hbox;
+  justify-content: center;
+  //   background-color: red;
+  width: 100%;
+  font-size: 16px;
+  white-space: nowrap;
+  color: $text-dark;
+  font-weight: 500;
+}
+
+.fileListNameText {
+  @extend .hbox;
+  font-size: 16px;
+  width: 40%;
+  white-space: nowrap;
+  color: $text-dark;
+  font-weight: 500;
+}
+
+.errorIcon {
+  font-size: 18px;
+  color: $danger;
+}
+
+.unprocessedIcon {
+  @extend .errorIcon;
+  color: $create;
+}
+
+.summarizedIcon {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: linear-gradient(45deg, $secondary-hover, $secondary, $primary, $primary-hover);
+  opacity: 0;
+  animation: fadeIn 0.9s forwards;
+  animation-delay: calc(0.1s * var(--i));
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+.fileListBox {
+  @extend .hbox;
+  gap: 0.5rem;
+  width: 100%;
+  border-radius: 8px;
+  padding: 12px 22px;
+  background-color: rgba(255, 255, 255, 0.01);
+  cursor: pointer;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.055);
+
+    .fileListNameText {
+      color: $shadow;
+    }
+  }
+}
+
+.fileSizeText {
+  @extend .fileListNameText;
+  width: 20%;
+}
+
+.seperator {
+  background-color: $background-soft;
+  height: 100%;
+  width: 1px;
+}

@@ -94,6 +94,15 @@
   }
 }
 
+.accountButton {
+  @extend .logoutButton;
+  background-color: $primary-hover;
+
+  &:hover {
+    background-color: $primary;
+  }
+}
+
 .logoutIcon {
   font-size: 14px;
 }
@@ -121,4 +130,10 @@
   @extend .vbox;
   justify-content: center;
   gap: 16px;
+}
+
+.tooltipButtonBox {
+  @extend .hbox;
+  gap: 8px;
+  justify-content: center;
 }

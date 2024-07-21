@@ -1,20 +1,3 @@
-export type FormType = {
-  formId: string;
-  elements: InputFormElement[];
-  confirmButton: {
-    text: string;
-    className: string;
-    handler: (formData: { [key: string]: string }) => void;
-  };
-};
-
-export type InputFormElement = {
-  label: string;
-  name: string;
-  type: string;
-  autocomplete?: string;
-};
-
 export interface IUser {
   fullName: string;
   email: string;
@@ -25,7 +8,7 @@ export interface IUser {
 
 export interface IAuth {
   id: string;
-  fullName:string;
+  fullName: string;
   email: string;
   imageUrl: string;
   tokens: ITokens;
@@ -52,4 +35,24 @@ export interface ISettings {
   autoSummarizeEnabled: boolean;
   smartSearchEnabled: boolean;
   clearFilesAfterDays: 0 | 30 | 60 | 90;
+}
+
+export type FileStatus = "completed" | "processing" | "error" | "unprocessed";
+
+export interface IFile {
+  userId: string;
+  name: string;
+  type: FileType;
+  size: number;
+  transcribe: string;
+  summary: string;
+  status: FileStatus;
+  uploadedAt: Date;
+}
+
+export interface IStorage {
+  totalSize: number;
+  pdfCount: number;
+  imageCount: number;
+  audioCount: number;
 }

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Switch from "../../Switch/Switch";
 import CheckBox from "../../CheckBox/CheckBox";
 import Select from "../../Select/Select";
@@ -12,6 +12,7 @@ interface SettingsFormProps {
 
 export default function SettingsForm({ set, onSubmit }: SettingsFormProps) {
   const [settings, setSettings] = useState<ISettings>(set);
+  const [isChanged, setIsChanged] = useState(set !== settings);
 
   const clearFilesOptions = [
     { value: 90, label: "After 90 days" },
@@ -20,10 +21,14 @@ export default function SettingsForm({ set, onSubmit }: SettingsFormProps) {
     { value: 0, label: "Never" },
   ];
 
+  useEffect(() => {
+    setIsChanged(JSON.stringify(set) !== JSON.stringify(settings));
+  }, [settings, set]);
+
   function handleCheckBoxChange(fileType: FileType, isChecked: boolean) {
     setSettings((prev) => ({
       ...prev,
-      allowedFileTypes: isChecked && !prev.allowedFileTypes.includes(fileType)? [...prev.allowedFileTypes, fileType] : prev.allowedFileTypes.filter((type) => type !== fileType),
+      allowedFileTypes: isChecked && !prev.allowedFileTypes.includes(fileType) ? [...prev.allowedFileTypes, fileType] : prev.allowedFileTypes.filter((type) => type !== fileType),
     }));
   }
 
@@ -73,7 +78,7 @@ export default function SettingsForm({ set, onSubmit }: SettingsFormProps) {
         <Select set={settings.clearFilesAfterDays} options={clearFilesOptions} onChange={handleClearFilesSelectChange} />
       </div>
       <div className={styles.buttonBox}>
-        <button className={styles.primaryButton} onClick={() => onSubmit(settings)}>
+        <button className={styles.saveButton} onClick={() => onSubmit(settings)} disabled={!isChanged}>
           Save
         </button>
       </div>

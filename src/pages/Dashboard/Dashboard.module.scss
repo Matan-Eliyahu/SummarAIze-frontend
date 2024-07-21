@@ -27,6 +27,7 @@
 
 .infoBox {
   @extend .vbox;
+  align-items: start;
   padding: 0 16px;
   gap: 0.5rem;
   height: 98%;

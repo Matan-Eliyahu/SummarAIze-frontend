@@ -11,8 +11,9 @@ interface CustomErrorProps {
   onButtonClick?: () => void;
   secondButtonText?: string;
   onSecondButtonClick?: () => void;
-  buttonColor?: "danger" | "create" | "primary" | "secondary";
-  secondButtonColor?: "danger" | "create" | "primary" | "secondary";
+  buttonColor?: "danger" | "create" | "primary" | "secondary" | "cancel";
+  secondButtonColor?: "danger" | "create" | "primary" | "secondary" | "cancel";
+  icon?: "error" | "upload";
 }
 
 interface ErrorContextProps {
@@ -26,7 +27,7 @@ export const ErrorProvider: React.FC<{ children: ReactNode }> = ({ children }) =
   const [errorDetails, setErrorDetails] = useState<ErrorProps | null>(null);
 
   const setAlert = (details: CustomErrorProps) => {
-    const { error, text, buttonText, onButtonClick, secondButtonText, onSecondButtonClick, buttonColor, secondButtonColor } = details;
+    const { error, text, buttonText, onButtonClick, secondButtonText, onSecondButtonClick, buttonColor, secondButtonColor, icon } = details;
 
     if (error) {
       setErrorDetails({
@@ -37,6 +38,7 @@ export const ErrorProvider: React.FC<{ children: ReactNode }> = ({ children }) =
         onSecondButtonClick,
         buttonColor,
         secondButtonColor,
+        icon: icon || "error",
       });
     } else {
       setErrorDetails({
@@ -47,6 +49,7 @@ export const ErrorProvider: React.FC<{ children: ReactNode }> = ({ children }) =
         onSecondButtonClick,
         buttonColor,
         secondButtonColor,
+        icon: icon || "error",
       });
     }
   };

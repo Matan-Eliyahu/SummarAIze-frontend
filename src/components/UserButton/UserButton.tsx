@@ -3,6 +3,7 @@ import { useAuth } from "../../hooks/useAuth";
 import { FaGear, FaRightFromBracket, FaEnvelope } from "react-icons/fa6";
 import styles from "./UserButton.module.scss";
 import { useNavigate } from "react-router-dom";
+import { FaUserCircle } from "react-icons/fa";
 
 export default function UserButton() {
   const { auth, logout } = useAuth();
@@ -53,10 +54,16 @@ export default function UserButton() {
           <FaEnvelope className={styles.titleIcon} />
           {email}
         </div>
-        <button className={styles.logoutButton} onClick={handleLogout}>
-          <FaRightFromBracket className={styles.logoutIcon} />
-          Log out
-        </button>
+        <div className={styles.tooltipButtonBox}>
+          <button className={styles.accountButton} onClick={handleUserClick}>
+            <FaUserCircle className={styles.logoutIcon} />
+            Account
+          </button>
+          <button className={styles.logoutButton} onClick={handleLogout}>
+            <FaRightFromBracket className={styles.logoutIcon} />
+            Logout
+          </button>
+        </div>
       </div>
     </div>
   );

@@ -4,34 +4,18 @@ import styles from "./Settings.module.scss";
 import { useEffect, useState } from "react";
 import SettingsForm from "../../components/Forms/SettingsForm/SettingsForm";
 import { ISettings } from "../../common/types";
-import { useAuth } from "../../hooks/useAuth";
 import SettingsService, { AxiosError } from "../../services/SettingsService";
 import { useError } from "../../hooks/useError";
+import { useNavigate } from "react-router-dom";
 
 export default function Settings() {
-  const { auth } = useAuth();
   const { setAlert } = useError();
+  const navigate = useNavigate();
   const [settings, setSettings] = useState<ISettings | null>(null);
   const [loading, setLoading] = useState(false);
 
   async function fetchUserSettings() {
-    if (!auth) return;
-    const { request } = SettingsService.getSettingsByUserId(auth.id);
-    setLoading(true);
-    try {
-      const response = await request;
-      const userSettings: ISettings = response.data;
-      setSettings(userSettings);
-    } catch (error) {
-      if (error instanceof AxiosError) setAlert({ error });
-    } finally {
-      setLoading(false);
-    }
-  }
-
-  async function updateUserSettings(updatedSettings: ISettings) {
-    if (!auth) return;
-    const { request } = SettingsService.updateSettingsByUserId(auth.id, updatedSettings);
+    const { request } = SettingsService.getSettingsByUserId();
     setLoading(true);
     try {
       const response = await request;
@@ -48,11 +32,27 @@ export default function Settings() {
     fetchUserSettings();
   }, []);
 
+  async function updateUserSettings(updatedSettings: ISettings) {
+    const { request } = SettingsService.updateSettingsByUserId(updatedSettings);
+    setLoading(true);
+    try {
+      const response = await request;
+      const userSettings: ISettings = response.data;
+      setSettings(userSettings);
+      setLoading(false);
+      navigate("/dashboard");
+    } catch (error) {
+      if (error instanceof AxiosError) setAlert({ error });
+      setLoading(false);
+    }
+  }
+
   async function handleUpdateSettings(newSettings: ISettings) {
     if (newSettings.allowedFileTypes.length === 0) {
       setAlert({ text: "You must check at least one file type" });
+    } else {
+      await updateUserSettings(newSettings);
     }
-    await updateUserSettings(newSettings);
   }
 
   return (

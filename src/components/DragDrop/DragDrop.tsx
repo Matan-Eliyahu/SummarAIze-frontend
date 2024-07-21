@@ -1,26 +1,23 @@
 import React, { useState } from "react";
 import * as pdfjs from "pdfjs-dist";
-import Toolbar from "./Toolbar/Toolbar";
-import { fileIconMap } from "../../common/icons";
-import { getFileType } from "../../utils/files";
-import { FaArrowPointer } from "react-icons/fa6";
+import Toolbar, { FileListView } from "./Toolbar/Toolbar";
+import { FaClone } from "react-icons/fa6";
 import styles from "./DragDrop.module.scss";
+import { IFile } from "../../common/types";
+import FileItem from "./FileItem/FileItem";
+import ProgressBar from "../ProgressBar/ProgressBar";
 
 pdfjs.GlobalWorkerOptions.workerSrc = "node_modules/pdfjs-dist/build/pdf.worker.mjs";
 
 interface DragDropProps {
+  files: IFile[];
+  progress: number;
   onFileDrop?: (files: File[]) => void;
 }
 
-const DragDrop: React.FC<DragDropProps> = ({ onFileDrop }) => {
-  const [droppedFiles, setDroppedFiles] = useState<File[]>([]);
+export default function DragDrop({ files, progress, onFileDrop }: DragDropProps) {
   const [isDraggingOver, setIsDraggingOver] = useState<boolean>(false);
-
-  const iconSwitch = (fileType: string): JSX.Element => {
-    const type = getFileType(fileType);
-    const iconSrc = fileIconMap[type];
-    return <img className={styles.fileIcon} src={iconSrc} alt="file icon" />;
-  };
+  const [listView, setListView] = useState<FileListView>("icons");
 
   function handleDragOver(event: React.DragEvent<HTMLDivElement>) {
     event.preventDefault();
@@ -36,37 +33,38 @@ const DragDrop: React.FC<DragDropProps> = ({ onFileDrop }) => {
     setIsDraggingOver(false);
 
     const files = Array.from(event.dataTransfer.files);
-    if (files.length > 0) {
-      setDroppedFiles((prevFiles) => [...prevFiles, ...files]);
-      if (onFileDrop) {
-        onFileDrop(files);
-      }
+    if (files.length > 0 && onFileDrop) {
+      onFileDrop(files);
     }
   }
 
   function handleFileViewChange(fileViewType: "list" | "icons") {
-    console.log(fileViewType);
+    setListView(fileViewType);
   }
 
   return (
-    <div onDragOver={handleDragOver} onDrop={handleDrop} onDragLeave={handleDragLeave} className={isDraggingOver ? styles.draggingOver : styles.dragAndDropBox}>
+    <div className={styles.dragDropBox}>
       <Toolbar onViewChange={handleFileViewChange} />
-      {droppedFiles.length > 0 && (
-        <div className={styles.filesContainer}>
-          {droppedFiles.map((file, index) => (
-            <button className={styles.fileIconBox} key={index}>
-              {iconSwitch(file.type)}
-              <div className={styles.fileNameText}>{file.name}</div>
-            </button>
-          ))}
+      <div onDragOver={handleDragOver} onDrop={handleDrop} onDragLeave={handleDragLeave} className={isDraggingOver ? styles.draggingOverBox : styles.filesBox}>
+        <div className={progress > 0 ? styles.filesLoadingBox : listView === "icons" ? styles.filesDisplayBox : styles.filesListDisplayBox}>
+          {progress > 0 ? (
+            <div className={styles.progressBox}>
+              Uploading...
+              <ProgressBar progress={progress} />
+            </div>
+          ) : files.length > 0 ? (
+            files.map((file, index) => <FileItem key={index} file={file} listView={listView} />)
+          ) : (
+            files.length === 0 && <div className={styles.noFilesBox}>No files here yet...</div>
+          )}
         </div>
-      )}
-      <div className={styles.dropText}>
-        <FaArrowPointer />
-        You can drag and drop file in here
+        {progress === 0 && (
+          <div className={styles.dropText}>
+            <FaClone />
+            You can drag and drop files here
+          </div>
+        )}
       </div>
     </div>
   );
-};
-
-export default DragDrop;
+}
