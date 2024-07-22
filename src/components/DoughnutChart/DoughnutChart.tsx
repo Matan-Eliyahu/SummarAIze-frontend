@@ -11,14 +11,9 @@ interface DoughnutChartProps {
 
 export default function DoughnutChart({ fileTypeCounts }: DoughnutChartProps) {
   const total = fileTypeCounts.pdf + fileTypeCounts.image + fileTypeCounts.audio;
-  console.log("totle:",total)
   const pdfPercentage = (fileTypeCounts.pdf / total) * 100 || 0;
   const imagePercentage = (fileTypeCounts.image / total) * 100 || 0;
   const audioPercentage = (fileTypeCounts.audio / total) * 100 || 0;
-
-  console.log("pdf: ", pdfPercentage, "%");
-  console.log("image: ", imagePercentage, "%");
-  console.log("audio: ", audioPercentage, "%");
 
   const gradient = `conic-gradient(
     #e5252a 0% ${pdfPercentage}%,

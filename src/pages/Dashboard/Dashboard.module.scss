@@ -27,28 +27,33 @@
 
 .infoBox {
   @extend .vbox;
-  align-items: start;
-  padding: 0 16px;
+  // align-items: end;
+  // padding: 0 16px;
+  padding-left: 16px;
+  padding-top: 16px;
   gap: 0.5rem;
   height: 98%;
   width: 20%;
+  overflow: auto;
 }
 
-.fakeBox {
+.totalSizeLoadingBox {
   @extend .vbox;
   justify-content: center;
+  gap: 0.5rem;
   background-color: $background-dark;
-  width: 95%;
-  height: 20%;
+  min-width: 100%;
+  margin-right: auto;
   border-radius: 16px;
+  min-height: 15vh;
 }
 
-.fakeBox2 {
-  @extend .fakeBox;
-  height: 40%;
+.doughnutChartLoadingBox {
+  @extend .totalSizeLoadingBox;
+  min-height: 24vh;
 }
 
-.fakeBox3 {
-  @extend .fakeBox;
-  height: 30%;
+.recentFilesLoadingBox {
+  @extend .totalSizeLoadingBox;
+  min-height: 20vh;
 }

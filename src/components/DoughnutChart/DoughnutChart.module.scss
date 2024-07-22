@@ -3,11 +3,11 @@
   justify-content: center;
   gap: 0.5rem;
   background-color: $background-dark;
-  width: 95%;
+  width: 100%;
   border-radius: 16px;
-  padding: 20px 16px;
+  padding: 20px 0;
   opacity: 0;
-  animation: fadeIn 1.2s forwards;
+  animation: fadeIn 0.9s forwards;
   animation-delay: calc(0.1s * var(--i));
 }
 
@@ -20,7 +20,7 @@
 .title {
   @extend .hbox;
   gap: 8px;
-  width: 95%;
+  width: 90%;
   font-size: 26px;
   color: $text-dark;
   margin-bottom: 8px;

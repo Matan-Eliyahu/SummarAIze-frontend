@@ -10,6 +10,12 @@ class FileService {
     const request = apiClient.get<IFile[]>(`${this.path}/user-files`, { signal: controller.signal });
     return { request, cancel: () => controller.abort() };
   }
+
+  getFileByName(fileName: string) {
+    const controller = new AbortController();
+    const request = apiClient.get<IFile[]>(`${this.path}/${fileName}`, { signal: controller.signal });
+    return { request, cancel: () => controller.abort() };
+  }
 }
 
 export default new FileService();

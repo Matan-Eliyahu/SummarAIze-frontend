@@ -49,3 +49,27 @@
 .viewIcon {
   @extend .backIcon;
 }
+
+.sortButtonBox {
+  @extend .hbox;
+  background-color: $background;
+  border-radius: 8px;
+  // padding: 0 8px;
+  // gap: 4px;
+  height: 70%;
+  overflow: hidden;
+}
+
+.seperator {
+  @extend .hbox;
+  background-color: $background-dark;
+  min-height: 80%;
+  width: 2px;
+}
+
+.sortButton {
+  @extend .viewButton;
+  padding: 8px 12px;
+  border-radius: 0;
+}
+

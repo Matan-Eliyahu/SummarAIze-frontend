@@ -34,10 +34,11 @@
 
 .filesLoadingBox {
   @extend .hbox;
-  justify-content: center;
+  align-items: start;
   height: 100%;
   gap: 1rem;
   padding: 16px;
+  position: relative;
 }
 
 .noFilesBox {
@@ -55,11 +56,19 @@
 
 .progressBox {
   @extend .vbox;
+  position: absolute;
   justify-content: center;
-  gap: 0.7rem;
-  width: 30%;
+  gap: 0.8rem;
+  backdrop-filter: blur(8px);
+  width: 100%;
+  height: 100%;
   font-size: 20px;
   color: $text-dark;
+  font-weight: 500;
+}
+
+.progressBarBox {
+  width: 40%;
 }
 
 .filesContainer {

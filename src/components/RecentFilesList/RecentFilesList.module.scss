@@ -1,4 +1,4 @@
-.progressContainer {
+.recentFilesBox {
   @extend .vbox;
   justify-content: center;
   gap: 0.5rem;
@@ -27,27 +27,20 @@
 }
 
 .titleIcon {
-  font-size: 26px;
+  font-size: 24px;
   color: $input;
 }
 
-.progressBarBox {
-  width: 87%;
-}
-
-.textBox {
+.filesBox {
   @extend .hbox;
-  gap: 6px;
+  justify-content: center;
+  gap: 5%;
+  min-width: 85%;
+  min-height: 10vh;
 }
 
-.totalSizeText {
-  color: $text;
-  font-size: 20px;
-  font-weight: 500;
-}
-
-.maxSizeText {
-  color: $text-dark;
-  font-size: 18px;
+.noFilesText {
+  font-size: 16px;
+  color: $input;
   font-weight: 500;
 }

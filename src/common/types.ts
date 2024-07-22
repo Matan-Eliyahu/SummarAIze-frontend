@@ -44,10 +44,12 @@ export interface IFile {
   name: string;
   type: FileType;
   size: number;
+  path: string;
   transcribe: string;
   summary: string;
   status: FileStatus;
   uploadedAt: Date;
+  lastOpened?: Date;
 }
 
 export interface IStorage {
@@ -55,4 +57,10 @@ export interface IStorage {
   pdfCount: number;
   imageCount: number;
   audioCount: number;
+  lastOpened: string[];
+}
+
+export interface IUpdate {
+  fileName: string;
+  status: string;
 }

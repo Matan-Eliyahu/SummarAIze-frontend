@@ -20,7 +20,7 @@ export default function TotalSizeProgressBar({ totalSize, maxSize }: TotalSizePr
         <ProgressBar progress={progress} />
       </div>
       <div className={styles.textBox}>
-        <div className={styles.totalSizeText}>{totalSize}</div>
+        <div className={styles.totalSizeText}>{`${totalSize} MB`}</div>
         <div className={styles.maxSizeText}>/</div>
         <div className={styles.maxSizeText}>{`${maxSize} MB`}</div>
       </div>

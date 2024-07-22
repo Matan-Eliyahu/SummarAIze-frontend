@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as pdfjs from "pdfjs-dist";
-import Toolbar, { FileListView } from "./Toolbar/Toolbar";
+import Toolbar, { FileListView, FileSorting, SortingDirection } from "./Toolbar/Toolbar";
 import { FaClone } from "react-icons/fa6";
 import styles from "./DragDrop.module.scss";
 import { IFile } from "../../common/types";
@@ -18,21 +18,30 @@ interface DragDropProps {
 export default function DragDrop({ files, progress, onFileDrop }: DragDropProps) {
   const [isDraggingOver, setIsDraggingOver] = useState<boolean>(false);
   const [listView, setListView] = useState<FileListView>("icons");
+  const [sortedFiles, setSortedFiles] = useState<IFile[]>([]);
+  const [sorting, setSorting] = useState<FileSorting>("by-recent");
+  const [sortingDirection, setSortingDirection] = useState<SortingDirection>("asc");
 
   function handleDragOver(event: React.DragEvent<HTMLDivElement>) {
+    if (progress > 0) return;
     event.preventDefault();
     setIsDraggingOver(true);
   }
 
   function handleDragLeave() {
+    if (progress > 0) return;
     setIsDraggingOver(false);
   }
 
   async function handleDrop(event: React.DragEvent<HTMLDivElement>) {
+    if (progress > 0) return;
     event.preventDefault();
     setIsDraggingOver(false);
 
     const files = Array.from(event.dataTransfer.files);
+    for (const file of files) {
+      if (sortedFiles.filter((ifile) => ifile.name === file.name)) return;
+    }
     if (files.length > 0 && onFileDrop) {
       onFileDrop(files);
     }
@@ -42,20 +51,44 @@ export default function DragDrop({ files, progress, onFileDrop }: DragDropProps)
     setListView(fileViewType);
   }
 
+  function handleSortChange(newSorting: FileSorting, newDirection: SortingDirection) {
+    setSorting(newSorting);
+    setSortingDirection(newDirection);
+  }
+
+  useEffect(() => {
+    function sortFiles() {
+      const sorted = [...files];
+      if (sorting === "by-name") {
+        sorted.sort((a, b) => (sortingDirection === "asc" ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name)));
+      } else if (sorting === "by-size") {
+        sorted.sort((a, b) => (sortingDirection === "asc" ? a.size - b.size : b.size - a.size));
+      } else if (sorting === "by-recent") {
+        sorted.sort((a, b) =>
+          sortingDirection === "asc" ? new Date(a.lastOpened ?? 0).getTime() - new Date(b.lastOpened ?? 0).getTime() : new Date(b.lastOpened ?? 0).getTime() - new Date(a.lastOpened ?? 0).getTime()
+        );
+      }
+      setSortedFiles(sorted);
+    }
+
+    sortFiles();
+  }, [files, sorting, sortingDirection]);
+
   return (
     <div className={styles.dragDropBox}>
-      <Toolbar onViewChange={handleFileViewChange} />
+      <Toolbar onViewChange={handleFileViewChange} onSortChange={handleSortChange} />
       <div onDragOver={handleDragOver} onDrop={handleDrop} onDragLeave={handleDragLeave} className={isDraggingOver ? styles.draggingOverBox : styles.filesBox}>
         <div className={progress > 0 ? styles.filesLoadingBox : listView === "icons" ? styles.filesDisplayBox : styles.filesListDisplayBox}>
-          {progress > 0 ? (
+          {sortedFiles.length > 0
+            ? sortedFiles.map((file, index) => <FileItem key={index} file={file} listView={listView} />)
+            : sortedFiles.length === 0 && <div className={styles.noFilesBox}>No files here yet...</div>}
+          {progress > 0 && (
             <div className={styles.progressBox}>
-              Uploading...
-              <ProgressBar progress={progress} />
+              {`Uploading... ${progress}%`}
+              <div className={styles.progressBarBox}>
+                <ProgressBar progress={progress} />
+              </div>
             </div>
-          ) : files.length > 0 ? (
-            files.map((file, index) => <FileItem key={index} file={file} listView={listView} />)
-          ) : (
-            files.length === 0 && <div className={styles.noFilesBox}>No files here yet...</div>
           )}
         </div>
         {progress === 0 && (
