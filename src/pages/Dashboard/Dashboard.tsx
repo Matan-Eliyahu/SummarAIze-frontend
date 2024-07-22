@@ -32,6 +32,10 @@ function Dashboard() {
     }
   }, [socket, refreshStore]);
 
+  useEffect(() => {
+    refreshStore();
+  }, []);
+
   function handleUploadFiles(draggedFiles: File[]) {
     if (!settings) return;
     for (const file of draggedFiles) {
@@ -53,8 +57,6 @@ function Dashboard() {
       icon: "upload",
     });
   }
-
-  
 
   return (
     <Layout loading={initialLoading} text="Loading dashboard...">

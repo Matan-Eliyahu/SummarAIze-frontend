@@ -10,6 +10,7 @@ interface RecentFilesListProps {
 
 export default function RecentFilesList({ files, recentFileNames }: RecentFilesListProps) {
   const recentFiles: IFile[] = files.filter((file) => recentFileNames.includes(file.name));
+  
   return (
     <div className={styles.recentFilesBox}>
       <div className={styles.title}>
@@ -17,7 +18,7 @@ export default function RecentFilesList({ files, recentFileNames }: RecentFilesL
         Recent files
       </div>
       <div className={styles.filesBox}>
-        {recentFiles.length === 0 ? <div className={styles.noFilesText}>No Recent files</div> : recentFiles.map((file, index) => <FileItem key={index} file={file} listView="icons" />)}
+        {recentFiles.length === 0 ? <div className={styles.noFilesText}>No Recent files</div> : recentFiles.map((file, index) => <FileItem key={index} file={file} listView="recent" />)}
       </div>
     </div>
   );

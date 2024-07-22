@@ -114,3 +114,8 @@
   height: 100%;
   width: 1px;
 }
+
+.recentListBox {
+  @extend .fileListBox;
+  width: 90%;
+}

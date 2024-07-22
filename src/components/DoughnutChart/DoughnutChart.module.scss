@@ -1,5 +1,6 @@
 .doughnutBox {
   @extend .vbox;
+  flex-wrap: wrap;
   justify-content: center;
   gap: 0.5rem;
   background-color: $background-dark;

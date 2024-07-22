@@ -40,14 +40,16 @@ export default function DragDrop({ files, progress, onFileDrop }: DragDropProps)
 
     const files = Array.from(event.dataTransfer.files);
     for (const file of files) {
-      if (sortedFiles.filter((ifile) => ifile.name === file.name)) return;
+      const name = file.name;
+      console.log(name);
+      
     }
     if (files.length > 0 && onFileDrop) {
       onFileDrop(files);
     }
   }
 
-  function handleFileViewChange(fileViewType: "list" | "icons") {
+  function handleFileViewChange(fileViewType: "list" | "icons" | "recent") {
     setListView(fileViewType);
   }
 

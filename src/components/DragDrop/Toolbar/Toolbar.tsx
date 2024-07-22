@@ -3,7 +3,7 @@ import { BsGridFill } from "react-icons/bs";
 import styles from "./Toolbar.module.scss";
 import { useState } from "react";
 
-export type FileListView = "list" | "icons";
+export type FileListView = "list" | "icons" | "recent";
 export type FileSorting = "by-name" | "by-size" | "by-recent";
 export type SortingDirection = "asc" | "desc";
 
@@ -57,12 +57,12 @@ export default function Toolbar({ onViewChange, onSortChange }: ToolbarProps) {
         </button>
       </div>
       <div className={styles.sortButtonBox}>
-        <button className={styles.sortButton} onClick={handleToggleDirection}>
-          {sortingDirection === "asc" ? <FaArrowUp className={styles.viewIcon} /> : <FaArrowDown className={styles.viewIcon} />}
-        </button>
-        <div className={styles.seperator} />
         <button className={styles.sortButton} onClick={handleSortIconChange}>
           {sortIconSwitch(selectedSorting)}
+        </button>
+        <div className={styles.seperator} />
+        <button className={styles.sortButton} onClick={handleToggleDirection}>
+          {sortingDirection === "asc" ? <FaArrowUp className={styles.viewIcon} /> : <FaArrowDown className={styles.viewIcon} />}
         </button>
       </div>
 

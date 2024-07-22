@@ -13,7 +13,7 @@ class FileService {
 
   getFileByName(fileName: string) {
     const controller = new AbortController();
-    const request = apiClient.get<IFile[]>(`${this.path}/${fileName}`, { signal: controller.signal });
+    const request = apiClient.get<IFile>(`${this.path}/${fileName}`, { signal: controller.signal });
     return { request, cancel: () => controller.abort() };
   }
 }
