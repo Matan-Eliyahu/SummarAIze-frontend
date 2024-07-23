@@ -9,30 +9,33 @@
 
 .textBox {
   height: 100%;
-  padding: 16px 32px;
+  min-width: 93%;
+  padding: 20px 32px;
   color: $text;
   font-size: 18px;
   font-weight: 500;
   line-height: 1.5;
-  // background-color: red;
+  white-space: pre-wrap;
+  //background-color: red;
 }
 
 .textAreaBox {
   min-width: 93%;
   width: 800px;
   height: 85%;
+  line-height: 1.5;
   border-radius: 8px;
-//   background-color: $background-dark;
+  //   background-color: $background-dark;
   padding: 20px;
   color: $dark;
   font-size: 18px;
   font-weight: 500;
-//   line-height: 1.5;
+  //   line-height: 1.5;
 }
 
 .loadingBox {
-    @extend .hbox;
-    justify-content: center;
-    width: 90%;
-    height: 90%;
+  @extend .hbox;
+  justify-content: center;
+  width: 90%;
+  height: 90%;
 }
