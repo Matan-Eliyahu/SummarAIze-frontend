@@ -1,18 +1,24 @@
-import { FaArrowDown, FaArrowLeft, FaArrowUp, FaBoxOpen, FaClock, FaFont, FaList } from "react-icons/fa6";
+import { FaA, FaArrowDown, FaArrowUp, FaClockRotateLeft, FaInbox, FaList } from "react-icons/fa6";
 import { BsGridFill } from "react-icons/bs";
-import styles from "./Toolbar.module.scss";
+import styles from "./DragDropToolbar.module.scss";
 import { useState } from "react";
 
 export type FileListView = "list" | "icons" | "recent";
 export type FileSorting = "by-name" | "by-size" | "by-recent";
 export type SortingDirection = "asc" | "desc";
 
+const fileSortingLabels: Record<FileSorting, string> = {
+  "by-name": "Name",
+  "by-size": "Size",
+  "by-recent": "Recent",
+};
+
 interface ToolbarProps {
   onViewChange: (viewType: FileListView) => void;
   onSortChange: (newSorting: FileSorting, newDirection: SortingDirection) => void;
 }
 
-export default function Toolbar({ onViewChange, onSortChange }: ToolbarProps) {
+export default function DragDropToolbar({ onViewChange, onSortChange }: ToolbarProps) {
   const [selectedView, setSelectedView] = useState<FileListView>("icons");
   const [selectedSorting, setSelectedSorting] = useState<FileSorting>("by-recent");
   const [sortingDirection, setSortingDirection] = useState<SortingDirection>("asc");
@@ -25,11 +31,11 @@ export default function Toolbar({ onViewChange, onSortChange }: ToolbarProps) {
   function sortIconSwitch(sortType: FileSorting) {
     switch (sortType) {
       case "by-name":
-        return <FaFont className={styles.viewIcon} />;
+        return <FaA className={styles.sortTypeIcon} />;
       case "by-size":
-        return <FaBoxOpen className={styles.viewIcon} />;
+        return <FaInbox className={styles.sortTypeIcon} />;
       case "by-recent":
-        return <FaClock className={styles.viewIcon} />;
+        return <FaClockRotateLeft className={styles.sortTypeIcon} />;
     }
   }
 
@@ -51,18 +57,21 @@ export default function Toolbar({ onViewChange, onSortChange }: ToolbarProps) {
 
   return (
     <div className={styles.toolbarBox}>
-      <div className={styles.backBox}>
+      {/* <div className={styles.backBox}>
         <button className={styles.backButton}>
           <FaArrowLeft className={styles.backIcon} />
         </button>
-      </div>
+      </div> */}
       <div className={styles.sortButtonBox}>
-        <button className={styles.sortButton} onClick={handleSortIconChange}>
-          {sortIconSwitch(selectedSorting)}
+        <button className={styles.sortTypeButton} onClick={handleSortIconChange}>
+          <div className={styles.fileSotringLabel}>
+            {sortIconSwitch(selectedSorting)}
+            <div className={styles.fileSortingButtonLabel}>{fileSortingLabels[selectedSorting]}</div>
+          </div>
         </button>
         <div className={styles.seperator} />
         <button className={styles.sortButton} onClick={handleToggleDirection}>
-          {sortingDirection === "asc" ? <FaArrowUp className={styles.viewIcon} /> : <FaArrowDown className={styles.viewIcon} />}
+          {sortingDirection === "asc" ? <FaArrowUp className={styles.viewIcon} size={18} /> : <FaArrowDown className={styles.viewIcon} size={18} />}
         </button>
       </div>
 

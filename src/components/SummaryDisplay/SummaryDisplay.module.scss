@@ -1,10 +1,38 @@
-.summary {
-    width: 50%;
-    height: 75%;
-    color: $text-dark;
-    border-radius: 0.5rem;
-    padding: 0.5rem;
-    background-color: $board;
-    font-size: small;
-    overflow-y: auto;
+.summaryDisplayBox {
+  @extend .vbox;
+  height: 92%;
+  width: 70%;
+  background-color: $background-dark;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.textBox {
+  height: 100%;
+  padding: 16px 32px;
+  color: $text;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.5;
+  // background-color: red;
+}
+
+.textAreaBox {
+  min-width: 93%;
+  width: 800px;
+  height: 85%;
+  border-radius: 8px;
+//   background-color: $background-dark;
+  padding: 20px;
+  color: $dark;
+  font-size: 18px;
+  font-weight: 500;
+//   line-height: 1.5;
+}
+
+.loadingBox {
+    @extend .hbox;
+    justify-content: center;
+    width: 90%;
+    height: 90%;
 }

@@ -5,7 +5,7 @@
   background-color: $background-dark;
   width: 100%;
   border-radius: 16px;
-  padding: 12px 0;
+  padding: 20px 0;
   opacity: 0;
   animation: fadeIn 0.9s forwards;
   animation-delay: calc(0.1s * var(--i));
@@ -21,13 +21,24 @@
   @extend .hbox;
   gap: 8px;
   width: 90%;
-  font-size: 26px;
+  font-size: 24px;
   color: $text-dark;
 }
 
 .titleIcon {
   font-size: 24px;
   color: $input;
+}
+
+.contentBox {
+  @extend .vbox;
+  justify-content: center;
+  gap: 8px;
+  background-color: $dark;
+  padding: 16px;
+  border-radius: 10px;
+  width: 87%;
+  min-height: 3rem;
 }
 
 .filesBox {

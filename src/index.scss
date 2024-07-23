@@ -51,6 +51,24 @@ h5 {
   margin: 0;
 }
 
+textarea {
+  font-family: "Lato", sans-serif;
+  &::-webkit-scrollbar {
+    width: 0.4rem;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: $background;
+    // border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: $dark;
+    border: 2px solid $background;
+  }
+}
+
 div {
   font-family: "Lato", sans-serif;
   font-weight: bold;

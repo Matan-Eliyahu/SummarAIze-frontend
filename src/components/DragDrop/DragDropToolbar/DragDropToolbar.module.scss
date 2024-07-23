@@ -3,14 +3,15 @@
   min-height: 1.6rem;
   width: 100%;
   height: 8%;
-  justify-content: center;
+  gap: 8px;
+  // justify-content: center;
   background-color: $dark;
 }
 
 .backBox {
   @extend .hbox;
   margin-left: 20px;
-  margin-right: auto;
+  // margin-right: auto;
 }
 
 .backButton {
@@ -31,8 +32,9 @@
 .viewBox {
   @extend .hbox;
   gap: 4px;
-  margin-right: 20px;
+  // margin-right: 24px;
   margin-left: auto;
+  width: 8%;
 }
 
 .viewButton {
@@ -56,7 +58,8 @@
   border-radius: 8px;
   // padding: 0 8px;
   // gap: 4px;
-  height: 70%;
+  margin-left: 32px;
+  height: 60%;
   overflow: hidden;
 }
 
@@ -69,7 +72,29 @@
 
 .sortButton {
   @extend .viewButton;
-  padding: 8px 12px;
+  padding: 8px 14px;
   border-radius: 0;
 }
 
+.sortTypeButton {
+  @extend .sortButton;
+  padding: 8px 12px;
+}
+
+.sortTypeIcon {
+  color: $input;
+  font-size: 18px;
+}
+
+.fileSotringLabel {
+  @extend .hbox;
+  gap: 8px;
+  justify-content: center;
+  min-width: 2.3rem;
+}
+
+.fileSortingButtonLabel {
+  min-width: 1.1rem;
+  font-size: 16px;
+  color: $text-dark;
+}

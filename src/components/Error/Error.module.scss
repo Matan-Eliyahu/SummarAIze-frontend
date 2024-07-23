@@ -73,8 +73,8 @@
 
 .button.danger {
   @extend .button;
+  color: $text;
   background-color: $danger;
-  color: $input;
 
   &:hover {
     background-color: $danger-hover;

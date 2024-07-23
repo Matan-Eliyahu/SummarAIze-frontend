@@ -3,7 +3,7 @@ import { FileStatus, IFile } from "../../../common/types";
 import { FaBell, FaTriangleExclamation } from "react-icons/fa6";
 import styles from "./FileItem.module.scss";
 import Spinner from "../../Spinner/Spinner";
-import { FileListView } from "../Toolbar/Toolbar";
+import { FileListView } from "../DragDropToolbar/DragDropToolbar";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
 import { truncateFileName } from "../../../utils/text";

@@ -12,7 +12,6 @@ import useWebSocket from "../../hooks/useWebSocket";
 import { BASE_URL } from "../../services/apiClient";
 import { useAuth } from "../../hooks/useAuth";
 import { IUpdate } from "../../common/types";
-import Spinner from "../../components/Spinner/Spinner";
 import RecentFilesList from "../../components/RecentFilesList/RecentFilesList";
 
 function Dashboard() {
@@ -61,25 +60,12 @@ function Dashboard() {
   return (
     <Layout loading={initialLoading} text="Loading dashboard...">
       <div className={styles.dashboardBox}>
-        {storage ? (
-          <div className={styles.infoBox}>
-            <TotalSizeProgressBar totalSize={storage.totalSize} maxSize={500} />
-            <DoughnutChart fileTypeCounts={{ pdf: storage.pdfCount, image: storage.imageCount, audio: storage.audioCount }} />
-            <RecentFilesList files={files} recentFileNames={storage.lastOpened} />
-          </div>
-        ) : (
-          <div className={styles.infoBox}>
-            <div className={styles.totalSizeLoadingBox}>
-              <Spinner size="m" />
-            </div>
-            <div className={styles.doughnutChartLoadingBox}>
-              <Spinner size="m" />
-            </div>
-            <div className={styles.recentFilesLoadingBox}>
-              <Spinner size="m" />
-            </div>
-          </div>
-        )}
+        <div className={styles.infoBox}>
+          <TotalSizeProgressBar totalSize={storage?.totalSize ?? 0} maxSize={500} loading={!storage} />
+          <DoughnutChart fileTypeCounts={{ pdf: storage?.pdfCount ?? 0, image: storage?.imageCount ?? 0, audio: storage?.audioCount ?? 0 }} loading={!storage} />
+          <RecentFilesList files={files} recentFileNames={storage?.lastOpened ?? []} loading={!storage} />
+        </div>
+
         {files && (
           <div className={styles.dragDropBox}>
             <DragDrop onFileDrop={handleUploadFiles} files={files} progress={uploadProgress} />

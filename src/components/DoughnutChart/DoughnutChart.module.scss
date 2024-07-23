@@ -3,7 +3,7 @@
   flex-wrap: wrap;
   justify-content: center;
   gap: 0.5rem;
-  background-color: $background-dark;
+  background-color: $dark;
   width: 100%;
   border-radius: 16px;
   padding: 20px 0;
@@ -22,14 +22,24 @@
   @extend .hbox;
   gap: 8px;
   width: 90%;
-  font-size: 26px;
+  font-size: 24px;
   color: $text-dark;
-  margin-bottom: 8px;
 }
 
 .titleIcon {
-  font-size: 26px;
+  font-size: 24px;
   color: $input;
+}
+
+.contentBox {
+  @extend .vbox;
+  justify-content: center;
+  gap: 16px;
+  background-color: $background-dark;
+  padding: 16px 8px;
+  border-radius: 10px;
+  width: 87%;
+  min-height: 5rem;
 }
 
 .doughnutCircle {

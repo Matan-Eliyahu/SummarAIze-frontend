@@ -1,0 +1,82 @@
+.summaryToolbarBox {
+  @extend .hbox;
+  justify-content: center;
+  min-height: 2rem;
+  width: 100%;
+  height: 8%;
+  gap: 8px;
+  // justify-content: center;
+  background-color: $dark;
+  position: relative;
+}
+
+.editButton {
+  padding: 8px 24px;
+  border-radius: 8px;
+  color: $text-dark;
+  font-size: 16px;
+  margin-left: auto;
+  margin-right: 1rem;
+  background-color: rgba(255, 255, 255, 0.014);
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.055);
+  }
+}
+
+.saveButton {
+  @extend .editButton;
+  color: $text;
+  background-color: $secondary;
+
+  &:hover {
+    background-color: $secondary-hover;
+  }
+}
+
+.summaryButtonBox {
+  @extend .hbox;
+  border-radius: 8px;
+  margin-left: 32px;
+  height: 60%;
+  overflow: hidden;
+  background-color: rgba(255, 255, 255, 0.014);
+  position: absolute;
+}
+
+.seperator {
+  @extend .hbox;
+  background-color: $dark;
+  min-height: 80%;
+  width: 2px;
+}
+
+.summaryButton {
+  padding: 8px 24px;
+  border-radius: 0;
+  gap: 8px;
+  background-color: transparent;
+  font-size: 16px;
+  color: $text-dark;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.055);
+  }
+}
+
+.summaryButtonSelected {
+  @extend .summaryButton;
+  background-color: $background;
+}
+
+.transcribeButtonIcon {
+  color: $shadow;
+  font-size: 14px;
+}
+
+.summarizedIcon {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: linear-gradient(45deg, $secondary-hover, $secondary, $primary, $primary-hover);
+}

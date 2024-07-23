@@ -5,9 +5,11 @@
   gap: 12px;
   width: 85%;
   border-radius: 8px;
-  background-color: $background-dark;
-  color: $text-dark;
-  font-size: 18px;
+  //   background-color: $background-dark;
+  background: linear-gradient(to bottom, $background-dark, $dark);
+  //   border: 2px solid $dark;
+  color: $shadow;
+  font-size: 20px;
   opacity: 0;
   animation: fadeIn 0.4s forwards;
   animation-delay: calc(0.1s * var(--i));
@@ -19,31 +21,44 @@
   }
 }
 
+.statusTitleBox {
+  @extend .titleBox;
+  color: $text-dark;
+  font-size: 18px;
+}
+
+.smallTextTitleBox {
+  @extend .statusTitleBox;
+  font-size: 16px;
+}
+
 .fileTitleIcon {
-  width: 20px;
+  width: 24px;
 }
 
 .fileContainer {
   @extend .hbox;
   min-width: 100%;
   min-height: 100%;
-//   background-color: red;
+  //   background-color: red;
 }
 
 .infoBox {
   @extend .vbox;
   width: 20%;
   min-height: 95%;
+  height: 95%;
   gap: 16px;
-//   background-color: blue;
+  //   background-color: blue;
 }
 
 .contentBox {
   @extend .vbox;
-  justify-content: center;
+  align-items: start;
+  min-width: 80%;
   width: 80%;
   min-height: 100%;
-//   background-color: yellow;
+  height: 100%;
 }
 
 .errorIcon {
@@ -57,8 +72,8 @@
 }
 
 .summarizedIcon {
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
   background: linear-gradient(45deg, $secondary-hover, $secondary, $primary, $primary-hover);
   opacity: 0;
@@ -67,20 +82,36 @@
 }
 
 .downloadButton {
-    background-color: $background-soft;
-    width: 70%;
-    margin-top: 8px;
-    border-radius: 8px;
-    // color: $text-dark;
-    color: $shadow;
-    padding: 16px;
+  background-color: $background-soft;
+  width: 60%;
+  outline: 1px solid $dark;
+  margin-top: 8px;
+  border-radius: 8px;
+  // color: $text-dark;
+  color: $shadow;
+  padding: 16px;
 
-    &:hover {
-        background-color: $input;
-    }
+  &:hover {
+    background-color: $input;
+  }
 }
 
 .downloadButtonIcon {
-    font-size: 18px;
-    color: $shadow;
+  font-size: 18px;
+  color: $shadow;
+}
+
+.deleteButton {
+  @extend .downloadButton;
+  color: $text;
+  background-color: $danger-hover;
+
+  &:hover {
+    background-color: $danger;
+  }
+}
+
+.deleteButtonIcon {
+  color: $text;
+  font-size: 16px;
 }

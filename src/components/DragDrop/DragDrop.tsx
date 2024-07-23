@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import * as pdfjs from "pdfjs-dist";
-import Toolbar, { FileListView, FileSorting, SortingDirection } from "./Toolbar/Toolbar";
+import DragDropToolbar, { FileListView, FileSorting, SortingDirection } from "./DragDropToolbar/DragDropToolbar";
 import { FaClone } from "react-icons/fa6";
 import styles from "./DragDrop.module.scss";
 import { IFile } from "../../common/types";
@@ -42,7 +42,6 @@ export default function DragDrop({ files, progress, onFileDrop }: DragDropProps)
     for (const file of files) {
       const name = file.name;
       console.log(name);
-      
     }
     if (files.length > 0 && onFileDrop) {
       onFileDrop(files);
@@ -78,12 +77,12 @@ export default function DragDrop({ files, progress, onFileDrop }: DragDropProps)
 
   return (
     <div className={styles.dragDropBox}>
-      <Toolbar onViewChange={handleFileViewChange} onSortChange={handleSortChange} />
+      <DragDropToolbar onViewChange={handleFileViewChange} onSortChange={handleSortChange} />
       <div onDragOver={handleDragOver} onDrop={handleDrop} onDragLeave={handleDragLeave} className={isDraggingOver ? styles.draggingOverBox : styles.filesBox}>
         <div className={progress > 0 ? styles.filesLoadingBox : listView === "icons" ? styles.filesDisplayBox : styles.filesListDisplayBox}>
           {sortedFiles.length > 0
             ? sortedFiles.map((file, index) => <FileItem key={index} file={file} listView={listView} />)
-            : sortedFiles.length === 0 && <div className={styles.noFilesBox}>No files here yet...</div>}
+            : sortedFiles.length === 0 && progress === 0 && <div className={styles.noFilesBox}>No files here yet...</div>}
           {progress > 0 && (
             <div className={styles.progressBox}>
               {`Uploading... ${progress}%`}
