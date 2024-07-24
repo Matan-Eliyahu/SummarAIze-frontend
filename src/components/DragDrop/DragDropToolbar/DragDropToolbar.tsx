@@ -1,7 +1,10 @@
-import { FaA, FaArrowDown, FaArrowUp, FaClockRotateLeft, FaInbox, FaList } from "react-icons/fa6";
+import { FaA, FaArrowDown, FaArrowUp, FaClockRotateLeft, FaInbox, FaList, FaPlus, FaTrash } from "react-icons/fa6";
 import { BsGridFill } from "react-icons/bs";
 import styles from "./DragDropToolbar.module.scss";
-import { useState } from "react";
+import { useState, useRef } from "react";
+import { IFile } from "../../../common/types";
+import SearchBar from "../../SearchBar/SearchBar";
+import { useError } from "../../../hooks/useError";
 
 export type FileListView = "list" | "icons" | "recent";
 export type FileSorting = "by-name" | "by-size" | "by-recent";
@@ -16,12 +19,20 @@ const fileSortingLabels: Record<FileSorting, string> = {
 interface ToolbarProps {
   onViewChange: (viewType: FileListView) => void;
   onSortChange: (newSorting: FileSorting, newDirection: SortingDirection) => void;
+  searchFiles: (searchTerm: string) => Promise<IFile[]>;
+  setFilteredFiles: React.Dispatch<React.SetStateAction<IFile[] | null>>;
+  onFileSelect: (files: File[]) => void;
+  onDeleteFiles: (fileNames: string[]) => Promise<void>;
+  selectedFileNames: string[];
+  isSelectionMode: boolean;
 }
 
-export default function DragDropToolbar({ onViewChange, onSortChange }: ToolbarProps) {
+export default function DragDropToolbar({ onViewChange, onSortChange, searchFiles, setFilteredFiles, onFileSelect, isSelectionMode, onDeleteFiles, selectedFileNames }: ToolbarProps) {
+  const { setAlert, clearAlert } = useError();
   const [selectedView, setSelectedView] = useState<FileListView>("icons");
   const [selectedSorting, setSelectedSorting] = useState<FileSorting>("by-recent");
   const [sortingDirection, setSortingDirection] = useState<SortingDirection>("asc");
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   function handleListViewChange(listView: FileListView) {
     setSelectedView(listView);
@@ -55,18 +66,54 @@ export default function DragDropToolbar({ onViewChange, onSortChange }: ToolbarP
     onSortChange(selectedSorting, newDirection);
   }
 
+  function handleFileInputChange(event: React.ChangeEvent<HTMLInputElement>) {
+    if (event.target.files) {
+      onFileSelect(Array.from(event.target.files));
+    }
+  }
+
+  function handleDeleteButtonClick() {
+    if (selectedFileNames.length > 0) {
+      setAlert({
+        text: `Are you sure you want to permanently delete ${selectedFileNames.length > 1 ? `${selectedFileNames.length} files` : selectedFileNames[0]} ?`,
+        secondButtonText: "Delete",
+        secondButtonColor: "danger",
+        onSecondButtonClick: () => {
+          clearAlert();
+          onDeleteFiles(selectedFileNames);
+        },
+      });
+    }
+  }
+
   return (
     <div className={styles.toolbarBox}>
-      {/* <div className={styles.backBox}>
-        <button className={styles.backButton}>
-          <FaArrowLeft className={styles.backIcon} />
-        </button>
-      </div> */}
+      {isSelectionMode ? (
+        <div className={styles.addFileBox}>
+          <button className={styles.deleteFilesButton} onClick={handleDeleteButtonClick}>
+            <FaTrash className={styles.deleteFileIcon} />
+            Delete files
+          </button>
+        </div>
+      ) : (
+        <div className={styles.addFileBox}>
+          <button className={styles.addFileButton} onClick={() => fileInputRef.current?.click()}>
+            <FaPlus className={styles.addFileIcon} />
+          </button>
+          <div className={styles.hoverText}>Add files</div>
+          <input type="file" multiple ref={fileInputRef} style={{ display: "none" }} onChange={handleFileInputChange} />
+        </div>
+      )}
+
+      <div className={styles.searchBarBox}>
+        <SearchBar fetchFunction={searchFiles} setData={setFilteredFiles} placeholder="Search files..." />
+      </div>
+
       <div className={styles.sortButtonBox}>
         <button className={styles.sortTypeButton} onClick={handleSortIconChange}>
-          <div className={styles.fileSotringLabel}>
+          <div className={styles.sortingLabel}>
             {sortIconSwitch(selectedSorting)}
-            <div className={styles.fileSortingButtonLabel}>{fileSortingLabels[selectedSorting]}</div>
+            <div className={styles.sortingButtonLabel}>{fileSortingLabels[selectedSorting]}</div>
           </div>
         </button>
         <div className={styles.seperator} />

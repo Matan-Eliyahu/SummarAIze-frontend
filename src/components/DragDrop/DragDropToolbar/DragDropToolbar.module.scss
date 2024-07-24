@@ -1,55 +1,115 @@
 .toolbarBox {
   @extend .hbox;
-  min-height: 1.6rem;
+  min-height: 1.8rem;
   width: 100%;
   height: 8%;
-  gap: 8px;
-  // justify-content: center;
+  gap: 16px;
+  justify-content: center;
   background-color: $dark;
 }
 
-.backBox {
+.addFileBox {
   @extend .hbox;
-  margin-left: 20px;
+  margin-left: 24px;
   // margin-right: auto;
 }
 
-.backButton {
-  padding: 8px 24px;
+.addFileButton {
+  padding: 8px 14px;
+  gap: 8px;
   border-radius: 8px;
-  background-color: transparent;
+  background-color: rgba(255, 255, 255, 0.022);
+  position: relative; /* Ensure the button is the reference for absolute positioning */
 
   &:hover {
-    background-color: rgba(255, 255, 255, 0.055);
+    background-color: rgba(255, 255, 255, 0.047);
+  }
+
+  &:hover .hoverText {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-.backIcon {
+.hoverText {
+  display: block;
+  opacity: 0;
+  transition: opacity 0.7s ease;
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  // transform: translateX(-50%) translateY(10px);
+  background-color: $background;
   color: $text-dark;
-  font-size: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 5px 10px;
+  border-radius: 4px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.deleteFilesButton {
+  @extend .addFileButton;
+  color: $text;
+  background-color: $danger-hover;
+  font-weight: 500;
+  font-size: 16px;
+  padding: 8px 10px;
+
+  &:hover {
+    background-color: $danger;
+  }
+}
+
+.addFileIcon {
+  color: $text-dark;
+  font-size: 18px;
+}
+
+.deleteFileIcon {
+  color: $text;
+  font-size: 14px;
 }
 
 .viewBox {
   @extend .hbox;
   gap: 4px;
   // margin-right: 24px;
-  margin-left: auto;
-  width: 8%;
+  width: 9%;
 }
 
 .viewButton {
-  @extend .backButton;
+  gap: 8px;
+  border-radius: 8px;
+  background-color: transparent;
+  font-size: 16px;
+  font-weight: 500;
+  color: $text-dark;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.055);
+  }
   padding: 8px 12px;
 }
 
 .viewButtonSelected {
-  @extend .backButton;
+  gap: 8px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  color: $text-dark;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.055);
+  }
   background-color: rgba(255, 255, 255, 0.055);
   padding: 8px 12px;
 }
 
 .viewIcon {
-  @extend .backIcon;
+  color: $text-dark;
+  font-size: 20px;
 }
 
 .sortButtonBox {
@@ -58,9 +118,10 @@
   border-radius: 8px;
   // padding: 0 8px;
   // gap: 4px;
-  margin-left: 32px;
   height: 60%;
   overflow: hidden;
+  margin-right: 2%;
+  margin-left: auto;
 }
 
 .seperator {
@@ -72,7 +133,7 @@
 
 .sortButton {
   @extend .viewButton;
-  padding: 8px 14px;
+  padding: 8px 10px;
   border-radius: 0;
 }
 
@@ -86,15 +147,20 @@
   font-size: 18px;
 }
 
-.fileSotringLabel {
+.sortingLabel {
   @extend .hbox;
-  gap: 8px;
+  gap: 6px;
   justify-content: center;
   min-width: 2.3rem;
 }
 
-.fileSortingButtonLabel {
+.sortingButtonLabel {
   min-width: 1.1rem;
   font-size: 16px;
+  font-weight: 500;
   color: $text-dark;
+}
+
+.searchBarBox {
+  position: absolute;
 }

@@ -3,16 +3,36 @@ import { FaGear } from "react-icons/fa6";
 import styles from "./Settings.module.scss";
 import { useEffect, useState } from "react";
 import SettingsForm from "../../components/Forms/SettingsForm/SettingsForm";
-import { ISettings } from "../../common/types";
+import { ISettings, IUpdate } from "../../common/types";
 import SettingsService, { AxiosError } from "../../services/SettingsService";
 import { useError } from "../../hooks/useError";
 import { useNavigate } from "react-router-dom";
+import useWebSocket from "../../hooks/useWebSocket";
 
 export default function Settings() {
-  const { setAlert } = useError();
+  const { setAlert, clearAlert } = useError();
   const navigate = useNavigate();
   const [settings, setSettings] = useState<ISettings | null>(null);
   const [loading, setLoading] = useState(false);
+  const socket = useWebSocket();
+
+  useEffect(() => {
+    if (socket) {
+      socket.onmessage = (event) => {
+        const update: IUpdate = JSON.parse(event.data);
+        const text = update.status === "completed" ? `${update.fileName} has been successfully processed` : `Processing failed for ${update.fileName}`;
+        setAlert({
+          text,
+          secondButtonText: "Go to file",
+          secondButtonColor: "secondary",
+          onSecondButtonClick: () => {
+            clearAlert();
+            navigate(`/dashboard/${update.fileName}`);
+          },
+        });
+      };
+    }
+  }, [socket]);
 
   async function fetchUserSettings() {
     const { request } = SettingsService.getSettingsByUserId();

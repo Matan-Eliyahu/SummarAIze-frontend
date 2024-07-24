@@ -1,10 +1,13 @@
 import { useState, useEffect } from "react";
+import { BASE_URL } from "../services/apiClient";
+import { useAuth } from "./useAuth";
 
-const useWebSocket = (url: string, userId: string) => {
+const useWebSocket = () => {
+  const { auth } = useAuth();
   const [socket, setSocket] = useState<WebSocket | null>(null);
-
   useEffect(() => {
-    const ws = new WebSocket(`${url}?userId=${userId}`);
+    if (!auth) return;
+    const ws = new WebSocket(`${BASE_URL}?userId=${auth.id}`);
     setSocket(ws);
 
     ws.onopen = () => {
@@ -18,7 +21,7 @@ const useWebSocket = (url: string, userId: string) => {
     return () => {
       ws.close();
     };
-  }, [url,userId]);
+  }, [auth]);
 
   return socket;
 };

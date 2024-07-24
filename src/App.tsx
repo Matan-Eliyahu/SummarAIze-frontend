@@ -7,6 +7,7 @@ import { useAuth } from "./hooks/useAuth";
 import Header from "./components/Header/Header";
 import Settings from "./pages/Settings/Settings";
 import Account from "./pages/Account/Account";
+import { StoreProvider } from "./context/StoreContext";
 
 function App() {
   const { auth } = useAuth();
@@ -25,15 +26,17 @@ function App() {
 
   return (
     <Router>
-      <Header />
-      <Routes>
-        <Route path="/" element={<Navigate to="dashboard" />} />
-        <Route path="/dashboard" Component={Dashboard} />
-        <Route path="/dashboard/settings" Component={Settings} />
-        <Route path="/dashboard/account" Component={Account} />
-        <Route path="/dashboard/:fileName" Component={File} />
-        <Route path="/*" element={<Navigate to="dashboard" />} />
-      </Routes>
+      <StoreProvider>
+        <Header />
+        <Routes>
+          <Route path="/" element={<Navigate to="dashboard" />} />
+          <Route path="/dashboard" Component={Dashboard} />
+          <Route path="/dashboard/settings" Component={Settings} />
+          <Route path="/dashboard/account" Component={Account} />
+          <Route path="/dashboard/:fileName" Component={File} />
+          <Route path="/*" element={<Navigate to="dashboard" />} />
+        </Routes>
+      </StoreProvider>
     </Router>
   );
 }

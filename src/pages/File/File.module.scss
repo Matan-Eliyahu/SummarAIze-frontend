@@ -9,7 +9,7 @@
   background: linear-gradient(to bottom, $background-dark, $dark);
   //   border: 2px solid $dark;
   color: $shadow;
-  font-size: 20px;
+  font-size: 18px;
   opacity: 0;
   animation: fadeIn 0.4s forwards;
   animation-delay: calc(0.1s * var(--i));
@@ -21,15 +21,11 @@
   }
 }
 
-.statusTitleBox {
+.smallTextTitleBox {
   @extend .titleBox;
   color: $text-dark;
-  font-size: 18px;
-}
-
-.smallTextTitleBox {
-  @extend .statusTitleBox;
   font-size: 16px;
+  width: 75%;
 }
 
 .fileTitleIcon {
@@ -45,11 +41,15 @@
 
 .infoBox {
   @extend .vbox;
-  width: 20%;
-  min-height: 95%;
-  height: 95%;
+  // width: 20%;
+  // min-height: 95%;
+  // height: 95%;
+  padding-top: 1rem;
   gap: 16px;
-  //   background-color: blue;
+  min-width: 20%;
+  width: 20%;
+  min-height: 100%;
+  height: 100%;
 }
 
 .contentBox {
@@ -105,9 +105,28 @@
   @extend .downloadButton;
   color: $text;
   background-color: $danger-hover;
+  opacity: 0;
+  animation: fadeIn 0.8s forwards;
+  animation-delay: calc(0.1s * var(--i));
+
+  &.fade-out {
+    animation: fadeOut 0.8s forwards;
+  }
 
   &:hover {
     background-color: $danger;
+  }
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
   }
 }
 

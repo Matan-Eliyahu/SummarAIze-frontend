@@ -11,6 +11,15 @@ class FileService {
     return { request, cancel: () => controller.abort() };
   }
 
+  searchFiles(query: string) {
+    const controller = new AbortController();
+    const request = apiClient.get<IFile[]>(`${this.path}`, {
+      params: { query },
+      signal: controller.signal,
+    });
+    return { request, cancel: () => controller.abort() };
+  }
+
   getFileByName(fileName: string) {
     const controller = new AbortController();
     const request = apiClient.get<IFile>(`${this.path}/${fileName}`, { signal: controller.signal });
@@ -25,7 +34,13 @@ class FileService {
 
   deleteFileByName(fileName: string) {
     const controller = new AbortController();
-    const request = apiClient.delete<IFile>(`${this.path}/${fileName}`, { signal: controller.signal });
+    const request = apiClient.delete(`${this.path}/${fileName}`, { signal: controller.signal });
+    return { request, cancel: () => controller.abort() };
+  }
+
+  deleteFilesByName(fileNames: string[]) {
+    const controller = new AbortController();
+    const request = apiClient.post<{ fileName: string; status: string }[]>(`${this.path}/delete-multiple`, { fileNames }, { signal: controller.signal });
     return { request, cancel: () => controller.abort() };
   }
 }

@@ -6,7 +6,6 @@ import SettingsService from "../services/SettingsService";
 import StorageService from "../services/StorageService";
 import UploadService from "../services/UploadService";
 import { useError } from "../hooks/useError";
-import { useAuth } from "../hooks/useAuth";
 
 interface StoreContextProps {
   files: IFile[];
@@ -21,7 +20,6 @@ export const StoreContext = createContext<StoreContextProps | undefined>(undefin
 
 export const StoreProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const { setAlert } = useError();
-  const { auth } = useAuth();
   const [files, setFiles] = useState<IFile[]>([]);
   const [settings, setSettings] = useState<ISettings | null>(null);
   const [storage, setStorage] = useState<IStorage | null>(null);
@@ -42,7 +40,6 @@ export const StoreProvider: React.FC<{ children: ReactNode }> = ({ children }) =
   }
 
   async function uploadFiles(files: File[], progressHandler: (progress: number) => void) {
-    if (!auth) return;
     const { request } = UploadService.uploadFiles(files, progressHandler);
     try {
       await request;
@@ -53,13 +50,11 @@ export const StoreProvider: React.FC<{ children: ReactNode }> = ({ children }) =
   }
 
   useEffect(() => {
-    if (auth) {
       const isInitialized = !!files && !!settings && !!storage;
       if (!isInitialized) setInitialLoading(true);
       fetchUserData();
       setInitialLoading(false);
-    }
-  }, [auth]);
+  }, []);
 
   function refreshStore() {
     fetchUserData();

@@ -47,6 +47,8 @@ export interface IFile {
   path: string;
   transcribe: string;
   summary: string;
+  title: string;
+  keywords: string[];
   status: FileStatus;
   uploadedAt: Date;
   lastOpened?: Date;
@@ -62,5 +64,5 @@ export interface IStorage {
 
 export interface IUpdate {
   fileName: string;
-  status: string;
+  status: FileStatus;
 }

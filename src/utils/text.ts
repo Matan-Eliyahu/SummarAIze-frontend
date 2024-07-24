@@ -11,3 +11,8 @@ export function isFileName(fileName:string) {
   const fileNamePattern = /^[^\\/:*?"<>|]+(\.[^\\/:*?"<>|]+)+$/;
   return fileNamePattern.test(fileName);
 }
+
+export function isHebrew(text: string): boolean {
+  const hebrewPattern = /[\u0590-\u05FF]/;
+  return hebrewPattern.test(text);
+}

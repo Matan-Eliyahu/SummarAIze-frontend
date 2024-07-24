@@ -1,10 +1,9 @@
 .dragDropBox {
   @extend .vbox;
-  min-height: 95%;
-  max-height: 95%;
+  height: 100%;
   width: 100%;
   background-color: $background-dark;
-  border-radius: 32px;
+  border-radius: 16px;
   overflow: hidden;
   position: relative;
 }

@@ -9,15 +9,12 @@ import { useError } from "../../hooks/useError";
 import { FaBell, FaBoxOpen, FaFileArrowDown, FaTrash, FaTriangleExclamation, FaUpload } from "react-icons/fa6";
 import moment from "moment";
 import Spinner from "../../components/Spinner/Spinner";
-import { truncateFileName } from "../../utils/text";
+import { capitalizeFirstLetter, truncateFileName } from "../../utils/text";
 import { useDownloadFile } from "../../hooks/useDownloadFile";
 import useWebSocket from "../../hooks/useWebSocket";
-import { BASE_URL } from "../../services/apiClient";
-import { useAuth } from "../../hooks/useAuth";
 import SummaryDisplay from "../../components/SummaryDisplay/SummaryDisplay";
 
 export default function File() {
-  const { auth } = useAuth();
   const { setAlert, clearAlert } = useError();
   const { fileName } = useParams<{ fileName: string }>();
   const { downloadFile } = useDownloadFile();
@@ -25,7 +22,8 @@ export default function File() {
   const [file, setFile] = useState<IFile | null>(null);
   const [loading, setLoading] = useState(false);
   const [updateFileloading, setUpdateFileLoading] = useState(false);
-  const socket = useWebSocket(BASE_URL, auth!.id);
+  const [edit, setEdit] = useState(false);
+  const socket = useWebSocket();
 
   useEffect(() => {
     if (socket) {
@@ -138,9 +136,9 @@ export default function File() {
                 <img className={styles.fileTitleIcon} src={fileIconMap[file.type]} alt="file-image" />
                 {file.name && truncateFileName(file.name, 24)}
               </div>
-              <div className={styles.statusTitleBox}>
+              <div className={styles.smallTextTitleBox}>
                 {statusIconSwitch(file.status)}
-                {file.status}
+                {file.status && capitalizeFirstLetter(file.status)}
               </div>
               <div className={styles.smallTextTitleBox}>
                 <FaUpload className={styles.fileTitleIcon} />
@@ -154,13 +152,13 @@ export default function File() {
                 <FaFileArrowDown className={styles.downloadButtonIcon} />
                 Download file
               </button>
-              <button className={styles.deleteButton} onClick={handleDeleteFile}>
+              {edit && <button className={styles.deleteButton} onClick={handleDeleteFile}>
                 <FaTrash className={styles.deleteButtonIcon} />
                 Delete file
-              </button>
+              </button>}
             </div>
             <div className={styles.contentBox}>
-              <SummaryDisplay transcribe={file.transcribe} summary={file.summary} onSave={handleUpdateFileText} loading={updateFileloading || file.status === "processing"} />
+              <SummaryDisplay edit={edit} setEdit={setEdit} transcribe={file.transcribe} summary={file.summary} onSave={handleUpdateFileText} loading={updateFileloading || file.status === "processing"} />
             </div>
           </div>
         </>

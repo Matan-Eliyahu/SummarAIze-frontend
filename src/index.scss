@@ -134,6 +134,11 @@ input:focus {
   box-shadow: 0 0 2px 2px $text-dark;
 }
 
+input.no-hover-focus:hover,
+input.no-hover-focus:focus {
+  box-shadow: none;
+}
+
 .home,
 .signup {
   @extend .vbox;

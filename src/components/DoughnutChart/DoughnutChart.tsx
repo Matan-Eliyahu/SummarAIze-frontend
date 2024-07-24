@@ -35,7 +35,7 @@ export default function DoughnutChart({ fileTypeCounts, loading }: DoughnutChart
         ) : (
           <>
             <div className={styles.doughnutCircle} style={{ background: total > 0 ? gradient : "" }}>
-              <div className={styles.circleCenter}></div>
+              <div className={styles.circleCenter}>{`${total} files`}</div>
             </div>
             <div className={styles.precentageContainer}>
               <div className={styles.precentageBox}>

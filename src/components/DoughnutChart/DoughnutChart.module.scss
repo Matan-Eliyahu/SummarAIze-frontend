@@ -48,13 +48,15 @@
   height: 80px;
   border-radius: 50%;
   background-color: $background-soft;
-//   background: conic-gradient(#e5252a 0% 33.33%, #0ac963 33.33% 66.66%, #ffc10a 66.66% 100%);
+  //   background: conic-gradient(#e5252a 0% 33.33%, #0ac963 33.33% 66.66%, #ffc10a 66.66% 100%);
   clip-path: circle(50%);
   margin-bottom: 8px;
 }
 
 .circleCenter {
   position: absolute;
+  @extend .vbox;
+  justify-content: center;
   width: 65px;
   height: 65px;
   top: 50%;
@@ -62,6 +64,9 @@
   transform: translate(-50%, -50%);
   background-color: $background; /* Adjust this to match your design */
   border-radius: 50%;
+  font-size: 14px;
+  font-weight: 500;
+  color: $text-dark;
 }
 
 .precentageContainer {

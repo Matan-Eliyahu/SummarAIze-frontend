@@ -2,7 +2,7 @@
   @extend .vbox;
   justify-content: center;
   gap: 0.5rem;
-  background-color: $background-dark;
+  background-color: $dark;
   width: 100%;
   border-radius: 16px;
   padding: 20px 0;
@@ -34,10 +34,10 @@
   @extend .vbox;
   justify-content: center;
   gap: 8px;
-  background-color: $dark;
+  background-color: $background-dark;
   padding: 16px;
   border-radius: 10px;
-  width: 87%;
+  width: 82%;
   //min-height: 3rem;
 }
 

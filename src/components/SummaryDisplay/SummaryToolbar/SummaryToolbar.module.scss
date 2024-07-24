@@ -10,18 +10,30 @@
   position: relative;
 }
 
+.editButtonBox {
+  @extend .hbox;
+  justify-content: center;
+  gap: 8px;
+  margin-left: auto;
+  margin-right: 1rem;
+}
+
 .editButton {
   padding: 8px 24px;
   border-radius: 8px;
   color: $text-dark;
   font-size: 16px;
-  margin-left: auto;
-  margin-right: 1rem;
+  
   background-color: rgba(255, 255, 255, 0.014);
 
   &:hover {
     background-color: rgba(255, 255, 255, 0.055);
   }
+}
+
+.cancelButton {
+  @extend .editButton;
+  padding: 8px 16px;
 }
 
 .saveButton {
@@ -79,4 +91,11 @@
   height: 14px;
   border-radius: 50%;
   background: linear-gradient(45deg, $secondary-hover, $secondary, $primary, $primary-hover);
+}
+
+.noSummarizedText {
+  font-size: 16px;
+  font-weight: 500;
+  color: $text-dark;
+  margin: 0 16px;
 }
