@@ -17,13 +17,13 @@ import SummaryDisplay from "../../components/SummaryDisplay/SummaryDisplay";
 export default function File() {
   const { setAlert, clearAlert } = useError();
   const { fileName } = useParams<{ fileName: string }>();
-  const { downloadFile } = useDownloadFile();
   const navigate = useNavigate();
   const [file, setFile] = useState<IFile | null>(null);
   const [loading, setLoading] = useState(false);
   const [updateFileloading, setUpdateFileLoading] = useState(false);
   const [edit, setEdit] = useState(false);
   const socket = useWebSocket();
+  const download = useDownloadFile();
 
   useEffect(() => {
     if (socket) {
@@ -59,7 +59,7 @@ export default function File() {
         return <Spinner size="s" />;
       case "completed":
         return <div className={styles.summarizedIcon} />;
-      case "unprocessed":
+      case "not-summarized":
         return <FaBell className={styles.unprocessedIcon} />;
       case "error":
         return <FaTriangleExclamation className={styles.errorIcon} />;
@@ -73,7 +73,7 @@ export default function File() {
   async function handleDownloadFile() {
     if (!file) return;
     try {
-      await downloadFile(file.path);
+      await download(file.path);
     } catch (error) {
       if (error instanceof AxiosError) setAlert({ error });
     }
@@ -152,13 +152,22 @@ export default function File() {
                 <FaFileArrowDown className={styles.downloadButtonIcon} />
                 Download file
               </button>
-              {edit && <button className={styles.deleteButton} onClick={handleDeleteFile}>
-                <FaTrash className={styles.deleteButtonIcon} />
-                Delete file
-              </button>}
+              {edit && (
+                <button className={styles.deleteButton} onClick={handleDeleteFile}>
+                  <FaTrash className={styles.deleteButtonIcon} />
+                  Delete file
+                </button>
+              )}
             </div>
             <div className={styles.contentBox}>
-              <SummaryDisplay edit={edit} setEdit={setEdit} transcribe={file.transcribe} summary={file.summary} onSave={handleUpdateFileText} loading={updateFileloading || file.status === "processing"} />
+              <SummaryDisplay
+                edit={edit}
+                setEdit={setEdit}
+                transcribe={file.transcribe}
+                summary={file.summary}
+                onSave={handleUpdateFileText}
+                loading={updateFileloading || file.status === "processing"}
+              />
             </div>
           </div>
         </>

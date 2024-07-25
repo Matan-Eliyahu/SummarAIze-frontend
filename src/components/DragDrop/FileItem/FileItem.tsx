@@ -42,7 +42,7 @@ export default function FileItem({ file, listView, isSelected, onLongPress, onSe
           return <Spinner size="s" />;
         case "completed":
           return <div className={styles.summarizedIcon} />;
-        case "unprocessed":
+        case "not-summarized":
           return <FaBell className={styles.unprocessedIcon} />;
         case "error":
           return <FaTriangleExclamation className={styles.errorIcon} />;

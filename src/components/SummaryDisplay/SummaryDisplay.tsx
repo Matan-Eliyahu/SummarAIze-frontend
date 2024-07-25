@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
-import styles from "./SummaryDisplay.module.scss";
 import SummaryToolbar, { ModeType } from "./SummaryToolbar/SummaryToolbar";
 import Spinner from "../Spinner/Spinner";
 import { isHebrew } from "../../utils/text";
+import { FaBell } from "react-icons/fa";
+import logo from "../../assets/logo.png";
+import styles from "./SummaryDisplay.module.scss";
 
 interface SummaryDisplayProps {
   transcribe: string;
@@ -18,7 +20,8 @@ function SummaryDisplay({ transcribe, summary, onSave, loading, edit, setEdit }:
   const [updatedTranscribe, setUpdatedTranscribe] = useState(transcribe);
   const [updatedSummary, setUpdatedSummary] = useState(summary);
   const [isRtl, setIsRtl] = useState(false);
-  const isSummarized = transcribe !== "" && summary !== "";
+  const [fontSize, setFontSize] = useState(16);
+  const isSummarized = summary !== "";
 
   useEffect(() => {
     const textToCheck = mode === "transcribe" ? updatedTranscribe : updatedSummary;
@@ -49,17 +52,42 @@ function SummaryDisplay({ transcribe, summary, onSave, loading, edit, setEdit }:
     }
   }
 
+  function handleFontSizeChange(textSize: number) {
+    setFontSize(textSize);
+  }
+
   return (
     <div className={styles.summaryDisplayBox}>
-      <SummaryToolbar onModeChange={handleModeChange} onEditToggle={toggleEdit} onCancelEdit={handleCancelEdit} isEditing={edit} isSummarized={isSummarized} />
+      <SummaryToolbar onModeChange={handleModeChange} onEditToggle={toggleEdit} onCancelEdit={handleCancelEdit} isEditing={edit} isSummarized={isSummarized} onFontSizeChange={handleFontSizeChange} />
       {edit ? (
-        <textarea className={`${styles.textAreaBox} ${isRtl ? styles.rtl : ""}`} value={mode === "transcribe" ? updatedTranscribe : updatedSummary} onChange={handleTextAreaChange} />
+        <textarea
+          className={`${styles.textAreaBox} ${isRtl ? styles.rtl : ""}`}
+          style={{ fontSize }}
+          value={mode === "transcribe" ? updatedTranscribe : updatedSummary}
+          onChange={handleTextAreaChange}
+        />
       ) : loading ? (
         <div className={styles.loadingBox}>
           <Spinner size="m" />
         </div>
       ) : (
-        <div className={`${styles.textBox} ${isRtl ? styles.rtl : ""}`}>{mode === "transcribe" ? updatedTranscribe : updatedSummary}</div>
+        <div className={`${styles.textBox} ${isRtl ? styles.rtl : ""}`} style={{ fontSize }}>
+          {mode === "transcribe" ? (
+            updatedTranscribe
+          ) : isSummarized ? (
+            updatedSummary
+          ) : (
+            <div className={styles.noSummaryBox}>
+              <div className={styles.noSummaryText}>
+                <FaBell className={styles.unprocessedIcon} />
+                Summary not generated
+              </div>
+              <button className={styles.summarizeButton}>
+                <img src={logo} alt="logo" style={{ width: 130 }} />
+              </button>
+            </div>
+          )}
+        </div>
       )}
     </div>
   );

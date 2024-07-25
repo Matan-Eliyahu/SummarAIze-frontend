@@ -24,5 +24,5 @@ export const useDownloadFile = () => {
     }
   }, []);
 
-  return { downloadFile };
+  return  downloadFile ;
 };

@@ -112,9 +112,10 @@ export default function DragDrop({ files, progress, onFileDrop, searchFiles, set
     });
   }
 
-  async function handleDeleteFiles(fileNames:string[]) {
-      await onDeleteFiles(fileNames);
-      setIsSelectionMode(false)
+  async function handleDeleteFiles(fileNames: string[]) {
+    await onDeleteFiles(fileNames);
+    setIsSelectionMode(false);
+    setSelectedFilesNames(new Set());
   }
 
   return (

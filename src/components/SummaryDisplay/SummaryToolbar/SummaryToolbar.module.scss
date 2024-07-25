@@ -23,7 +23,7 @@
   border-radius: 8px;
   color: $text-dark;
   font-size: 16px;
-  
+
   background-color: rgba(255, 255, 255, 0.014);
 
   &:hover {
@@ -98,4 +98,46 @@
   font-weight: 500;
   color: $text-dark;
   margin: 0 16px;
+}
+
+.fontSizeBox {
+  @extend .hbox;
+  justify-content: center;
+  // gap: 8px;
+  height: 50%;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: $background;
+  margin-left: 1rem;
+}
+
+.fontSizeButton {
+  gap: 8px;
+  border-radius: 8px;
+  background-color: transparent;
+  font-size: 16px;
+  font-weight: 500;
+  color: $text-dark;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.055);
+  }
+  padding: 8px;
+}
+
+.fontSizeText {
+  @extend .hbox;
+  justify-content: center;
+  gap: 6px;
+  font-size: 16px;
+  color: $text-dark;
+  padding: 0 12px;
+  height: 100%;
+}
+
+.seperator {
+  @extend .hbox;
+  background-color: $background-dark;
+  min-height: 80%;
+  width: 2px;
 }

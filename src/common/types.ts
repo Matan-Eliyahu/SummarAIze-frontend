@@ -37,7 +37,7 @@ export interface ISettings {
   clearFilesAfterDays: 0 | 30 | 60 | 90;
 }
 
-export type FileStatus = "completed" | "processing" | "error" | "unprocessed";
+export type FileStatus = "completed" | "processing" | "error" | "not-summarized";
 
 export interface IFile {
   userId: string;
