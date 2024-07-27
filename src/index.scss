@@ -7,7 +7,7 @@
 
 :root {
   font-family: "Lato", sans-serif;
-  font-size: 34px;
+  font-size: 16px;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -35,6 +35,7 @@ label {
 h2,
 h4,
 h6 {
+  color: $primary;
   justify-content: center;
   margin: 1rem;
   white-space: nowrap;
@@ -44,7 +45,7 @@ h6 {
 h1,
 h3,
 h5 {
-  color: $primary;
+  color: $text;
   justify-content: center;
   margin: 1rem;
   white-space: nowrap;
@@ -54,7 +55,7 @@ h5 {
 textarea {
   font-family: "Lato", sans-serif;
   &::-webkit-scrollbar {
-    width: 0.4rem;
+    width: 0.8rem;
   }
 
   &::-webkit-scrollbar-track {
@@ -72,9 +73,9 @@ textarea {
 div {
   font-family: "Lato", sans-serif;
   font-weight: bold;
-  color: $text;
+  color: $text-dark;
   &::-webkit-scrollbar {
-    width: 0.4rem;
+    width: 0.8rem;
   }
 
   &::-webkit-scrollbar-track {
@@ -101,7 +102,7 @@ button {
   font-family: "Lato", sans-serif;
   outline: none;
   border: none;
-  font-size: 0.5rem;
+  font-size: 1rem;
   font-weight: bold;
   border-radius: 6px;
   padding: 10px 48px;
@@ -111,6 +112,15 @@ button {
   cursor: pointer;
   // user-select: none;
   transition: background-color 0.2s ease;
+
+  &:disabled {
+    cursor: default;
+    background-color: $input;
+
+    &:hover {
+      background-color: $input;
+    }
+  }
 }
 
 input {
@@ -118,12 +128,12 @@ input {
   font-family: "Lato", sans-serif;
   outline: none;
   border: none;
-  font-size: 0.4rem;
+  font-size: 1rem;
   font-weight: bold;
   color: $background;
   // background-color: $text;
   border-radius: 6px;
-  padding: 12px;
+  padding: 10px;
   white-space: nowrap;
   width: 90%;
   transition: box-shadow 0.2s ease;
@@ -137,18 +147,4 @@ input:focus {
 input.no-hover-focus:hover,
 input.no-hover-focus:focus {
   box-shadow: none;
-}
-
-.home,
-.signup {
-  @extend .vbox;
-  gap: 0.5rem;
-  justify-content: center;
-  min-height: 100vh;
-  min-width: 100vw;
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:svgjs='http://svgjs.dev/svgjs' width='1920' height='1080' preserveAspectRatio='none' viewBox='0 0 1920 1080'%3e%3cg mask='url(%26quot%3b%23SvgjsMask1284%26quot%3b)' fill='none'%3e%3crect width='1920' height='1080' x='0' y='0' fill='rgba(38%2c 38%2c 38%2c 1)'%3e%3c/rect%3e%3cpath d='M2012.068%2c1250.423C2117.211%2c1251.893%2c2199.486%2c1164.324%2c2243.806%2c1068.967C2281.661%2c987.52%2c2254.432%2c898.885%2c2212.327%2c819.552C2166.411%2c733.039%2c2109.611%2c641.175%2c2012.068%2c632.332C1901.636%2c622.32%2c1787.817%2c677.819%2c1737.198%2c776.476C1689.701%2c869.049%2c1739.088%2c972.634%2c1791.287%2c1062.64C1843.237%2c1152.215%2c1908.529%2c1248.975%2c2012.068%2c1250.423' fill='rgba(70%2c 177%2c 225%2c 0.07)' class='triangle-float3'%3e%3c/path%3e%3cpath d='M1572.024%2c481.726C1674.423%2c478.537%2c1779.723%2c448.676%2c1831.907%2c360.514C1884.919%2c270.954%2c1867.793%2c159.882%2c1815.939%2c69.647C1763.878%2c-20.947%2c1676.414%2c-96.213%2c1572.024%2c-91.722C1473.069%2c-87.465%2c1413.941%2c4.88%2c1361.941%2c89.179C1305.825%2c180.151%2c1232.074%2c283.383%2c1282.509%2c377.623C1334.374%2c474.534%2c1462.16%2c485.147%2c1572.024%2c481.726' fill='rgba(70%2c 177%2c 225%2c 0.07)' class='triangle-float3'%3e%3c/path%3e%3cpath d='M1853.789%2c774.05C1889.845%2c773.742%2c1926.509%2c761.018%2c1944.475%2c729.756C1962.389%2c698.584%2c1954.159%2c660.953%2c1936.913%2c629.407C1918.773%2c596.226%2c1891.605%2c563.796%2c1853.789%2c563.877C1816.067%2c563.958%2c1789.658%2c596.819%2c1771.281%2c629.762C1753.502%2c661.633%2c1742.26%2c699.65%2c1760.376%2c731.331C1778.593%2c763.188%2c1817.092%2c774.364%2c1853.789%2c774.05' fill='rgba(70%2c 177%2c 225%2c 0.07)' class='triangle-float1'%3e%3c/path%3e%3cpath d='M1042.681%2c916.585C1097.65%2c918.551%2c1144.142%2c881.487%2c1173.055%2c834.695C1203.804%2c784.932%2c1220.804%2c724.074%2c1193.653%2c672.26C1164.811%2c617.22%2c1104.796%2c584.183%2c1042.681%2c585.895C983.22%2c587.534%2c931.199%2c626.573%2c905.466%2c680.203C882.69%2c727.672%2c901.083%2c780.381%2c927.515%2c825.915C953.804%2c871.204%2c990.348%2c914.714%2c1042.681%2c916.585' fill='rgba(70%2c 177%2c 225%2c 0.07)' class='triangle-float1'%3e%3c/path%3e%3cpath d='M1219.87%2c1225.969C1292.61%2c1222.185%2c1359.625%2c1185.019%2c1394.784%2c1121.229C1428.792%2c1059.528%2c1419.394%2c986.354%2c1386.186%2c924.22C1350.61%2c857.656%2c1295.345%2c793.772%2c1219.87%2c793.957C1144.61%2c794.142%2c1093.844%2c860.595%2c1054.961%2c925.032C1014.213%2c992.559%2c972.415%2c1072.063%2c1010.316%2c1141.228C1049.124%2c1212.048%2c1139.223%2c1230.164%2c1219.87%2c1225.969' fill='rgba(70%2c 177%2c 225%2c 0.07)' class='triangle-float2'%3e%3c/path%3e%3cpath d='M1554.978%2c972.969C1607.933%2c976.37%2c1667.674%2c966.633%2c1693.941%2c920.526C1720.048%2c874.7%2c1697.176%2c818.942%2c1667.608%2c775.269C1642.048%2c737.516%2c1600.568%2c715.661%2c1554.978%2c715.272C1508.635%2c714.876%2c1462.442%2c733.357%2c1438.967%2c773.317C1415.217%2c813.744%2c1420.277%2c863.925%2c1443.833%2c904.465C1467.268%2c944.796%2c1508.429%2c969.98%2c1554.978%2c972.969' fill='rgba(70%2c 177%2c 225%2c 0.07)' class='triangle-float3'%3e%3c/path%3e%3c/g%3e%3cdefs%3e%3cmask id='SvgjsMask1284'%3e%3crect width='1920' height='1080' fill='white'%3e%3c/rect%3e%3c/mask%3e%3cstyle%3e %40keyframes float1 %7b 0%25%7btransform: translate(0%2c 0)%7d 50%25%7btransform: translate(-10px%2c 0)%7d 100%25%7btransform: translate(0%2c 0)%7d %7d .triangle-float1 %7b animation: float1 5s infinite%3b %7d %40keyframes float2 %7b 0%25%7btransform: translate(0%2c 0)%7d 50%25%7btransform: translate(-5px%2c -5px)%7d 100%25%7btransform: translate(0%2c 0)%7d %7d .triangle-float2 %7b animation: float2 4s infinite%3b %7d %40keyframes float3 %7b 0%25%7btransform: translate(0%2c 0)%7d 50%25%7btransform: translate(0%2c -10px)%7d 100%25%7btransform: translate(0%2c 0)%7d %7d .triangle-float3 %7b animation: float3 6s infinite%3b %7d %3c/style%3e%3c/defs%3e%3c/svg%3e");
-  font-size: 32px;
-  color: $text;
-  overflow: auto;
-  overflow-y: auto;
 }

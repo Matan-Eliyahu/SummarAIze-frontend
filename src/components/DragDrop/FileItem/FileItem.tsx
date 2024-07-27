@@ -1,9 +1,9 @@
 import { fileIconMap } from "../../../common/icons";
 import { FileStatus, IFile } from "../../../common/types";
-import { FaBell, FaCircle, FaCircleCheck,  FaTriangleExclamation } from "react-icons/fa6";
+import { FaBell, FaBox, FaCircle, FaCircleCheck,  FaRegCalendar,  FaTriangleExclamation } from "react-icons/fa6";
 import styles from "./FileItem.module.scss";
 import Spinner from "../../Spinner/Spinner";
-import { FileListView } from "../DragDropToolbar/DragDropToolbar";
+import { FileListView } from "../../../common/types";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
 import { truncateFileName } from "../../../utils/text";
@@ -79,8 +79,6 @@ export default function FileItem({ file, listView, isSelected, onLongPress, onSe
     }
   }
 
-  // console.log(`${file.name} is selected: ${isSelected}`);
-
   if (listView === "icons")
     return (
       <button className={isSelected ? styles.fileItemBoxSelected : styles.fileItemBox} onClick={handleFileClick} data-file-name={file.name} onMouseDown={handleMouseDown} onMouseUp={handleMouseUp}>
@@ -110,9 +108,15 @@ export default function FileItem({ file, listView, isSelected, onLongPress, onSe
       {listView !== "recent" && (
         <>
           <div className={isSelected ? styles.seperatorSelected : styles.seperator} />
-          <div className={styles.fileSizeText}>{`${file.size} MB`}</div>
+          <div className={styles.fileSizeText}>
+            <FaBox className={styles.fileListIcon} />
+            {`${file.size} MB`}
+          </div>
           <div className={isSelected ? styles.seperatorSelected : styles.seperator} />
-          <div className={styles.fileSizeText}>{moment(file.uploadedAt).format("DD/MM/YYYY HH:mm:ss")}</div>
+          <div className={styles.fileSizeText}>
+            <FaRegCalendar className={styles.fileListIcon} />
+            {moment(file.uploadedAt).format("DD/MM/YYYY HH:mm:ss")}
+          </div>
         </>
       )}
     </div>

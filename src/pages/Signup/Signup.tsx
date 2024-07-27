@@ -1,20 +1,20 @@
-import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../hooks/useAuth";
-import { IUser } from "../../common/types";
 import Form, { FormElement } from "../../components/Forms/Form";
 import Welcome from "../../components/Welcome/Welcome";
 import styles from "./Signup.module.scss";
 import { useEffect, useState } from "react";
-import { AxiosError } from "axios";
-import { useError } from "../../hooks/useError";
 import Layout from "../../components/Layout/Layout";
+import PlanSelection from "../PlanSelection/PlanSelection";
+
+export interface SignUpFormData {
+  email: string;
+  firstName: string;
+  lastName: string;
+  password: string;
+}
 
 function Signup() {
-  const { register } = useAuth();
-  const { setAlert, clearAlert } = useError();
-  const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const [signupFormDate, sestSignupFormData] = useState<SignUpFormData | null>(null);
 
   useEffect(() => {
     setIsVisible(true);
@@ -22,61 +22,45 @@ function Signup() {
 
   const signupElements: FormElement[] = [
     {
-      label: "Username",
-      key: "username",
+      label: "Email Address",
+      key: "email",
+      type: "email",
+    },
+    {
+      label: "First Name",
+      key: "firstName",
       type: "text",
     },
     {
-      label: "Email",
-      key: "email",
-      type: "email",
+      label: "Last Name",
+      key: "lastName",
+      type: "text",
     },
     {
       label: "Password",
       key: "password",
       type: "password",
     },
-    {
-      label: "confirm Password",
-      key: "confirmPassword",
-      type: "password",
-    },
   ];
 
   async function handleRegister(formData: { [key: string]: string }) {
-    const { email, username, password } = formData;
-    const user: IUser = {
-      email,
-      fullName: username,
-      imageUrl: "https://static.vecteezy.com/system/resources/previews/009/292/244/original/default-avatar-icon-of-social-media-user-vector.jpg",
-      password,
+    const signupFormData: SignUpFormData = {
+      email: formData.email,
+      firstName: formData.firstName,
+      lastName: formData.lastName,
+      password: formData.password,
     };
-    setLoading(true);
-    try {
-      await register(user);
-      setLoading(false);
-      navigate("/");
-    } catch (error) {
-      if (error instanceof AxiosError) handleAlert( error );
-    }
+    sestSignupFormData(signupFormData);
   }
 
-  function handleAlert(error:AxiosError) {
-    setAlert({
-      error,
-      onButtonClick:()=>{
-        setLoading(false)
-        clearAlert()
-      }
-    })
-  }
+  if (signupFormDate !== null) return <PlanSelection signupFormData={signupFormDate} />;
 
   return (
     <Layout fullPage>
       <div className={styles.signupContainer}>
         <div className={`${styles.signupBox} ${isVisible ? styles.visible : ""}`}>
           <div>Create your account</div>
-          <Form elements={signupElements} buttonText="Sign Up" theme="secondary" onSubmit={handleRegister} loading={loading}></Form>
+          <Form isSignUp elements={signupElements} buttonText="Sign Up" theme="secondary" onSubmit={handleRegister}></Form>
           <div className={styles.signinBox}>
             <div className={styles.lightText}>Already have an account?</div>
             <a href="/">Log in</a>

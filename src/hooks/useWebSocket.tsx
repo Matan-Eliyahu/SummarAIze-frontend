@@ -7,7 +7,7 @@ const useWebSocket = () => {
   const [socket, setSocket] = useState<WebSocket | null>(null);
   useEffect(() => {
     if (!auth) return;
-    const ws = new WebSocket(`${BASE_URL}?userId=${auth.id}`);
+    const ws = new WebSocket(`${BASE_URL}?userId=${auth.userId}`);
     setSocket(ws);
 
     ws.onopen = () => {

@@ -2,8 +2,7 @@ import { useState, useEffect } from "react";
 import SummaryToolbar, { ModeType } from "./SummaryToolbar/SummaryToolbar";
 import Spinner from "../Spinner/Spinner";
 import { isHebrew } from "../../utils/text";
-import { FaBell } from "react-icons/fa";
-import logo from "../../assets/logo.png";
+// import logo from "../../assets/logo.png";
 import styles from "./SummaryDisplay.module.scss";
 
 interface SummaryDisplayProps {
@@ -58,7 +57,15 @@ function SummaryDisplay({ transcribe, summary, onSave, loading, edit, setEdit }:
 
   return (
     <div className={styles.summaryDisplayBox}>
-      <SummaryToolbar onModeChange={handleModeChange} onEditToggle={toggleEdit} onCancelEdit={handleCancelEdit} isEditing={edit} isSummarized={isSummarized} onFontSizeChange={handleFontSizeChange} />
+      <SummaryToolbar
+        loading={loading}
+        onModeChange={handleModeChange}
+        onEditToggle={toggleEdit}
+        onCancelEdit={handleCancelEdit}
+        isEditing={edit}
+        isSummarized={isSummarized}
+        onFontSizeChange={handleFontSizeChange}
+      />
       {edit ? (
         <textarea
           className={`${styles.textAreaBox} ${isRtl ? styles.rtl : ""}`}
@@ -68,6 +75,7 @@ function SummaryDisplay({ transcribe, summary, onSave, loading, edit, setEdit }:
         />
       ) : loading ? (
         <div className={styles.loadingBox}>
+          Processing...
           <Spinner size="m" />
         </div>
       ) : (
@@ -79,12 +87,11 @@ function SummaryDisplay({ transcribe, summary, onSave, loading, edit, setEdit }:
           ) : (
             <div className={styles.noSummaryBox}>
               <div className={styles.noSummaryText}>
-                <FaBell className={styles.unprocessedIcon} />
                 Summary not generated
               </div>
-              <button className={styles.summarizeButton}>
+              {/* <button className={styles.summarizeButton}>
                 <img src={logo} alt="logo" style={{ width: 130 }} />
-              </button>
+              </button> */}
             </div>
           )}
         </div>

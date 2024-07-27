@@ -10,7 +10,7 @@ class AuthService {
 
   register(user: IUser) {
     const controller = new AbortController();
-    const request = apiClient.post(`${this.path}/register`, user, { signal: controller.signal });
+    const request = apiClient.post<{ _id: string }>(`${this.path}/register`, user, { signal: controller.signal });
     return { request, cancel: () => controller.abort() };
   }
 

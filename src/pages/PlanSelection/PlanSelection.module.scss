@@ -1,0 +1,16 @@
+.planSelectionBox {
+  @extend .vbox;
+  justify-content: center;
+  gap: 10%;
+  width: 80%;
+  height: 100%;
+}
+
+.planSelectionButtonBox {
+  @extend .hbox;
+  margin: 0;
+  padding: 0;
+  justify-content: center;
+  gap: 2rem;
+  overflow: auto;
+}

@@ -9,7 +9,7 @@ interface AuthContextType {
   loadingAuth: boolean;
   register: (user: IUser) => Promise<void>;
   login: (email: string, password: string) => Promise<void>;
-  googleLogin: (tokenResponse: TokenResponse) => Promise<void>;
+  googleLogin: (tokenResponse: TokenResponse) => Promise<boolean>;
   logout: () => Promise<void>;
 }
 
@@ -22,9 +22,11 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   useEffect(() => {
     const storedTokens = getLocalStorageAuth();
     if (storedTokens) {
-      setAuth(storedTokens);
+      if (storedTokens.plan !== "none") setAuth(storedTokens);
     }
   }, []);
+
+  useEffect(() => console.log("AUTH: ", auth), [auth]);
 
   async function register(user: IUser) {
     setLoadingAuth(true);
@@ -62,10 +64,16 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       const response = await request;
       const auth: IAuth = response.data;
       setLocalStorageAuth(auth);
-      setAuth(auth);
+      if (auth.plan === "none") {
+        return false;
+      } else {
+        setAuth(auth);
+        return true;
+      }
     } catch (error) {
       console.error("Google login error:", error);
       if (error instanceof AxiosError) throw error;
+      return false;
     } finally {
       setLoadingAuth(false);
     }

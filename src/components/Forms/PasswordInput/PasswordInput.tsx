@@ -2,15 +2,17 @@ import React from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import styles from "./PasswordInput.module.scss";
 import { FormElement } from "../Form";
+import { ImCheckmark2 } from "react-icons/im";
 
 interface PasswordInputProps {
   elem: FormElement;
   value: string;
   onChange: (value: string) => void;
   disabled?: boolean;
+  isSignUp?: boolean;
 }
 
-const PasswordInput: React.FC<PasswordInputProps> = ({ elem, value, onChange, disabled }) => {
+export default function PasswordInput({ elem, value, onChange, disabled, isSignUp }: PasswordInputProps) {
   const [showPassword, setShowPassword] = React.useState(false);
 
   const handleTogglePassword = () => {
@@ -36,12 +38,22 @@ const PasswordInput: React.FC<PasswordInputProps> = ({ elem, value, onChange, di
           disabled={disabled}
           required
         />
-        <div className={styles.passwordToggle} onClick={handleTogglePassword}>
-          {showPassword ? <FaEyeSlash /> : <FaEye />}
+        <div className={isSignUp ? styles.passwordToggle : styles.passwordToggleConfirm} onClick={handleTogglePassword}>
+          {showPassword ? <FaEyeSlash className={styles.eyeIcon} /> : <FaEye className={styles.eyeIcon} />}
         </div>
+        {isSignUp && (
+          <div className={styles.passRulesBox}>
+            <div className={styles.passRuleText}>
+              <ImCheckmark2 />
+              Must be at least 8 characters
+            </div>
+            <div className={styles.passRuleText}>
+              <ImCheckmark2 />
+              Does not contain your email address
+            </div>
+          </div>
+        )}
       </div>
     </label>
   );
-};
-
-export default PasswordInput;
+}

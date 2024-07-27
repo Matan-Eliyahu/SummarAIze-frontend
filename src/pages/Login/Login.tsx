@@ -10,12 +10,18 @@ import { TokenResponse, useGoogleLogin } from "@react-oauth/google";
 import { AxiosError } from "axios";
 import { useError } from "../../hooks/useError";
 import styles from "./Login.module.scss";
+import PlanSelection from "../PlanSelection/PlanSelection";
+
+export interface GoogleSignupData {
+  tokenResponse: TokenResponse;
+}
 
 function Home() {
   const { login, googleLogin } = useAuth();
   const { setAlert, clearAlert } = useError();
   const [loading, setLoading] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const [googleSignupData, setGoogleSignupData] = useState<GoogleSignupData | null>(null);
 
   useEffect(() => {
     setIsVisible(true);
@@ -38,7 +44,15 @@ function Home() {
     onSuccess: async (tokenResponse: TokenResponse) => {
       setLoading(true);
       try {
-        await googleLogin(tokenResponse);
+        const signed = await googleLogin(tokenResponse);
+        if (!signed) {
+          // No plan
+          console.log("NO PLAN");
+          const googleSignupData: GoogleSignupData = {
+            tokenResponse,
+          };
+          setGoogleSignupData(googleSignupData);
+        }
       } catch (error) {
         if (error instanceof AxiosError) handleAlert(error);
       }
@@ -65,6 +79,8 @@ function Home() {
     });
   }
 
+  if (googleSignupData) return <PlanSelection googleSignupData={googleSignupData} />;
+
   return (
     <Layout fullPage>
       <div className={styles.homeBox}>
@@ -73,7 +89,7 @@ function Home() {
         </div>
 
         <div className={`${styles.singinBox} ${isVisible ? styles.visible : ""}`}>
-          <div className={styles.loginText}>Log in to your account</div>
+          <div>Log in to your account</div>
 
           <Form elements={signinElements} buttonText="Log In" onSubmit={handleLogin} loading={loading} />
           <div className={styles.boxSeparator}>

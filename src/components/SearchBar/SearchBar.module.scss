@@ -9,7 +9,7 @@
   margin: 16px 0px;
   padding: 8px 12px;
   min-width: 30vw;
-  background-color: $background-soft;
+  background-color: $background;
   color: $text;
   font-size: 18px;
   font-weight: 500;
@@ -26,7 +26,7 @@
   position: absolute;
   right: 2%;
   font-size: 20px;
-  color: $background;
+  color: $background-soft;
 }
 
 .spinnerBox {

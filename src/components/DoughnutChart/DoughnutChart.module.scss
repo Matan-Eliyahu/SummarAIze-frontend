@@ -72,7 +72,8 @@
 .precentageContainer {
   @extend .hbox;
   justify-content: center;
-  gap: 10%;
+  flex-wrap: wrap;
+  gap: 20%;
   width: 100%;
 }
 

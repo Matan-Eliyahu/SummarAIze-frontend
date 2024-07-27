@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Switch from "../../Switch/Switch";
 import CheckBox from "../../CheckBox/CheckBox";
 import Select from "../../Select/Select";
-import { FileType, ISettings } from "../../../common/types";
+import { FileListView, FileType, ISettings } from "../../../common/types";
 import styles from "./SettingsForm.module.scss";
 
 interface SettingsFormProps {
@@ -19,6 +19,11 @@ export default function SettingsForm({ set, onSubmit }: SettingsFormProps) {
     { value: 60, label: "After 60 days" },
     { value: 30, label: "After 30 days" },
     { value: 0, label: "Never" },
+  ];
+
+  const defaultFileViewOptions = [
+    { value: "icons", label: "Icons" },
+    { value: "list", label: "List" },
   ];
 
   useEffect(() => {
@@ -49,6 +54,13 @@ export default function SettingsForm({ set, onSubmit }: SettingsFormProps) {
     }
   }
 
+  function handleFileViewSelectChange(value: string | number) {
+    setSettings((prev) => ({
+      ...prev,
+      defaultFileView: value as FileListView,
+    }));
+  }
+
   return (
     <div className={styles.settingsFormBox}>
       <div className={styles.settingsTitle}>
@@ -76,6 +88,10 @@ export default function SettingsForm({ set, onSubmit }: SettingsFormProps) {
       <div className={styles.settingsTitle}>
         <div className={styles.title}>Clear files automatically</div>
         <Select set={settings.clearFilesAfterDays} options={clearFilesOptions} onChange={handleClearFilesSelectChange} />
+      </div>
+      <div className={styles.settingsTitle}>
+        <div className={styles.title}>Default files view</div>
+        <Select set={settings.defaultFileView} options={defaultFileViewOptions} onChange={handleFileViewSelectChange} />
       </div>
       <div className={styles.buttonBox}>
         <button className={styles.saveButton} onClick={() => onSubmit(settings)} disabled={!isChanged}>

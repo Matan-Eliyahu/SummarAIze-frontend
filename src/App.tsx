@@ -8,6 +8,8 @@ import Header from "./components/Header/Header";
 import Settings from "./pages/Settings/Settings";
 import Account from "./pages/Account/Account";
 import { StoreProvider } from "./context/StoreContext";
+import PrivacyPolicy from "./pages/PrivacyPolicy/PrivacyPolicy";
+import TermsOfService from "./pages/TermsOfService/TermsOfService";
 
 function App() {
   const { auth } = useAuth();
@@ -18,12 +20,14 @@ function App() {
         <Routes>
           <Route path="/" Component={Login} />
           <Route path="/signup" Component={Signup} />
+          <Route path="/privacy-policy" Component={PrivacyPolicy} />
+          <Route path="/terms-of-service" Component={TermsOfService} />
           <Route path="/*" element={<Navigate to="/" />} />
         </Routes>
       </Router>
     );
   }
-
+  
   return (
     <Router>
       <StoreProvider>

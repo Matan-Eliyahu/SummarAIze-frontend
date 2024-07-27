@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import * as pdfjs from "pdfjs-dist";
-import DragDropToolbar, { FileListView, FileSorting, SortingDirection } from "./DragDropToolbar/DragDropToolbar";
+import DragDropToolbar, { FileSorting, SortingDirection } from "./DragDropToolbar/DragDropToolbar";
 import { FaClone } from "react-icons/fa6";
 import styles from "./DragDrop.module.scss";
-import { IFile } from "../../common/types";
+import { FileListView, IFile } from "../../common/types";
 import FileItem from "./FileItem/FileItem";
 import ProgressBar from "../ProgressBar/ProgressBar";
 
@@ -16,11 +16,13 @@ interface DragDropProps {
   searchFiles: (searchTerm: string) => Promise<IFile[]>;
   setFilteredFiles: React.Dispatch<React.SetStateAction<IFile[] | null>>;
   onDeleteFiles: (fileNames: string[]) => Promise<void>;
+  enableSmartSearch: boolean;
+  defaultFileView: FileListView;
 }
 
-export default function DragDrop({ files, progress, onFileDrop, searchFiles, setFilteredFiles, onDeleteFiles }: DragDropProps) {
+export default function DragDrop({ files, progress, onFileDrop, searchFiles, setFilteredFiles, onDeleteFiles, enableSmartSearch, defaultFileView }: DragDropProps) {
   const [isDraggingOver, setIsDraggingOver] = useState<boolean>(false);
-  const [listView, setListView] = useState<FileListView>("icons");
+  const [listView, setListView] = useState<FileListView>(defaultFileView);
   const [sortedFiles, setSortedFiles] = useState<IFile[]>([]);
   const [sorting, setSorting] = useState<FileSorting>("by-recent");
   const [sortingDirection, setSortingDirection] = useState<SortingDirection>("asc");
@@ -49,7 +51,7 @@ export default function DragDrop({ files, progress, onFileDrop, searchFiles, set
     }
   }
 
-  function handleFileViewChange(fileViewType: "list" | "icons" | "recent") {
+  function handleFileViewChange(fileViewType: FileListView) {
     setListView(fileViewType);
   }
 
@@ -89,7 +91,6 @@ export default function DragDrop({ files, progress, onFileDrop, searchFiles, set
     setSelectedFilesNames((prevSelectedFiles) => {
       const updatedSet = new Set(prevSelectedFiles);
       updatedSet.add(fileName);
-      console.log("Long press added:", fileName);
       return updatedSet;
     });
   }
@@ -118,6 +119,11 @@ export default function DragDrop({ files, progress, onFileDrop, searchFiles, set
     setSelectedFilesNames(new Set());
   }
 
+  function handleClearSelectedFiles() {
+    setIsSelectionMode(false);
+    setSelectedFilesNames(new Set());
+  }
+
   return (
     <div className={styles.dragDropBox}>
       <DragDropToolbar
@@ -129,32 +135,36 @@ export default function DragDrop({ files, progress, onFileDrop, searchFiles, set
         onDeleteFiles={handleDeleteFiles}
         selectedFileNames={Array.from(selectedFilesNames)}
         isSelectionMode={isSelectionMode}
+        enableSmartSearch={enableSmartSearch}
+        defaultFileView={defaultFileView}
+        onClearSelectedFiles={handleClearSelectedFiles}
       />
       <div onDragOver={handleDragOver} onDrop={handleDrop} onDragLeave={handleDragLeave} className={isDraggingOver ? styles.draggingOverBox : styles.filesBox}>
         <div className={progress > 0 ? styles.filesLoadingBox : listView === "icons" ? styles.filesDisplayBox : styles.filesListDisplayBox}>
-          {sortedFiles.length > 0
-            ? sortedFiles.map((file, index) => (
-                <FileItem
-                  key={index}
-                  file={file}
-                  listView={listView}
-                  isSelected={selectedFilesNames.has(file.name)}
-                  onLongPress={handleLongPress}
-                  onSelectToggle={handleFileSelectToggle}
-                  isSelectionMode={isSelectionMode}
-                />
-              ))
-            : sortedFiles.length === 0 && progress === 0 && <div className={styles.noFilesBox}>No files here yet...</div>}
-          {progress > 0 && (
+          {progress > 0 ? (
             <div className={styles.progressBox}>
               {`Uploading... ${progress}%`}
               <div className={styles.progressBarBox}>
                 <ProgressBar progress={progress} />
               </div>
             </div>
+          ) : (
+            sortedFiles.length > 0 &&
+            sortedFiles.map((file, index) => (
+              <FileItem
+                key={index}
+                file={file}
+                listView={listView}
+                isSelected={selectedFilesNames.has(file.name)}
+                onLongPress={handleLongPress}
+                onSelectToggle={handleFileSelectToggle}
+                isSelectionMode={isSelectionMode}
+              />
+            ))
           )}
         </div>
-        {progress === 0 && (
+        {sortedFiles.length === 0 && progress === 0 && <div className={styles.noFilesBox}>There is no files</div>}
+        {progress === 0 && (listView !== "list" || files.length === 0) && (
           <div className={styles.dropText}>
             <FaClone />
             You can drag and drop files here

@@ -11,8 +11,8 @@
 
 .pageLayout {
   @extend .fullPageLayout;
-  height: calc(100vh - 1rem - 8px);
+  height: calc(100vh - 2rem - 8px);
   background-image: none;
   background-color: $background;
-  margin-top: calc(1rem + 8px);
+  margin-top: calc(2rem + 8px);
 }

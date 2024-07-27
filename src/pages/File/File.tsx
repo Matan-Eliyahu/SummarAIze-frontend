@@ -15,15 +15,15 @@ import useWebSocket from "../../hooks/useWebSocket";
 import SummaryDisplay from "../../components/SummaryDisplay/SummaryDisplay";
 
 export default function File() {
-  const { setAlert, clearAlert } = useError();
   const { fileName } = useParams<{ fileName: string }>();
+  const { setAlert, clearAlert } = useError();
   const navigate = useNavigate();
+  const socket = useWebSocket();
+  const download = useDownloadFile();
   const [file, setFile] = useState<IFile | null>(null);
   const [loading, setLoading] = useState(false);
   const [updateFileloading, setUpdateFileLoading] = useState(false);
   const [edit, setEdit] = useState(false);
-  const socket = useWebSocket();
-  const download = useDownloadFile();
 
   useEffect(() => {
     if (socket) {

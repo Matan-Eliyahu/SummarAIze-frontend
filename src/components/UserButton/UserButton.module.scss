@@ -34,11 +34,11 @@
   @extend .vbox;
   // align-items: start;
   // justify-content: center;
-  gap: 0.5rem;
+  gap: 1rem;
   position: absolute;
   min-width: 200px;
   // height: 100px;
-  top: calc(1rem + 12px);
+  top: calc(2rem + 12px);
   right: 0px;
   background: linear-gradient(to bottom, $background, $background-dark);
   border: 2px solid $background-soft;
@@ -81,10 +81,10 @@
 
 .logoutButton {
   padding: 4px;
-  min-width: 3rem;
+  min-width: 6rem;
   min-height: 38px;
   font-size: 14px;
-  gap: 8px;
+  gap: 4px;
   font-weight: 400;
   border-radius: 8px;
   background-color: rgba(255, 0, 0, 0.418);
@@ -129,7 +129,7 @@
 .tooltipContent {
   @extend .vbox;
   justify-content: center;
-  gap: 16px;
+  gap: 1.5rem;
 }
 
 .tooltipButtonBox {

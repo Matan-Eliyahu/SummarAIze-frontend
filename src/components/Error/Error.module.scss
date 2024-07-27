@@ -51,6 +51,7 @@
 .errorTextBox {
   @extend .vbox;
   align-items: start;
+  color: $text;
   font-size: 16px;
   font-weight: 500;
 }
@@ -58,7 +59,7 @@
 .buttonBox {
   @extend .hbox;
   justify-content: center;
-  gap: 0.5rem;
+  gap: 1rem;
   padding: 8px;
   width: 100%;
 }
@@ -71,47 +72,21 @@
 }
 
 .button.danger {
-  @extend .button;
-  color: $text;
-  background-color: $danger;
-
-  &:hover {
-    background-color: $danger-hover;
-  }
+  @extend .dangerButton;
 }
 
 .button.create {
-  @extend .button;
-  background-color: $create;
-
-  &:hover {
-    background-color: $create-hover;
-  }
+  @extend .createButton;
 }
 
 .button.primary {
-  @extend .button;
-  background-color: $primary;
-
-  &:hover {
-    background-color: $primary-hover;
-  }
+  @extend .primaryButton;
 }
 
 .button.secondary {
-  @extend .button;
-  background-color: $secondary;
-
-  &:hover {
-    background-color: $secondary-hover;
-  }
+  @extend .secondaryButton;
 }
 
 .button.cancel {
-  @extend .button;
-  background-color: $shadow;
-
-  &:hover {
-    background-color: $input;
-  }
+  @extend .cancelButton;
 }

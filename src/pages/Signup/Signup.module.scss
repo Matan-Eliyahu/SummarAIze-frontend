@@ -9,10 +9,10 @@
 .signupBox {
   @extend .vbox;
   justify-content: center;
-  gap: 0.7rem;
-  padding: 48px 80px;
-  background-color: $background-dark;
-  border-radius: 32px;
+  gap: 2rem;
+  padding: 32px 80px;
+  background: linear-gradient(to bottom, $background-dark, $dark);
+  border-radius: 16px;
   opacity: 0;
   transition: opacity 0.5s ease-in-out;
 
@@ -31,18 +31,18 @@
   width: 500px;
 }
 
+.signinBox {
+  @extend .hbox;
+  padding: 8px;
+  gap: 0.5rem;
+  font-size: 1.2rem;
+  justify-content: center;
+  width: 100%;
+}
+
 .lightText {
   text-align: center;
   font-style: italic;
   color: $input;
   font-weight: 400;
-}
-
-.signinBox {
-  @extend .hbox;
-  padding: 16px;
-  gap: 0.3rem;
-  font-size: 0.6rem;
-  justify-content: center;
-  width: 100%;
 }

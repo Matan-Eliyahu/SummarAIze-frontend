@@ -1,0 +1,41 @@
+.privacyPolicyBox {
+  @extend .vbox;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 50%;
+  height: 100%;
+}
+
+.textContainer {
+  @extend .vbox;
+  align-items: start;
+  padding: 24px 64px;
+  gap: 24px;
+  height: 80%;
+  overflow: auto;
+  border: 4px solid $background-dark;
+  background-color: $background-dark;
+  border-radius: 16px;
+}
+
+.headerBox {
+  @extend .hbox;
+  width: 95%;
+  gap: 8px;
+}
+
+.logo {
+  width: 250px;
+  margin-left: auto;
+}
+
+.smallTitle {
+  padding: 0 16px;
+  color: $shadow;
+}
+
+.text {
+  padding: 0 16px;
+  font-size: 18px;
+  font-weight: 500;
+}

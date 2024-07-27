@@ -11,9 +11,10 @@ interface SummaryToolbarProps {
   onFontSizeChange: (textSize: number) => void;
   isSummarized: boolean;
   isEditing: boolean;
+  loading:boolean;
 }
 
-export default function SummaryToolbar({ onModeChange, onEditToggle, onCancelEdit, onFontSizeChange, isEditing, isSummarized }: SummaryToolbarProps) {
+export default function SummaryToolbar({ onModeChange, onEditToggle, onCancelEdit, onFontSizeChange, isEditing, isSummarized,loading }: SummaryToolbarProps) {
   const [mode, setMode] = useState<ModeType>("summary");
   const [fontSize, setFontSize] = useState(16);
 
@@ -54,7 +55,7 @@ export default function SummaryToolbar({ onModeChange, onEditToggle, onCancelEdi
             Cancel
           </button>
         )}
-        {mode === "summary" && !isSummarized ? null : (
+        {(mode === "summary" && !isSummarized)|| loading ? null : (
           <button className={isEditing ? styles.saveButton : styles.editButton} onClick={onEditToggle}>
             {isEditing ? (
               "Save"

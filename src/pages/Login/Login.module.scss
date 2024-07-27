@@ -11,7 +11,7 @@
 .welcomeBox {
   @extend .vbox;
   justify-content: center;
-  gap: 1rem;
+  gap: 2rem;
 }
 
 .signinText {
@@ -53,10 +53,10 @@
 .singinBox {
   @extend .vbox;
   justify-content: center;
-  gap: 0.7rem;
+  gap: 2rem;
   padding: 48px 64px;
-  background-color: $background-dark;
-  border-radius: 32px;
+  background: linear-gradient(to bottom, $background-dark, $dark);
+  border-radius: 16px;
   opacity: 0;
   transition: opacity 0.5s ease-in-out;
 
@@ -68,8 +68,8 @@
 .signupBox {
   @extend .hbox;
   padding: 8px;
-  gap: 0.3rem;
-  font-size: 0.6rem;
+  gap: 0.5rem;
+  font-size: 1.2rem;
   justify-content: center;
   width: 100%;
 }
@@ -84,17 +84,17 @@
   font-size: 14px;
   margin: 16px 0px;
   flex: 1;
-  min-width: 30%; /* Each item occupies 33.33% of the container's width */
-  box-sizing: border-box; /* Include border in width calculation */
-  text-align: center; /* Center-align content */
+  min-width: 30%;
+  box-sizing: border-box; 
+  text-align: center; 
   color: $text-dark;
 }
 
 .boxSeparatorLine {
   flex: 1;
   width: 33.33%;
-  box-sizing: border-box; /* Include border in width calculation */
-  text-align: center; /* Center-align content */
+  box-sizing: border-box;
+  text-align: center;
   height: 1px;
   background-color: $input;
 }
@@ -116,5 +116,5 @@
 }
 
 .googleIcon {
-  font-size: 30px;
+  font-size: 26px;
 }

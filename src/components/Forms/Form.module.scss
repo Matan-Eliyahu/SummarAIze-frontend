@@ -3,6 +3,7 @@
   padding: 8px;
   width: 100%;
   margin-bottom: -0.5rem;
+  gap: 8px;
 }
 
 .inputLabel {
@@ -19,4 +20,16 @@
   justify-content: center;
   width: 80%;
   height: 1.5rem;
+}
+
+.checkBoxText {
+  font-size: 16px;
+  padding: 8px 0;
+  color: $text-dark;
+  width: 15rem;
+  font-weight: 500;
+}
+
+.link {
+  font-weight: 500;
 }

@@ -39,7 +39,7 @@ $dark: rgb(27, 27, 27);
   gap: 12px;
   width: 85%;
   color: $text-dark;
-  font-size: 1.2rem;
+  font-size: 2.4rem;
   opacity: 0;
   animation: fadeIn 0.4s forwards;
   animation-delay: calc(0.1s * var(--i));
@@ -60,10 +60,10 @@ $dark: rgb(27, 27, 27);
 }
 
 .secondaryButton {
-  background-color: $secondary;
+  background-color: $secondary-hover;
 
   &:hover {
-    background-color: $secondary-hover;
+    background-color: $secondary;
   }
 }
 
@@ -80,5 +80,21 @@ $dark: rgb(27, 27, 27);
 
   &:hover {
     background-color: $danger-hover;
+  }
+}
+
+.createButton {
+  background-color: $create;
+
+  &:hover {
+    background-color: $create-hover;
+  }
+}
+
+.cancelButton {
+  background-color: $shadow;
+
+  &:hover {
+    background-color: $input;
   }
 }

@@ -1,4 +1,4 @@
-import { FaBoxOpen } from "react-icons/fa6";
+import { FaBox } from "react-icons/fa6";
 import ProgressBar from "../ProgressBar/ProgressBar";
 import styles from "./TotalSizeProgressBar.module.scss";
 import Spinner from "../Spinner/Spinner";
@@ -15,7 +15,7 @@ export default function TotalSizeProgressBar({ totalSize, maxSize, loading }: To
   return (
     <div className={styles.progressContainer}>
       <div className={styles.title}>
-        <FaBoxOpen className={styles.titleIcon} />
+        <FaBox className={styles.titleIcon} />
         Storage
       </div>
       <div className={styles.contentBox}>
@@ -27,9 +27,15 @@ export default function TotalSizeProgressBar({ totalSize, maxSize, loading }: To
               <ProgressBar progress={progress} />
             </div>
             <div className={styles.textBox}>
-              <div className={styles.totalSizeText}>{`${totalSize} MB`}</div>
-              <div className={styles.maxSizeText}>/</div>
-              <div className={styles.maxSizeText}>{`${maxSize} MB`}</div>
+              <div className={styles.totalSizeText}>
+                {totalSize}
+                <div className={styles.mbTextBox}>MB</div>
+              </div>
+              <div className={styles.seperatorText}>/</div>
+              <div className={styles.maxSizeText}>
+                {maxSize}
+                <div className={styles.mbTextBox}>MB</div>
+              </div>
             </div>
           </>
         )}

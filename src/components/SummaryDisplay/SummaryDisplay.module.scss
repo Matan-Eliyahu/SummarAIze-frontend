@@ -34,10 +34,13 @@
 }
 
 .loadingBox {
-  @extend .hbox;
+  @extend .vbox;
   justify-content: center;
+  gap: 16px;
   width: 90%;
   height: 90%;
+  font-size: 16px;
+  color: $text-dark;
 }
 
 .rtl {
@@ -48,7 +51,7 @@
 .noSummaryBox {
   @extend .vbox;
   justify-content: center;
-  gap: 1rem;
+  gap: 2rem;
   width: 100%;
   height: 100%;
 }
@@ -61,17 +64,12 @@
   color: $text-dark;
 }
 
-.unprocessedIcon {
-  font-size: 16px;
-  color: $create;
-}
-
 .summarizeButton {
   background: $primary-hover;
-  padding: 4px 16px;
+  padding: 8px 32px;
 
   &:hover {
     background: none;
-    background-color: $primary;    
+    background-color: $primary;
   }
 }

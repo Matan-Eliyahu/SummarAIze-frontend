@@ -10,16 +10,22 @@ import DoughnutChart from "../../components/DoughnutChart/DoughnutChart";
 import { useStore } from "../../hooks/useStore";
 import useWebSocket from "../../hooks/useWebSocket";
 import { AxiosError } from "../../services/apiClient";
-import { IFile, IUpdate } from "../../common/types";
+import { IFile, IUpdate, PLANS } from "../../common/types";
 import RecentFilesList from "../../components/RecentFilesList/RecentFilesList";
 import FileService from "../../services/FileService";
+import { useAuth } from "../../hooks/useAuth";
 
 function Dashboard() {
+  const { auth } = useAuth();
   const { files, settings, storage, initialLoading, uploadFiles, refreshStore } = useStore();
   const { setAlert, clearAlert } = useError();
   const [fileteredFiles, setFileteredFiles] = useState<IFile[] | null>(null);
   const [uploadProgress, setUploadProgress] = useState<number>(0);
   const socket = useWebSocket();
+
+  useEffect(() => {
+    refreshStore();
+  }, []);
 
   useEffect(() => {
     if (socket) {
@@ -30,10 +36,6 @@ function Dashboard() {
       };
     }
   }, [socket, refreshStore]);
-
-  useEffect(() => {
-    refreshStore();
-  }, []);
 
   function handleUploadFiles(draggedFiles: File[]) {
     if (!settings) return;
@@ -82,24 +84,26 @@ function Dashboard() {
   return (
     <Layout loading={initialLoading} text="Loading dashboard...">
       <div className={styles.dashboardBox}>
-        <div className={styles.infoBox}>
-          <TotalSizeProgressBar totalSize={storage?.totalSize ?? 0} maxSize={500} loading={!storage} />
-          <DoughnutChart fileTypeCounts={{ pdf: storage?.pdfCount ?? 0, image: storage?.imageCount ?? 0, audio: storage?.audioCount ?? 0 }} loading={!storage} />
-          <RecentFilesList files={files ?? []} recentFileNames={storage?.lastOpened ?? []} loading={!storage} />
-        </div>
+        {storage && (
+          <div className={styles.infoBox}>
+            <TotalSizeProgressBar totalSize={storage.totalSize} maxSize={PLANS[auth!.plan]!.maxStorageInMb} loading={false} />
+            <DoughnutChart fileTypeCounts={{ pdf: storage.pdfCount, image: storage.imageCount, audio: storage.audioCount }} loading={false} />
+            <RecentFilesList files={files} recentFileNames={storage.lastOpened} loading={false} />
+          </div>
+        )}
 
-        {files && (
+        {files && settings && (
           <div className={styles.dragDropContainer}>
-            <div className={styles.dragDropBox}>
-              <DragDrop
-                onFileDrop={handleUploadFiles}
-                files={fileteredFiles ? fileteredFiles : files}
-                progress={uploadProgress}
-                searchFiles={handleSearchFiles}
-                setFilteredFiles={setFileteredFiles}
-                onDeleteFiles={handleDeleteFiles}
-              />
-            </div>
+            <DragDrop
+              onFileDrop={handleUploadFiles}
+              files={fileteredFiles ? fileteredFiles : files}
+              progress={uploadProgress}
+              searchFiles={handleSearchFiles}
+              setFilteredFiles={setFileteredFiles}
+              onDeleteFiles={handleDeleteFiles}
+              enableSmartSearch={settings.smartSearchEnabled}
+              defaultFileView={settings.defaultFileView}
+            />
           </div>
         )}
       </div>

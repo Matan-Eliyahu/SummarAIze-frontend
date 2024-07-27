@@ -1,6 +1,6 @@
 .spinnerIcon {
   color: $primary;
-  font-size: 1.3rem;
+  font-size: 2.6rem;
   animation: animate 1.8s infinite;
 }
 
@@ -15,7 +15,7 @@
 
 .fullPageBox {
   @extend .vbox;
-  gap: 0.7rem;
+  gap: 1.4rem;
   font-size: 16px;
   color: $text-dark;
   justify-content: center;

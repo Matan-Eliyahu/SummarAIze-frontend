@@ -26,7 +26,7 @@
 }
 
 .titleIcon {
-  font-size: 24px;
+  font-size: 22px;
   color: $input;
 }
 
@@ -39,6 +39,7 @@
   border-radius: 10px;
   width: 87%;
   min-height: 2rem;
+  flex-wrap: wrap;
 }
 
 .progressBarBox {
@@ -46,20 +47,37 @@
   width: 95%;
 }
 
-
 .textBox {
   @extend .hbox;
-  gap: 6px;
+  gap: 4px;
+  flex-wrap: wrap;
 }
 
 .totalSizeText {
+  @extend .hbox;
+  justify-content: center;
+  gap: 2px;
   color: $text;
-  font-size: 18px;
+  font-size: 22px;
+  height: 25px;
   font-weight: 500;
 }
 
 .maxSizeText {
+  @extend .totalSizeText;
   color: $text-dark;
-  font-size: 18px;
+  font-size: 24px;
+}
+
+.seperatorText {
+  color: $input;
+  font-weight: 400;
+  font-size: 30px;
+}
+
+.mbTextBox {
+  color: $input;
+  font-size: 14px;
   font-weight: 500;
+  margin-top: 4px;
 }
