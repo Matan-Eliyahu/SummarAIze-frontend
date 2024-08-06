@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import Switch from "../../Switch/Switch";
 import CheckBox from "../../CheckBox/CheckBox";
 import Select from "../../Select/Select";
-import { FileListView, FileType, ISettings } from "../../../common/types";
+import { FileListView, FileType, ISettings, Language, summaryLanguageOptions, summaryToneOptions } from "../../../common/types";
 import styles from "./SettingsForm.module.scss";
+import Slider from "../../Slider/Slider";
 
 interface SettingsFormProps {
   set: ISettings;
@@ -61,6 +62,46 @@ export default function SettingsForm({ set, onSubmit }: SettingsFormProps) {
     }));
   }
 
+  function handleSummaryLengthChange(value: string | number) {
+    setSettings((prev) => ({
+      ...prev,
+      summaryOptions: {
+        ...prev.summaryOptions,
+        length: value as "short" | "medium" | "long",
+      },
+    }));
+  }
+
+  function handleSummaryToneChange(value: string | number) {
+    setSettings((prev) => ({
+      ...prev,
+      summaryOptions: {
+        ...prev.summaryOptions,
+        tone: value as "formal" | "informal" | "neutral",
+      },
+    }));
+  }
+
+  function handleSummaryDetailLevelChange(value: string | number) {
+    setSettings((prev) => ({
+      ...prev,
+      summaryOptions: {
+        ...prev.summaryOptions,
+        detailLevel: value as "high" | "medium" | "low",
+      },
+    }));
+  }
+
+  function handleSummaryLanguageChange(value: string | number) {
+    setSettings((prev) => ({
+      ...prev,
+      summaryOptions: {
+        ...prev.summaryOptions,
+        language: value as Language,
+      },
+    }));
+  }
+
   return (
     <div className={styles.settingsFormBox}>
       <div className={styles.settingsTitle}>
@@ -93,6 +134,24 @@ export default function SettingsForm({ set, onSubmit }: SettingsFormProps) {
         <div className={styles.title}>Default files view</div>
         <Select set={settings.defaultFileView} options={defaultFileViewOptions} onChange={handleFileViewSelectChange} />
       </div>
+
+      <div className={styles.settingsTitle}>
+        <div className={styles.title}>Summary length</div>
+        <Slider options={["short", "medium", "long"]} initialValue={settings.summaryOptions.length} onChange={handleSummaryLengthChange} />
+      </div>
+      <div className={styles.settingsTitle}>
+        <div className={styles.title}>Summary tone</div>
+        <Select options={summaryToneOptions} set={settings.summaryOptions.tone} onChange={handleSummaryToneChange} />
+      </div>
+      <div className={styles.settingsTitle}>
+        <div className={styles.title}>Summary details level</div>
+        <Slider options={["low", "medium", "high"]} initialValue={settings.summaryOptions.detailLevel} onChange={handleSummaryDetailLevelChange} />
+      </div>
+      <div className={styles.settingsTitle}>
+        <div className={styles.title}>Summary default language</div>
+        <Select options={summaryLanguageOptions} set={settings.summaryOptions.language} onChange={handleSummaryLanguageChange} />
+      </div>
+
       <div className={styles.buttonBox}>
         <button className={styles.saveButton} onClick={() => onSubmit(settings)} disabled={!isChanged}>
           Save

@@ -74,9 +74,5 @@ export const StoreProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     fetchUserData();
   }
 
-  return (
-    <StoreContext.Provider value={{ files, settings, storage, initialLoading, loading, uploadFiles, refreshStore }}>
-      {children}
-    </StoreContext.Provider>
-  );
+  return <StoreContext.Provider value={{ files, settings, storage, initialLoading, loading, uploadFiles, refreshStore }}>{children}</StoreContext.Provider>;
 };

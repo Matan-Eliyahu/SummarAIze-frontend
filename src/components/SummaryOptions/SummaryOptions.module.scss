@@ -1,0 +1,95 @@
+.optionsBox {
+  @extend .vbox;
+  background-color: $background-dark;
+  border-radius: 16px;
+  width: 90%;
+  height: 94%;
+  overflow: auto;
+}
+
+.summaryOptionsTitle {
+  @extend .hbox;
+  justify-content: center;
+  min-height: 3rem;
+  height: 7%;
+  width: 100%;
+  background-color: $dark;
+  font-size: 1.3rem;
+}
+
+.optionsContainer {
+  @extend .vbox;
+  width: 100%;
+  gap: 2rem;
+}
+
+.titleOptionsBox {
+  @extend .hbox;
+  gap: 1rem;
+  min-height: 10%;
+  width: 70%;
+  padding: 8px;
+}
+
+.titleBox {
+  @extend .hbox;
+  //   justify-content: center;
+  height: 100%;
+  width: 40%;
+  font-size: 18px;
+  font-weight: 500;
+  color: $text-dark;
+  white-space: nowrap;
+}
+
+.sliderBox {
+  @extend .hbox;
+  justify-content: center;
+  height: 100%;
+  width: 50%;
+}
+
+.keywordsBox {
+  @extend .hbox;
+  justify-content: center;
+  gap: 1rem;
+  width: 80%;
+  flex-wrap: wrap;
+  padding: 8px;
+}
+
+.keywordTag {
+  @extend .hbox;
+  justify-content: center;
+  background-color: $primary;
+  // background: linear-gradient(to bottom, $primary, $primary-hover);
+  border-radius: 8px;
+  gap: 8px;
+  padding: 6px 10px;
+  font-size: 1rem;
+  font-weight: 500;
+  color: $text;
+  cursor: pointer;
+
+  &:hover {
+    box-shadow: 0 0 2px 1px $primary-hover;
+  }
+
+  &.selected {
+    background-color: $header;
+    color: white;
+  }
+}
+
+.keywordCloseIcon {
+    margin-top: 4px;
+    font-size: 12px;
+}
+
+.summarizeButton {
+  @extend .secondaryButton;
+  margin-top: auto;
+  margin-top: 1rem;
+  //   margin-bottom: 10%;
+}
+

@@ -1,7 +1,7 @@
 .summaryDisplayBox {
   @extend .vbox;
-  height: 92%;
-  width: 70%;
+  height: 95%;
+  width: 100%;
   background-color: $background-dark;
   border-radius: 16px;
   overflow: hidden;
@@ -17,6 +17,12 @@
   white-space: pre-wrap;
   overflow: auto;
   //background-color: red;
+}
+
+.lightTextBox {
+  @extend .textBox;
+  background-color: rgb(238, 238, 238);
+  color: $dark;
 }
 
 .textAreaBox {

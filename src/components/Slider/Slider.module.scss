@@ -1,0 +1,59 @@
+.sliderBox {
+  @extend .vbox;
+  justify-content: center;
+  width: 15rem;
+}
+
+.slider {
+  width: 100%;
+  -webkit-appearance: none; /* Override default CSS styles */
+  appearance: none;
+  height: 10px;
+  background: transparent; /* Slider background color */
+  outline: none; /* Remove outline */
+  transition: opacity 0.15s ease-in-out;
+
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 15px;
+    height: 15px;
+    background-color: $primary;
+    cursor: pointer;
+    border-radius: 50%;
+    margin-top: -4px;
+  }
+
+  &::-moz-range-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 15px;
+    height: 15px;
+    background-color: $primary;
+    cursor: pointer;
+    border-radius: 50%;
+    margin-top: -4px;
+  }
+
+  &::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 6px;
+    background: linear-gradient(to left, $primary, $primary-hover);
+    border-radius: 5px;
+  }
+
+  &::-moz-range-track {
+    width: 100%;
+    height: 6px;
+    background: linear-gradient(to left, $primary, $primary-hover);
+    border-radius: 5px;
+  }
+}
+
+.sliderValue {
+  @extend .hbox;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: 500;
+  width: 100%;
+}

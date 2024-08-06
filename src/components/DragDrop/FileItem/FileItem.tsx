@@ -1,12 +1,11 @@
 import { fileIconMap } from "../../../common/icons";
 import { FileStatus, IFile } from "../../../common/types";
-import { FaBell, FaBox, FaCircle, FaCircleCheck,  FaRegCalendar,  FaTriangleExclamation } from "react-icons/fa6";
+import { FaBell, FaBox, FaCircle, FaCircleCheck, FaRegCalendar, FaTriangleExclamation } from "react-icons/fa6";
 import styles from "./FileItem.module.scss";
 import Spinner from "../../Spinner/Spinner";
 import { FileListView } from "../../../common/types";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
-import { truncateFileName } from "../../../utils/text";
 import { useRef, useState } from "react";
 
 interface FileItemProps {
@@ -25,7 +24,7 @@ export default function FileItem({ file, listView, isSelected, onLongPress, onSe
 
   function iconSwitch(file: IFile) {
     const iconSrc = fileIconMap[file.type];
-    return <img className={listView === "icons" ? styles.fileIcon : styles.fileListIcon} src={iconSrc} alt="file icon" />;
+    return <img className={listView === "icons" ? styles.fileIcon : styles.fileListIcon} src={iconSrc} alt="file icon" draggable={false} onDragStart={handleDragStart} />;
   }
 
   function statusIconSwitch(status: FileStatus) {
@@ -79,12 +78,28 @@ export default function FileItem({ file, listView, isSelected, onLongPress, onSe
     }
   }
 
+  function handleDragStart(event: React.DragEvent<HTMLImageElement>) {
+    event.preventDefault();
+    event.stopPropagation();
+  }
+
+  function handleDragOver(event: React.DragEvent<HTMLDivElement|HTMLButtonElement>) {
+    event.stopPropagation();
+  }
+
   if (listView === "icons")
     return (
-      <button className={isSelected ? styles.fileItemBoxSelected : styles.fileItemBox} onClick={handleFileClick} data-file-name={file.name} onMouseDown={handleMouseDown} onMouseUp={handleMouseUp}>
+      <button
+        className={isSelected ? styles.fileItemBoxSelected : styles.fileItemBox}
+        onClick={handleFileClick}
+        data-file-name={file.name}
+        onMouseDown={handleMouseDown}
+        onMouseUp={handleMouseUp}
+        onDragOver={handleDragOver}
+      >
         <div className={styles.fileStatusBox}>{statusIconSwitch(file.status)}</div>
         {iconSwitch(file)}
-        <div className={styles.fileNameText}>{truncateFileName(file.name)}</div>
+        <div className={styles.fileNameText}>{file.name}</div>
       </button>
     );
 
@@ -95,6 +110,7 @@ export default function FileItem({ file, listView, isSelected, onLongPress, onSe
       onClick={handleFileClick}
       onMouseDown={handleMouseDown}
       onMouseUp={handleMouseUp}
+      onDragOver={handleDragOver}
     >
       {listView !== "recent" && (
         <>
@@ -104,7 +120,7 @@ export default function FileItem({ file, listView, isSelected, onLongPress, onSe
       )}
       {iconSwitch(file)}
       <div className={isSelected ? styles.seperatorSelected : styles.seperator} />
-      <div className={styles.fileListNameText}>{listView === "list" ? file.name : truncateFileName(file.name, 23)}</div>
+      <div className={listView === "recent" ? styles.fileRecentNameText:styles.fileListNameText}>{file.name}</div>
       {listView !== "recent" && (
         <>
           <div className={isSelected ? styles.seperatorSelected : styles.seperator} />

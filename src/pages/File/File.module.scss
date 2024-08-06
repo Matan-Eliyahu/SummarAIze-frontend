@@ -41,9 +41,6 @@
 
 .infoBox {
   @extend .vbox;
-  // width: 20%;
-  // min-height: 95%;
-  // height: 95%;
   padding-top: 1rem;
   gap: 16px;
   min-width: 20%;
@@ -53,10 +50,10 @@
 }
 
 .contentBox {
-  @extend .vbox;
+  @extend .hbox;
   align-items: start;
-  min-width: 80%;
-  width: 80%;
+  min-width: 50%;
+  width: 50%;
   min-height: 100%;
   height: 100%;
 }
@@ -133,4 +130,13 @@
 .deleteButtonIcon {
   color: $text;
   font-size: 16px;
+}
+
+.optionsBox {
+  @extend .vbox;
+  gap: 16px;
+  min-width: 30%;
+  width: 30%;
+  min-height: 100%;
+  height: 100%;
 }

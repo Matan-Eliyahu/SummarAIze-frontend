@@ -1,21 +1,25 @@
 import Layout from "../../components/Layout/Layout";
 import { useEffect, useState } from "react";
-import { FileStatus, IFile, IUpdate } from "../../common/types";
+import { FileStatus, IFile, ISummaryOptions, IUpdate } from "../../common/types";
 import { fileIconMap } from "../../common/icons";
 import styles from "./File.module.scss";
 import { useNavigate, useParams } from "react-router-dom";
 import FileService, { AxiosError } from "../../services/FileService";
 import { useError } from "../../hooks/useError";
-import { FaBell, FaBoxOpen, FaFileArrowDown, FaTrash, FaTriangleExclamation, FaUpload } from "react-icons/fa6";
+import { FaBell, FaBox, FaFileArrowDown, FaTrash, FaTriangleExclamation, FaUpload } from "react-icons/fa6";
 import moment from "moment";
 import Spinner from "../../components/Spinner/Spinner";
 import { capitalizeFirstLetter, truncateFileName } from "../../utils/text";
 import { useDownloadFile } from "../../hooks/useDownloadFile";
 import useWebSocket from "../../hooks/useWebSocket";
 import SummaryDisplay from "../../components/SummaryDisplay/SummaryDisplay";
+import { useStore } from "../../hooks/useStore";
+import SummaryService from "../../services/SummaryService";
+import SummaryOptions from "../../components/SummaryOptions/SummaryOptions";
 
 export default function File() {
   const { fileName } = useParams<{ fileName: string }>();
+  const { settings } = useStore();
   const { setAlert, clearAlert } = useError();
   const navigate = useNavigate();
   const socket = useWebSocket();
@@ -104,9 +108,9 @@ export default function File() {
         text: `Are you sure you want to permanently delete ${fileName} ?`,
         secondButtonText: "Delete",
         secondButtonColor: "danger",
-        onSecondButtonClick: () => {
+        onSecondButtonClick: async () => {
           clearAlert();
-          deleteFile();
+          await deleteFile();
         },
       });
   }
@@ -123,6 +127,21 @@ export default function File() {
       if (error instanceof AxiosError) setAlert({ error });
     } finally {
       setUpdateFileLoading(false);
+    }
+  }
+
+  async function handleSummarize(summaryOptions: ISummaryOptions) {
+    if (!file || !fileName) return;
+    const { request } = SummaryService.summarize(file._id!, summaryOptions);
+    setLoading(true);
+    try {
+      const response = await request;
+      const file: IFile = response.data;
+      setFile(file);
+    } catch (error) {
+      if (error instanceof AxiosError) setAlert({ error });
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -145,7 +164,7 @@ export default function File() {
                 {moment(file.uploadedAt).format("DD/MM/YYYY HH:mm:ss")}
               </div>
               <div className={styles.smallTextTitleBox}>
-                <FaBoxOpen className={styles.fileTitleIcon} />
+                <FaBox className={styles.fileTitleIcon} />
                 {`${file.size} MB`}
               </div>
               <button className={styles.downloadButton} onClick={handleDownloadFile}>
@@ -169,6 +188,7 @@ export default function File() {
                 loading={updateFileloading || file.status === "processing"}
               />
             </div>
+            <div className={styles.optionsBox}>{file && <SummaryOptions initSummaryOptions={settings!.summaryOptions} file={file} onSummarize={handleSummarize} />}</div>
           </div>
         </>
       )}

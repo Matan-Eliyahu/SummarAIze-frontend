@@ -5,21 +5,33 @@ import { useAuth } from "./useAuth";
 const useWebSocket = () => {
   const { auth } = useAuth();
   const [socket, setSocket] = useState<WebSocket | null>(null);
+
   useEffect(() => {
     if (!auth) return;
-    const ws = new WebSocket(`${BASE_URL}?userId=${auth.userId}`);
-    setSocket(ws);
 
-    ws.onopen = () => {
-      console.log("Connected to WebSocket");
+    const initializeWebSocket = () => {
+      const ws = new WebSocket(`${BASE_URL}?userId=${auth.userId}`);
+      setSocket(ws);
+
+      ws.onopen = () => {
+        console.log("Connected to WebSocket");
+      };
+
+      ws.onerror = (error) => {
+        console.error("WebSocket error:", error);
+      };
+
+      ws.onclose = (event) => {
+        console.log("Disconnected from WebSocket", event);
+      };
+
+      return ws;
     };
 
-    ws.onclose = () => {
-      console.log("Disconnected from WebSocket");
-    };
+    const ws = initializeWebSocket();
 
     return () => {
-      ws.close();
+      if (ws.readyState === 1) ws.close();
     };
   }, [auth]);
 

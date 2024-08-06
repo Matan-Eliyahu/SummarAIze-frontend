@@ -5,6 +5,7 @@ export interface IUser {
   password: string;
   imageUrl: string;
   refreshTokens?: string[];
+  _id?: string;
 }
 
 export interface IAuth {
@@ -21,13 +22,6 @@ export interface ITokens {
   refreshToken: string;
 }
 
-export interface ISummaryData {
-  summarizedText: string;
-  adjustment?: string;
-  fileName: string;
-  type: string;
-}
-
 export type FileType = "pdf" | "image" | "audio";
 export const fileTypes = ["pdf", "image", "audio"];
 
@@ -40,6 +34,8 @@ export interface ISettings {
   smartSearchEnabled: boolean;
   clearFilesAfterDays: 0 | 30 | 60 | 90;
   defaultFileView: FileListView;
+  summaryOptions: ISummaryOptions;
+  _id?: string;
 }
 
 export type FileStatus = "completed" | "processing" | "error" | "not-summarized";
@@ -57,6 +53,7 @@ export interface IFile {
   status: FileStatus;
   uploadedAt: Date;
   lastOpened?: Date;
+  _id?: string;
 }
 
 export interface IStorage {
@@ -109,3 +106,36 @@ export const PLANS: Record<PlanType, IPlan | null> = {
   },
   none: null,
 };
+
+export type Language = "auto" | "english" | "spanish" | "french" | "german" | "chinese" | "japanese" | "korean" | "russian" | "arabic" | "portuguese" | "italian" | "hindi" | "bengali";
+
+export interface ISummaryOptions {
+  length: "short" | "medium" | "long";
+  language: Language;
+  tone: "formal" | "informal" | "neutral";
+  detailLevel: "high" | "medium" | "low";
+  keywords: string[];
+}
+
+export const summaryToneOptions = [
+  { value: "formal", label: "Formal" },
+  { value: "informal", label: "Informal" },
+  { value: "neutral", label: "Neutral" },
+];
+
+export const summaryLanguageOptions: { value: Language; label: string }[] = [
+  { value: "auto", label: "Auto" },
+  { value: "english", label: "English" },
+  { value: "spanish", label: "Spanish" },
+  { value: "french", label: "French" },
+  { value: "german", label: "German" },
+  { value: "chinese", label: "Chinese" },
+  { value: "japanese", label: "Japanese" },
+  { value: "korean", label: "Korean" },
+  { value: "russian", label: "Russian" },
+  { value: "arabic", label: "Arabic" },
+  { value: "portuguese", label: "Portuguese" },
+  { value: "italian", label: "Italian" },
+  { value: "hindi", label: "Hindi" },
+  { value: "bengali", label: "Bengali" },
+];

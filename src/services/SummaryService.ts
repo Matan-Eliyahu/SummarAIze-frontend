@@ -1,23 +1,13 @@
-import { ISummaryData } from "../common/types";
+import { IFile, ISummaryOptions } from "../common/types";
 import apiClient, { CanceledError, AxiosError } from "./apiClient";
 export { CanceledError, AxiosError };
 
 class SummaryService {
   private path = "/summarize";
 
-  createSummary(file: File) {
+  summarize(fileId: string, summaryOptions: ISummaryOptions) {
     const controller = new AbortController();
-    const formData = new FormData();
-    formData.append("file", file);
-    const request = apiClient.post<string>(`${this.path}/`, formData, {
-      signal: controller.signal,
-    });
-    return { request, cancel: () => controller.abort() };
-  }
-
-  summaryAdjustment(summaryData: ISummaryData) {
-    const controller = new AbortController();
-    const request = apiClient.post<string>(`${this.path}/adjust`, summaryData, { signal: controller.signal });
+    const request = apiClient.post<IFile>(`${this.path}/${fileId}`, summaryOptions, { signal: controller.signal });
     return { request, cancel: () => controller.abort() };
   }
 }

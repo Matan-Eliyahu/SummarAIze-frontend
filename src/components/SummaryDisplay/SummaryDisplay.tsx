@@ -20,6 +20,7 @@ function SummaryDisplay({ transcribe, summary, onSave, loading, edit, setEdit }:
   const [updatedSummary, setUpdatedSummary] = useState(summary);
   const [isRtl, setIsRtl] = useState(false);
   const [fontSize, setFontSize] = useState(16);
+  const [theme, setTheme] = useState<"light" | "dark">("dark");
   const isSummarized = summary !== "";
 
   useEffect(() => {
@@ -55,12 +56,17 @@ function SummaryDisplay({ transcribe, summary, onSave, loading, edit, setEdit }:
     setFontSize(textSize);
   }
 
+  function handleThemeToggle(theme: "light" | "dark") {
+    setTheme(theme);
+  }
+
   return (
     <div className={styles.summaryDisplayBox}>
       <SummaryToolbar
         loading={loading}
         onModeChange={handleModeChange}
         onEditToggle={toggleEdit}
+        onThemeToggle={handleThemeToggle}
         onCancelEdit={handleCancelEdit}
         isEditing={edit}
         isSummarized={isSummarized}
@@ -79,16 +85,14 @@ function SummaryDisplay({ transcribe, summary, onSave, loading, edit, setEdit }:
           <Spinner size="m" />
         </div>
       ) : (
-        <div className={`${styles.textBox} ${isRtl ? styles.rtl : ""}`} style={{ fontSize }}>
+        <div className={`${theme === "light" ? styles.lightTextBox : styles.textBox} ${isRtl ? styles.rtl : ""}`} style={{ fontSize }}>
           {mode === "transcribe" ? (
             updatedTranscribe
           ) : isSummarized ? (
             updatedSummary
           ) : (
             <div className={styles.noSummaryBox}>
-              <div className={styles.noSummaryText}>
-                Summary not generated
-              </div>
+              <div className={styles.noSummaryText}>Summary not generated</div>
               {/* <button className={styles.summarizeButton}>
                 <img src={logo} alt="logo" style={{ width: 130 }} />
               </button> */}

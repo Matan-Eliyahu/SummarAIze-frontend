@@ -39,7 +39,7 @@ export default function DoughnutChart({ fileTypeCounts, loading }: DoughnutChart
             </div>
             <div className={styles.precentageContainer}>
               <div className={styles.precentageBox}>
-                PDF
+                Pdf
                 <div className={styles.dotBox}>
                   <div className={styles.pdfDot} />
                   {`${pdfPercentage.toFixed(1)}%`}

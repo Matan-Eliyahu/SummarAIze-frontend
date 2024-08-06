@@ -109,7 +109,7 @@ export default function DragDropToolbar({
           </button>
           <button className={styles.clearSelectionButton} onClick={onClearSelectedFiles}>
             <FaCircleCheck className={styles.clearSelectionIcon} />
-            {`Clear (${selectedFileNames.length})`}
+            {`Selected (${selectedFileNames.length})`}
           </button>
         </div>
       ) : (

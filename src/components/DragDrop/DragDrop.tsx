@@ -12,7 +12,7 @@ pdfjs.GlobalWorkerOptions.workerSrc = "node_modules/pdfjs-dist/build/pdf.worker.
 interface DragDropProps {
   files: IFile[];
   progress: number;
-  onFileDrop?: (files: File[]) => void;
+  onFileDrop: (files: File[]) => void;
   searchFiles: (searchTerm: string) => Promise<IFile[]>;
   setFilteredFiles: React.Dispatch<React.SetStateAction<IFile[] | null>>;
   onDeleteFiles: (fileNames: string[]) => Promise<void>;
@@ -29,14 +29,18 @@ export default function DragDrop({ files, progress, onFileDrop, searchFiles, set
   const [isSelectionMode, setIsSelectionMode] = useState<boolean>(false);
   const [selectedFilesNames, setSelectedFilesNames] = useState<Set<string>>(new Set());
 
+  useEffect(() => {
+    if (isSelectionMode && isDraggingOver) setIsDraggingOver(false);
+  }, [isDraggingOver, isSelectionMode]);
+
   function handleDragOver(event: React.DragEvent<HTMLDivElement>) {
-    if (progress > 0) return;
+    if (progress > 0 || isSelectionMode) return;
     event.preventDefault();
     setIsDraggingOver(true);
   }
 
   function handleDragLeave() {
-    if (progress > 0) return;
+    if (progress > 0 || isSelectionMode) return;
     setIsDraggingOver(false);
   }
 
@@ -45,9 +49,10 @@ export default function DragDrop({ files, progress, onFileDrop, searchFiles, set
     event.preventDefault();
     setIsDraggingOver(false);
 
-    const files = Array.from(event.dataTransfer.files);
-    if (files.length > 0 && onFileDrop) {
-      onFileDrop(files);
+    const droppedFiles = Array.from(event.dataTransfer.files);
+    if (droppedFiles.length > 0) {
+      onFileDrop(droppedFiles);
+      console.log(droppedFiles);
     }
   }
 
@@ -106,9 +111,9 @@ export default function DragDrop({ files, progress, onFileDrop, searchFiles, set
 
       if (updatedSet.size === 0) {
         setIsSelectionMode(false);
+        setIsDraggingOver(false);
       }
 
-      console.log("File select toggle:", fileName, updatedSet);
       return updatedSet;
     });
   }
@@ -117,11 +122,13 @@ export default function DragDrop({ files, progress, onFileDrop, searchFiles, set
     await onDeleteFiles(fileNames);
     setIsSelectionMode(false);
     setSelectedFilesNames(new Set());
+    setIsDraggingOver(false);
   }
 
   function handleClearSelectedFiles() {
     setIsSelectionMode(false);
     setSelectedFilesNames(new Set());
+    setIsDraggingOver(false);
   }
 
   return (

@@ -1,7 +1,7 @@
 .summaryToolbarBox {
   @extend .hbox;
   justify-content: center;
-  min-height: 2rem;
+  min-height: 4rem;
   width: 100%;
   height: 8%;
   gap: 8px;
@@ -139,4 +139,14 @@
   background-color: $background-dark;
   min-height: 80%;
   width: 2px;
+}
+
+
+.themeButton {
+  @extend .fontSizeButton;
+  padding: 8px 12px;
+}
+
+.themeIcon {
+  font-size: 20px;
 }

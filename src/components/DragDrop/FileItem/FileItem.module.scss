@@ -22,10 +22,10 @@
 
 .fileItemBoxSelected {
   @extend .fileItemBox;
-  background-color: $background-soft;
+  background-color: $background;
   transition: none; // Remove transition for this specific class
   &:hover {
-    background-color: $background-soft;
+    background-color: $background;
   }
 }
 
@@ -53,23 +53,27 @@
 }
 
 .fileNameText {
-  @extend .hbox;
-  justify-content: center;
+  // @extend .hbox;
+  // justify-content: center;
   //   background-color: red;
-  width: 100%;
+  width: 95%;
   font-size: 16px;
-  white-space: nowrap;
   color: $text-dark;
   font-weight: 500;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .fileListNameText {
-  @extend .hbox;
+  // @extend .hbox;
   font-size: 16px;
   width: 40%;
-  white-space: nowrap;
   color: $text-dark;
   font-weight: 500;
+    overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .errorIcon {
@@ -127,11 +131,11 @@
 
 .fileListBoxSelected {
   @extend .fileListBox;
-  background-color: $background-soft;
+  background-color: $background;
   transition: none;
 
   &:hover {
-    background-color: $background-soft;
+    background-color: $background;
   }
 }
 
@@ -155,4 +159,14 @@
 .recentListBox {
   @extend .fileListBox;
   width: 90%;
+}
+
+.fileRecentNameText {
+  font-size: 16px;
+  width: 100%;
+  color: $text-dark;
+  font-weight: 500;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }

@@ -21,12 +21,12 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
   useEffect(() => {
     const storedTokens = getLocalStorageAuth();
-    if (storedTokens) {
-      if (storedTokens.plan !== "none") setAuth(storedTokens);
+    if (storedTokens && storedTokens.plan !== "none") {
+      setAuth(storedTokens);
     }
   }, []);
 
-  useEffect(() => console.log("AUTH: ", auth), [auth]);
+  // useEffect(() => console.log("AUTH: ", auth), [auth]);
 
   async function register(user: IUser) {
     setLoadingAuth(true);

@@ -148,3 +148,12 @@ input.no-hover-focus:hover,
 input.no-hover-focus:focus {
   box-shadow: none;
 }
+
+input[type="range"] {
+  box-shadow: none;
+}
+
+input[type="range"]:hover,
+input[type="range"]:focus {
+  box-shadow: none;
+}

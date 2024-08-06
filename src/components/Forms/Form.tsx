@@ -88,7 +88,7 @@ function Form({ elements, buttonText, theme, onSubmit, loading, isSignUp }: Form
         return (
           <label className={styles.inputLabel} key={index}>
             {elem.label}
-            <input key={elem.key} type={elem.type} name={elem.key} value={formData[elem.key] || ""} onChange={handleInputChange} disabled={loading} required />
+            <input key={elem.key} type={elem.type} name={elem.key} value={formData[elem.key] || ""} onChange={handleInputChange} disabled={loading} required autoComplete="email"/>
           </label>
         );
       case "text":
