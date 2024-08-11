@@ -2,24 +2,26 @@ import { useEffect, useState } from "react";
 import styles from "./SummaryToolbar.module.scss";
 import { FaFileLines, FaMinus, FaPenToSquare, FaPlus } from "react-icons/fa6";
 import { MdOutlineDarkMode, MdOutlineLightMode } from "react-icons/md";
+import { Theme } from "../../../common/types";
 
 export type ModeType = "transcribe" | "summary";
 
 interface SummaryToolbarProps {
   onModeChange: (mode: ModeType) => void;
   onEditToggle: () => void;
-  onThemeToggle: (theme: "light" | "dark") => void;
+  onThemeToggle: (theme: Theme) => void;
   onCancelEdit: () => void;
   onFontSizeChange: (textSize: number) => void;
   isSummarized: boolean;
   isEditing: boolean;
   loading: boolean;
+  defaultTheme:Theme;
 }
 
-export default function SummaryToolbar({ onModeChange, onEditToggle, onCancelEdit, onFontSizeChange, onThemeToggle, isEditing, isSummarized, loading }: SummaryToolbarProps) {
+export default function SummaryToolbar({ onModeChange, onEditToggle, onCancelEdit, onFontSizeChange, onThemeToggle, isEditing, isSummarized, loading, defaultTheme }: SummaryToolbarProps) {
   const [mode, setMode] = useState<ModeType>("summary");
   const [fontSize, setFontSize] = useState(16);
-  const [theme, setTheme] = useState<"light" | "dark">("dark");
+  const [theme, setTheme] = useState<Theme>(defaultTheme);
 
   function handleModeChange() {
     const newMode: ModeType = mode === "transcribe" ? "summary" : "transcribe";

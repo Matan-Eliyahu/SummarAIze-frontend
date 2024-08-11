@@ -9,9 +9,10 @@ interface SummaryOptionsProps {
   initSummaryOptions: ISummaryOptions;
   file: IFile;
   onSummarize: (summaryOptions: ISummaryOptions) => Promise<void>;
+  disabled: boolean;
 }
 
-export default function SummaryOptions({ initSummaryOptions, file, onSummarize }: SummaryOptionsProps) {
+export default function SummaryOptions({ initSummaryOptions, file, onSummarize, disabled }: SummaryOptionsProps) {
   const [summaryOptions, setSummaryOptions] = useState<ISummaryOptions>(initSummaryOptions);
 
   function handleSummaryOptionChange(key: keyof ISummaryOptions, value: string | number) {
@@ -35,7 +36,7 @@ export default function SummaryOptions({ initSummaryOptions, file, onSummarize }
   return (
     <div className={styles.optionsBox}>
       <div className={styles.summaryOptionsTitle}>Summary Options</div>
-      <div className={styles.optionsContainer}>
+      <div className={disabled ? styles.disabledOptionsContainer:styles.optionsContainer}>
         <div className={styles.titleOptionsBox}>
           <div className={styles.titleBox}>Language</div>
           <div className={styles.sliderBox}>
@@ -69,10 +70,10 @@ export default function SummaryOptions({ initSummaryOptions, file, onSummarize }
             </div>
           ))}
         </div>
-        <button className={styles.summarizeButton} onClick={() => onSummarize(summaryOptions)}>
-          Summarize
-        </button>
       </div>
+      <button className={styles.summarizeButton} onClick={() => onSummarize(summaryOptions)} disabled={disabled}>
+        Summarize
+      </button>
     </div>
   );
 }

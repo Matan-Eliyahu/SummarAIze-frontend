@@ -41,7 +41,13 @@ export default function File() {
 
   async function fetchFileData() {
     if (!fileName) {
-      setAlert({ text: "No file name" });
+      setAlert({
+        text: "No file name",
+        onButtonClick: () => {
+          clearAlert();
+          navigate("/");
+        },
+      });
       return;
     }
     const { request } = FileService.getFileByName(fileName);
@@ -133,15 +139,14 @@ export default function File() {
   async function handleSummarize(summaryOptions: ISummaryOptions) {
     if (!file || !fileName) return;
     const { request } = SummaryService.summarize(file._id!, summaryOptions);
-    setLoading(true);
+    setUpdateFileLoading(true);
     try {
-      const response = await request;
-      const file: IFile = response.data;
-      setFile(file);
+      await request;
+      await fetchFileData();
     } catch (error) {
       if (error instanceof AxiosError) setAlert({ error });
     } finally {
-      setLoading(false);
+      setUpdateFileLoading(false);
     }
   }
 
@@ -179,16 +184,19 @@ export default function File() {
               )}
             </div>
             <div className={styles.contentBox}>
-              <SummaryDisplay
-                edit={edit}
-                setEdit={setEdit}
-                transcribe={file.transcribe}
-                summary={file.summary}
-                onSave={handleUpdateFileText}
-                loading={updateFileloading || file.status === "processing"}
-              />
+              {settings && (
+                <SummaryDisplay
+                  edit={edit}
+                  setEdit={setEdit}
+                  transcribe={file.transcribe}
+                  summary={file.summary}
+                  onSave={handleUpdateFileText}
+                  loading={updateFileloading || file.status === "processing"}
+                  defaultTheme={settings.defaultSummaryTheme}
+                />
+              )}
             </div>
-            <div className={styles.optionsBox}>{file && <SummaryOptions initSummaryOptions={settings!.summaryOptions} file={file} onSummarize={handleSummarize} />}</div>
+            <div className={styles.optionsBox}>{file && <SummaryOptions initSummaryOptions={file.summaryOptions} file={file} onSummarize={handleSummarize} disabled={loading || updateFileloading} />}</div>
           </div>
         </>
       )}

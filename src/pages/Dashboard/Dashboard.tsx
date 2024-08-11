@@ -10,16 +10,14 @@ import DoughnutChart from "../../components/DoughnutChart/DoughnutChart";
 import { useStore } from "../../hooks/useStore";
 import useWebSocket from "../../hooks/useWebSocket";
 import { AxiosError } from "../../services/apiClient";
-import { IFile, IUpdate, PLANS } from "../../common/types";
+import { IFileInfo, IUpdate, PLANS } from "../../common/types";
 import RecentFilesList from "../../components/RecentFilesList/RecentFilesList";
 import FileService from "../../services/FileService";
-import { useAuth } from "../../hooks/useAuth";
 
 function Dashboard() {
-  const { auth } = useAuth();
-  const { files, settings, storage, initialLoading, uploadFiles, refreshStore } = useStore();
+  const { account,files, settings, storage, initialLoading, uploadFiles, refreshStore } = useStore();
   const { setAlert, clearAlert } = useError();
-  const [fileteredFiles, setFileteredFiles] = useState<IFile[] | null>(null);
+  const [fileteredFiles, setFileteredFiles] = useState<IFileInfo[] | null>(null);
   const [uploadProgress, setUploadProgress] = useState<number>(0);
   const socket = useWebSocket();
 
@@ -63,7 +61,7 @@ function Dashboard() {
     const { request } = FileService.searchFiles(searchTerm);
     try {
       const response = await request;
-      const filteredFiles: IFile[] = response.data;
+      const filteredFiles: IFileInfo[] = response.data;
       return filteredFiles;
     } catch (error) {
       if (error instanceof AxiosError) setAlert({ error });
@@ -86,7 +84,7 @@ function Dashboard() {
       <div className={styles.dashboardBox}>
         {storage && (
           <div className={styles.infoBox}>
-            <TotalSizeProgressBar totalSize={storage.totalSize} maxSize={PLANS[auth!.plan]!.maxStorageInMb} loading={false} />
+            <TotalSizeProgressBar totalSize={storage.totalSize} maxSize={PLANS[account!.plan]!.maxStorageInMb} loading={false} />
             <DoughnutChart fileTypeCounts={{ pdf: storage.pdfCount, image: storage.imageCount, audio: storage.audioCount }} loading={false} />
             <RecentFilesList files={files} recentFileNames={storage.lastOpened} loading={false} />
           </div>

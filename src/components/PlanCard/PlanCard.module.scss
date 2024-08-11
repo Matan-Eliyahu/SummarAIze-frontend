@@ -12,6 +12,11 @@
   animation-delay: calc(0.1s * var(--i));
 }
 
+.planCardBoxSelected {
+  @extend .planCardBox;
+  border: 3px solid $primary-hover;
+}
+
 .headerBox {
   @extend .hbox;
   justify-content: center;
@@ -79,5 +84,11 @@
   @extend .secondaryButton;
   width: 80%;
   font-weight: 500;
-  margin-top: 0.5rem;
+}
+
+.buttonBox {
+  @extend .hbox;
+  justify-content: center;
+  width: 100%;
+  height: 50px;
 }

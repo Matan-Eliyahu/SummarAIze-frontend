@@ -1,5 +1,5 @@
 import { fileIconMap } from "../../../common/icons";
-import { FileStatus, IFile } from "../../../common/types";
+import { FileStatus, IFileInfo } from "../../../common/types";
 import { FaBell, FaBox, FaCircle, FaCircleCheck, FaRegCalendar, FaTriangleExclamation } from "react-icons/fa6";
 import styles from "./FileItem.module.scss";
 import Spinner from "../../Spinner/Spinner";
@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { useRef, useState } from "react";
 
 interface FileItemProps {
-  file: IFile;
+  file: IFileInfo;
   listView: FileListView;
   isSelected: boolean;
   onLongPress: (fileName: string) => void;
@@ -17,12 +17,12 @@ interface FileItemProps {
   isSelectionMode: boolean;
 }
 
-export default function FileItem({ file, listView, isSelected, onLongPress, onSelectToggle, isSelectionMode }: FileItemProps) {
+export default function   FileItem({ file, listView, isSelected, onLongPress, onSelectToggle, isSelectionMode }: FileItemProps) {
   const navigate = useNavigate();
   const timerRef = useRef<number | null>(null);
   const [clickDelayed, setClickDelayed] = useState<boolean>(false);
 
-  function iconSwitch(file: IFile) {
+  function iconSwitch(file: IFileInfo) {
     const iconSrc = fileIconMap[file.type];
     return <img className={listView === "icons" ? styles.fileIcon : styles.fileListIcon} src={iconSrc} alt="file icon" draggable={false} onDragStart={handleDragStart} />;
   }

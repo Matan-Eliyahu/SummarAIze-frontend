@@ -23,7 +23,7 @@ export default function PlanSelection({ signupFormData, googleSignupData }: Plan
   async function hanldeRegister(plan: PlanType) {
     if (googleSignupData) {
       const { tokenResponse } = googleSignupData;
-      const { request } = UserService.updatePlan(plan);
+      const { request } = UserService.updateUserPlan(plan);
       setLoading(true);
       try {
         await request;
@@ -66,10 +66,10 @@ export default function PlanSelection({ signupFormData, googleSignupData }: Plan
       <div className={styles.planSelectionBox}>
         <h2>Choose Your Plan</h2>
         <div className={styles.planSelectionButtonBox}>
-          {Object.values(PLANS)
-            .filter((plan) => plan != null)
-            .map((plan, index) => (
-              <PlanCard plan={plan} key={index} onChoosePlan={hanldeRegister} loading={loading} />
+          {(Object.keys(PLANS) as PlanType[])
+            .filter((planType) => planType != "none")
+            .map((planType, index) => (
+              <PlanCard planType={planType} key={index} onChoosePlan={hanldeRegister} loading={loading} />
             ))}
         </div>
       </div>

@@ -2,6 +2,7 @@
   @extend .vbox;
   height: 100%;
   width: 100%;
+  border: 6px solid $dark;
   background-color: $background-dark;
   border-radius: 16px;
   overflow: hidden;

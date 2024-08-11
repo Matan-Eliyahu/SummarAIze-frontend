@@ -11,7 +11,7 @@ class UploadService {
       formData.append("files", file);
     });
 
-    const request = apiClient.post(this.path, formData, {
+    const request = apiClient.post(`${this.path}/files`, formData, {
       signal: controller.signal,
       onUploadProgress: (event) => {
         if (event.lengthComputable) {
@@ -24,6 +24,14 @@ class UploadService {
       },
     });
 
+    return { request, cancel: () => controller.abort() };
+  }
+
+  uploadProfilePicture(image: File) {
+    const controller = new AbortController();
+    const formData = new FormData();
+    formData.append("profile-picture", image);
+    const request = apiClient.post(`${this.path}/profile-picture`, formData, { signal: controller.signal });
     return { request, cancel: () => controller.abort() };
   }
 }

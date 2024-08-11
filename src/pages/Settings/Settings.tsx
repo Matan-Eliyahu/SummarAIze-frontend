@@ -1,20 +1,31 @@
 import Layout from "../../components/Layout/Layout";
-import { FaGear } from "react-icons/fa6";
+import { FaFile, FaFolder, FaGear } from "react-icons/fa6";
 import styles from "./Settings.module.scss";
-import { useEffect } from "react";
-import SettingsForm from "../../components/Forms/SettingsForm/SettingsForm";
+import { useEffect, useState } from "react";
+import SettingsForm, { SettingsSection } from "../../components/Forms/SettingsForm/SettingsForm";
 import { ISettings, IUpdate } from "../../common/types";
 import SettingsService, { AxiosError } from "../../services/SettingsService";
 import { useError } from "../../hooks/useError";
 import { useNavigate } from "react-router-dom";
 import useWebSocket from "../../hooks/useWebSocket";
 import { useStore } from "../../hooks/useStore";
+import Sidebar, { SidebarItem } from "../../components/Sidebar/Sidebar";
 
 export default function Settings() {
-  const { setAlert, clearAlert } = useError();
   const { settings, loading, refreshStore } = useStore();
+  const { setAlert, clearAlert } = useError();
   const navigate = useNavigate();
   const socket = useWebSocket();
+  const [currentSection, setCurrentSection] = useState<SettingsSection>("file-management");
+
+  function handleSidebarSelect(section: SettingsSection) {
+    setCurrentSection(section);
+  }
+
+  const sidebarItems: SidebarItem[] = [
+    { label: "File Managment", value: "file-management", icon: <FaFolder /> },
+    { label: "Summary Options", value: "summary-options", icon: <FaFile /> },
+  ];
 
   useEffect(() => {
     if (socket) {
@@ -32,7 +43,7 @@ export default function Settings() {
         });
       };
     }
-  }, [socket]);
+  }, [socket,]);
 
   useEffect(() => {
     refreshStore();
@@ -43,7 +54,9 @@ export default function Settings() {
     try {
       await request;
       refreshStore();
-      // navigate("/dashboard");
+      // setTimeout(() => {
+      //   navigate("/dashboard");
+      // }, 1000);
     } catch (error) {
       if (error instanceof AxiosError) setAlert({ error });
     }
@@ -63,7 +76,14 @@ export default function Settings() {
         <FaGear className={styles.titleIcon} />
         Settings
       </div>
-      {settings && <SettingsForm set={settings} onSubmit={handleUpdateSettings} />}
+      {settings && (
+        <div className={styles.settingsBox}>
+          <div className={styles.sidebarBox}>
+            <Sidebar items={sidebarItems} onSelect={(setting) => handleSidebarSelect(setting as SettingsSection)} />
+          </div>
+          <SettingsForm set={settings} onSubmit={handleUpdateSettings} section={currentSection} />
+        </div>
+      )}
     </Layout>
   );
 }

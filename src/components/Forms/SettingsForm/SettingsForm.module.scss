@@ -1,9 +1,10 @@
 .settingsFormBox {
   @extend .vbox;
+  align-items: start;
   gap: 1rem;
   width: 70%;
-  height: 90vh;
-  padding: 8px;
+  height: 100%;
+  padding: 8px 2rem;
   overflow: auto;
   //   border: 2px solid $text-dark;
   opacity: 0;
@@ -49,10 +50,16 @@
 }
 
 .saveButton {
-  background-color: $primary;
+  background-color: $primary-hover;
 
   &:hover {
-    background-color: $primary-hover;
+    background-color: $primary;
   }
+}
 
+.sectionBox {
+  @extend .vbox;
+  gap: 1.5rem;
+  width: 100%;
+  height: 100%;
 }

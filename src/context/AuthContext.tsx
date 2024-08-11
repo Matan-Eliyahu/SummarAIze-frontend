@@ -20,9 +20,9 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const [loadingAuth, setLoadingAuth] = useState(false);
 
   useEffect(() => {
-    const storedTokens = getLocalStorageAuth();
-    if (storedTokens && storedTokens.plan !== "none") {
-      setAuth(storedTokens);
+    const storedAuth = getLocalStorageAuth();
+    if (storedAuth && storedAuth.isInitial) {
+      setAuth(storedAuth);
     }
   }, []);
 
@@ -64,7 +64,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       const response = await request;
       const auth: IAuth = response.data;
       setLocalStorageAuth(auth);
-      if (auth.plan === "none") {
+      if (!auth.isInitial) {
         return false;
       } else {
         setAuth(auth);

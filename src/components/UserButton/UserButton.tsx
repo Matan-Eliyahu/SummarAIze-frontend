@@ -4,15 +4,17 @@ import { FaGear, FaRightFromBracket, FaEnvelope } from "react-icons/fa6";
 import styles from "./UserButton.module.scss";
 import { useNavigate } from "react-router-dom";
 import { FaUserCircle } from "react-icons/fa";
+import { useStore } from "../../hooks/useStore";
 
 export default function UserButton() {
-  const { auth, logout } = useAuth();
+  const { logout } = useAuth();
+  const {account} = useStore()
   const navigate = useNavigate();
   const [tooltipVisible, setTooltipVisible] = useState(false);
   const [buttonHover, setButtonHover] = useState(false);
 
-  if (!auth) return null;
-  const { fullName, imageUrl, email } = auth;
+  if (!account) return null;
+  const { fullName, imageUrl, email } = account;
 
   function showTooltip() {
     setTooltipVisible(true);

@@ -1,4 +1,4 @@
-import { IFile } from "../common/types";
+import { IFile, IFileInfo } from "../common/types";
 import apiClient, { CanceledError, AxiosError } from "./apiClient";
 export { CanceledError, AxiosError };
 
@@ -7,7 +7,7 @@ class FileService {
 
   getUserFiles() {
     const controller = new AbortController();
-    const request = apiClient.get<IFile[]>(`${this.path}/`, { signal: controller.signal });
+    const request = apiClient.get<IFileInfo[]>(`${this.path}/`, { signal: controller.signal });
     return { request, cancel: () => controller.abort() };
   }
 

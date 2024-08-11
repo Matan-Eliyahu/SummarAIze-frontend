@@ -1,19 +1,19 @@
-export interface IUser {
+export interface IAccount {
   fullName: string;
-  plan: PlanType;
   email: string;
-  password: string;
+  plan: PlanType;
   imageUrl: string;
-  refreshTokens?: string[];
   _id?: string;
+}
+
+export interface IUser extends IAccount {
+  password: string;
+  refreshTokens?: string[];
 }
 
 export interface IAuth {
   userId: string;
-  plan: PlanType;
-  fullName: string;
-  email: string;
-  imageUrl: string;
+  isInitial: boolean;
   tokens: ITokens;
 }
 
@@ -34,20 +34,18 @@ export interface ISettings {
   smartSearchEnabled: boolean;
   clearFilesAfterDays: 0 | 30 | 60 | 90;
   defaultFileView: FileListView;
+  defaultSummaryTheme: Theme;
   summaryOptions: ISummaryOptions;
   _id?: string;
 }
 
 export type FileStatus = "completed" | "processing" | "error" | "not-summarized";
 
-export interface IFile {
+export interface IFileInfo {
   userId: string;
   name: string;
   type: FileType;
   size: number;
-  path: string;
-  transcribe: string;
-  summary: string;
   title: string;
   keywords: string[];
   status: FileStatus;
@@ -56,6 +54,12 @@ export interface IFile {
   _id?: string;
 }
 
+export interface IFile extends IFileInfo {
+  path: string;
+  summaryOptions: ISummaryOptions;
+  transcribe: string;
+  summary: string;
+}
 export interface IStorage {
   totalSize: number;
   pdfCount: number;
@@ -107,7 +111,9 @@ export const PLANS: Record<PlanType, IPlan | null> = {
   none: null,
 };
 
-export type Language = "auto" | "english" | "spanish" | "french" | "german" | "chinese" | "japanese" | "korean" | "russian" | "arabic" | "portuguese" | "italian" | "hindi" | "bengali";
+export type Language = "auto" | "english" | "spanish" | "french" | "german" | "chinese" | "japanese" | "korean" | "russian" | "arabic" | "portuguese" | "italian" | "hindi" | "bengali" | "hebrew";
+
+export type Theme = "light" | "dark";
 
 export interface ISummaryOptions {
   length: "short" | "medium" | "long";
@@ -138,4 +144,5 @@ export const summaryLanguageOptions: { value: Language; label: string }[] = [
   { value: "italian", label: "Italian" },
   { value: "hindi", label: "Hindi" },
   { value: "bengali", label: "Bengali" },
+  { value: "hebrew", label: "Hebrew" },
 ];

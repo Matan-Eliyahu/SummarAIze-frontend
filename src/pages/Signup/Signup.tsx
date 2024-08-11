@@ -60,7 +60,7 @@ function Signup() {
       <div className={styles.signupContainer}>
         <div className={`${styles.signupBox} ${isVisible ? styles.visible : ""}`}>
           <div>Create your account</div>
-          <Form isSignUp elements={signupElements} buttonText="Sign Up" theme="secondary" onSubmit={handleRegister}></Form>
+          <Form isSignUp elements={signupElements} buttonText="Sign Up" theme="secondary" onSubmit={handleRegister} />
           <div className={styles.signinBox}>
             <div className={styles.lightText}>Already have an account?</div>
             <a href="/">Log in</a>

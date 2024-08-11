@@ -1,0 +1,79 @@
+.accountFormBox {
+  @extend .vbox;
+  align-items: start;
+  gap: 1rem;
+  width: 70%;
+  height: 100%;
+  padding: 8px 2rem;
+  overflow: auto;
+  //   border: 2px solid $text-dark;
+  opacity: 0;
+  animation: fadeIn 1s forwards;
+  animation-delay: calc(0.1s * var(--i));
+}
+
+.buttonBox {
+  @extend .hbox;
+  justify-content: end;
+  gap: 1rem;
+  width: 100%;
+  height: 15%;
+  margin-top: auto;
+}
+
+.saveButton {
+  background-color: $primary-hover;
+
+  &:hover {
+    background-color: $primary;
+  }
+}
+
+.editButton {
+  @extend .saveButton;
+}
+
+.cancelButton {
+  @extend .cancelButton;
+  width: 10%;
+}
+
+.sectionBox {
+  @extend .vbox;
+  gap: 1.5rem;
+  width: 100%;
+  height: 100%;
+}
+
+.accountNameBox {
+  @extend .hbox;
+  gap: 1rem;
+  width: 70%;
+  color: $text;
+}
+
+.accountInputBox {
+  @extend .accountNameBox;
+  font-size: 20px;
+  padding: 1rem;
+}
+
+.accountInputLabel {
+  width: 17%;
+  font-size: 16px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.accountInput {
+    width: 30%;
+    background-color: $dark;
+    color: $text;
+}
+
+.plansBox {
+    @extend .hbox;
+    width: 100%;
+    height: 100%;
+    gap: 1rem;
+}

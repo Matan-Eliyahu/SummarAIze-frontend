@@ -39,10 +39,10 @@ export default function DoughnutChart({ fileTypeCounts, loading }: DoughnutChart
             </div>
             <div className={styles.precentageContainer}>
               <div className={styles.precentageBox}>
-                Pdf
+                Audio
                 <div className={styles.dotBox}>
-                  <div className={styles.pdfDot} />
-                  {`${pdfPercentage.toFixed(1)}%`}
+                  <div className={styles.audioDot} />
+                  {`${audioPercentage.toFixed(1)}%`}
                 </div>
               </div>
               <div className={styles.precentageBox}>
@@ -53,10 +53,10 @@ export default function DoughnutChart({ fileTypeCounts, loading }: DoughnutChart
                 </div>
               </div>
               <div className={styles.precentageBox}>
-                Audio
+                Pdf
                 <div className={styles.dotBox}>
-                  <div className={styles.audioDot} />
-                  {`${audioPercentage.toFixed(1)}%`}
+                  <div className={styles.pdfDot} />
+                  {`${pdfPercentage.toFixed(1)}%`}
                 </div>
               </div>
             </div>

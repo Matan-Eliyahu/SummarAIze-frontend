@@ -24,7 +24,10 @@ a {
   font-weight: bold;
   color: $primary-hover;
   text-decoration: none;
-  color: $primary-hover;
+
+  &:hover {
+      color: $primary;
+  }
 }
 
 label {
@@ -55,18 +58,17 @@ h5 {
 textarea {
   font-family: "Lato", sans-serif;
   &::-webkit-scrollbar {
-    width: 0.8rem;
+    width: 0.7rem;
   }
 
   &::-webkit-scrollbar-track {
-    background: $background;
-    // border-radius: 10px;
+    background: $background-dark;
   }
 
   &::-webkit-scrollbar-thumb {
     border-radius: 10px;
-    background: $dark;
-    border: 2px solid $background;
+    background: $background-soft;
+    border: 2px solid $background-dark;
   }
 }
 
@@ -75,18 +77,17 @@ div {
   font-weight: bold;
   color: $text-dark;
   &::-webkit-scrollbar {
-    width: 0.8rem;
+    width: 0.7rem;
   }
 
   &::-webkit-scrollbar-track {
-    background: $background;
-    // border-radius: 10px;
+    background: $background-dark;
   }
 
   &::-webkit-scrollbar-thumb {
     border-radius: 10px;
-    background: $dark;
-    border: 2px solid $background;
+    background: $background-soft;
+    border: 2px solid $background-dark;
   }
 }
 
@@ -155,5 +156,14 @@ input[type="range"] {
 
 input[type="range"]:hover,
 input[type="range"]:focus {
+  box-shadow: none;
+}
+
+input[type="file"] {
+  box-shadow: none;
+}
+
+input[type="file"]:hover,
+input[type="file"]:focus {
   box-shadow: none;
 }

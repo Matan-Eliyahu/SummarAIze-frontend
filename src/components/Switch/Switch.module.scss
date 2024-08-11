@@ -40,7 +40,7 @@
 }
 
 input:checked + .slider {
-  background-color: $primary;
+  background-color: $primary-hover;
 }
 
 input:checked + .slider:before {

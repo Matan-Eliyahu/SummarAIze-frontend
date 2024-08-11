@@ -1,6 +1,6 @@
 .summaryDisplayBox {
   @extend .vbox;
-  height: 95%;
+  height: 94%;
   width: 100%;
   background-color: $background-dark;
   border-radius: 16px;
@@ -9,7 +9,7 @@
 
 .textBox {
   height: 100%;
-  min-width: 93%;
+  width: 93%;
   padding: 20px 32px;
   color: $text;
   font-weight: 500;
@@ -23,6 +23,15 @@
   @extend .textBox;
   background-color: rgb(238, 238, 238);
   color: $dark;
+
+  &::-webkit-scrollbar-track {
+    background: rgb(238, 238, 238);
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background: $dark;
+    border: 2px solid rgb(238, 238, 238);
+  }
 }
 
 .textAreaBox {
@@ -44,7 +53,7 @@
   justify-content: center;
   gap: 16px;
   width: 90%;
-  height: 90%;
+  height: 100%;
   font-size: 16px;
   color: $text-dark;
 }

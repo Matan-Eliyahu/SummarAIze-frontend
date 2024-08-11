@@ -1,0 +1,61 @@
+.sidebarBox {
+  @extend .vbox;
+  height: 100%;
+}
+
+.sidebarListBox {
+  @extend .vbox;
+  margin: 0;
+  width: 85%;
+  height: 100%;
+  gap: 8px;
+  padding: 1rem;
+}
+
+.sidebarItem {
+  @extend .hbox;
+  justify-content: center;
+  gap: 8px;
+  width: 75%;
+  height: 25px;
+  padding: 8px;
+  border-radius: 8px;
+
+  cursor: pointer;
+  position: relative;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: $background-dark;
+  }
+}
+
+.sidebarItemLabel {
+  @extend .hbox;
+  gap: 8px;
+  width: 75%;
+  font-size: 16px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.selectedSidebarItem {
+  @extend .sidebarItem;
+  background-color: $background-dark;
+}
+
+.sidebarIcon {
+  height: 100%;
+  padding-top: 2px;
+  font-size: 16px;
+  color: $input;
+}
+
+.selectedItemBox {
+  width: 8px;
+  height: 55%;
+  background-color: $primary-hover;
+  border-radius: 2px;
+  position: absolute;
+  right: 92%;
+}

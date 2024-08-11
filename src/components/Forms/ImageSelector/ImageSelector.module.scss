@@ -1,0 +1,21 @@
+.imageSelectorBox {
+  @extend .vbox;
+}
+
+.imageInput {
+  display: none;
+}
+
+.imageBox {
+  @extend .vbox;
+  justify-content: center;
+  border-radius: 100%;
+  width: 70px;
+  height: 70px;
+  background-color: $primary;
+}
+
+.editImageBox {
+  @extend .imageBox;
+  cursor: pointer;
+}

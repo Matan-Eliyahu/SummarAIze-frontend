@@ -2,16 +2,19 @@ import { useEffect, useState } from "react";
 import Switch from "../../Switch/Switch";
 import CheckBox from "../../CheckBox/CheckBox";
 import Select from "../../Select/Select";
-import { FileListView, FileType, ISettings, Language, summaryLanguageOptions, summaryToneOptions } from "../../../common/types";
+import { FileListView, FileType, ISettings, Language, summaryLanguageOptions, summaryToneOptions, Theme } from "../../../common/types";
 import styles from "./SettingsForm.module.scss";
 import Slider from "../../Slider/Slider";
+
+export type SettingsSection = "file-management" | "summary-options";
 
 interface SettingsFormProps {
   set: ISettings;
   onSubmit: (updatedSettings: ISettings) => void;
+  section: SettingsSection;
 }
 
-export default function SettingsForm({ set, onSubmit }: SettingsFormProps) {
+export default function SettingsForm({ set, onSubmit, section }: SettingsFormProps) {
   const [settings, setSettings] = useState<ISettings>(set);
   const [isChanged, setIsChanged] = useState(set !== settings);
 
@@ -25,6 +28,11 @@ export default function SettingsForm({ set, onSubmit }: SettingsFormProps) {
   const defaultFileViewOptions = [
     { value: "icons", label: "Icons" },
     { value: "list", label: "List" },
+  ];
+
+  const defaultSummaryThemeOptions = [
+    { value: "light", label: "Light" },
+    { value: "dark", label: "Dark" },
   ];
 
   useEffect(() => {
@@ -102,56 +110,81 @@ export default function SettingsForm({ set, onSubmit }: SettingsFormProps) {
     }));
   }
 
+  function handleSummaryThemeSelectChange(value: string | number) {
+    setSettings((prev) => ({
+      ...prev,
+      defaultSummaryTheme: value as Theme,
+    }));
+  }
+
+  function sectionSwitch(section: SettingsSection) {
+    switch (section) {
+      case "file-management":
+        return (
+          <div className={styles.sectionBox}>
+            <div className={styles.settingsTitle}>
+              <div className={styles.title}>Allow files</div>
+              <div className={styles.allowFilesBox}>
+                <CheckBox set={settings.allowedFileTypes.includes("pdf")} onChange={(isChecked) => handleCheckBoxChange("pdf", isChecked)}>
+                  PDF
+                </CheckBox>
+                <CheckBox set={settings.allowedFileTypes.includes("image")} onChange={(isChecked) => handleCheckBoxChange("image", isChecked)}>
+                  Image
+                </CheckBox>
+                <CheckBox set={settings.allowedFileTypes.includes("audio")} onChange={(isChecked) => handleCheckBoxChange("audio", isChecked)}>
+                  Audio
+                </CheckBox>
+              </div>
+            </div>
+            <div className={styles.settingsTitle}>
+              <div className={styles.title}>Auto summarize</div>
+              <Switch set={settings.autoSummarizeEnabled} onChange={(isOn) => handleSwitchChange("autoSummarizeEnabled", isOn)} />
+            </div>
+            <div className={styles.settingsTitle}>
+              <div className={styles.title}>Smart search</div>
+              <Switch set={settings.smartSearchEnabled} onChange={(isOn) => handleSwitchChange("smartSearchEnabled", isOn)} />
+            </div>
+            <div className={styles.settingsTitle}>
+              <div className={styles.title}>Clear files automatically</div>
+              <Select set={settings.clearFilesAfterDays} options={clearFilesOptions} onChange={handleClearFilesSelectChange} />
+            </div>
+            <div className={styles.settingsTitle}>
+              <div className={styles.title}>Default files view</div>
+              <Select set={settings.defaultFileView} options={defaultFileViewOptions} onChange={handleFileViewSelectChange} />
+            </div>
+          </div>
+        );
+      case "summary-options":
+        return (
+          <div className={styles.sectionBox}>
+            <div className={styles.settingsTitle}>
+              <div className={styles.title}>Default summary language</div>
+              <Select options={summaryLanguageOptions} set={settings.summaryOptions.language} onChange={handleSummaryLanguageChange} />
+            </div>
+            <div className={styles.settingsTitle}>
+              <div className={styles.title}>Summary length</div>
+              <Slider options={["short", "medium", "long"]} initialValue={settings.summaryOptions.length} onChange={handleSummaryLengthChange} />
+            </div>
+            <div className={styles.settingsTitle}>
+              <div className={styles.title}>Summary tone</div>
+              <Select options={summaryToneOptions} set={settings.summaryOptions.tone} onChange={handleSummaryToneChange} />
+            </div>
+            <div className={styles.settingsTitle}>
+              <div className={styles.title}>Summary details level</div>
+              <Slider options={["low", "medium", "high"]} initialValue={settings.summaryOptions.detailLevel} onChange={handleSummaryDetailLevelChange} />
+            </div>
+            <div className={styles.settingsTitle}>
+              <div className={styles.title}>Default display theme</div>
+              <Select set={settings.defaultSummaryTheme} options={defaultSummaryThemeOptions} onChange={handleSummaryThemeSelectChange} />
+            </div>
+          </div>
+        );
+    }
+  }
+
   return (
     <div className={styles.settingsFormBox}>
-      <div className={styles.settingsTitle}>
-        <div className={styles.title}>Allow files</div>
-        <div className={styles.allowFilesBox}>
-          <CheckBox set={settings.allowedFileTypes.includes("pdf")} onChange={(isChecked) => handleCheckBoxChange("pdf", isChecked)}>
-            PDF
-          </CheckBox>
-          <CheckBox set={settings.allowedFileTypes.includes("image")} onChange={(isChecked) => handleCheckBoxChange("image", isChecked)}>
-            Image
-          </CheckBox>
-          <CheckBox set={settings.allowedFileTypes.includes("audio")} onChange={(isChecked) => handleCheckBoxChange("audio", isChecked)}>
-            Audio
-          </CheckBox>
-        </div>
-      </div>
-      <div className={styles.settingsTitle}>
-        <div className={styles.title}>Auto summarize</div>
-        <Switch set={settings.autoSummarizeEnabled} onChange={(isOn) => handleSwitchChange("autoSummarizeEnabled", isOn)} />
-      </div>
-      <div className={styles.settingsTitle}>
-        <div className={styles.title}>Smart search</div>
-        <Switch set={settings.smartSearchEnabled} onChange={(isOn) => handleSwitchChange("smartSearchEnabled", isOn)} />
-      </div>
-      <div className={styles.settingsTitle}>
-        <div className={styles.title}>Clear files automatically</div>
-        <Select set={settings.clearFilesAfterDays} options={clearFilesOptions} onChange={handleClearFilesSelectChange} />
-      </div>
-      <div className={styles.settingsTitle}>
-        <div className={styles.title}>Default files view</div>
-        <Select set={settings.defaultFileView} options={defaultFileViewOptions} onChange={handleFileViewSelectChange} />
-      </div>
-
-      <div className={styles.settingsTitle}>
-        <div className={styles.title}>Summary length</div>
-        <Slider options={["short", "medium", "long"]} initialValue={settings.summaryOptions.length} onChange={handleSummaryLengthChange} />
-      </div>
-      <div className={styles.settingsTitle}>
-        <div className={styles.title}>Summary tone</div>
-        <Select options={summaryToneOptions} set={settings.summaryOptions.tone} onChange={handleSummaryToneChange} />
-      </div>
-      <div className={styles.settingsTitle}>
-        <div className={styles.title}>Summary details level</div>
-        <Slider options={["low", "medium", "high"]} initialValue={settings.summaryOptions.detailLevel} onChange={handleSummaryDetailLevelChange} />
-      </div>
-      <div className={styles.settingsTitle}>
-        <div className={styles.title}>Summary default language</div>
-        <Select options={summaryLanguageOptions} set={settings.summaryOptions.language} onChange={handleSummaryLanguageChange} />
-      </div>
-
+      {sectionSwitch(section)}
       <div className={styles.buttonBox}>
         <button className={styles.saveButton} onClick={() => onSubmit(settings)} disabled={!isChanged}>
           Save

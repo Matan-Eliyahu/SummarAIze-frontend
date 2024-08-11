@@ -1,6 +1,4 @@
 import { useAuth } from "../../hooks/useAuth";
-// import { MdFacebook } from "react-icons/md";
-// import { FaApple } from "react-icons/fa";
 import Form, { FormElement } from "../../components/Forms/Form";
 import Welcome from "../../components/Welcome/Welcome";
 import { useEffect, useState } from "react";
@@ -46,8 +44,7 @@ function Home() {
       try {
         const signed = await googleLogin(tokenResponse);
         if (!signed) {
-          // No plan
-          console.log("NO PLAN");
+          // No plan found
           const googleSignupData: GoogleSignupData = {
             tokenResponse,
           };

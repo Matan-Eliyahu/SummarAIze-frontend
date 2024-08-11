@@ -1,32 +1,26 @@
-import { FaA, FaArrowDown, FaArrowUp, FaBox, FaCircleCheck, FaClockRotateLeft, FaList, FaPlus, FaTrash } from "react-icons/fa6";
+import { FaA, FaArrowDown, FaArrowUp, FaBox, FaCircleCheck, FaClockRotateLeft, FaFile, FaList, FaPlus, FaTrash } from "react-icons/fa6";
 import { BsGridFill } from "react-icons/bs";
 import styles from "./DragDropToolbar.module.scss";
 import { useState, useRef } from "react";
-import { FileListView, IFile } from "../../../common/types";
+import { FileListView, IFileInfo } from "../../../common/types";
 import SearchBar from "../../SearchBar/SearchBar";
 import { useError } from "../../../hooks/useError";
 
-export type FileSorting = "by-name" | "by-size" | "by-recent";
+export type FileSorting = "by-name" | "by-size" | "by-recent" | "by-type";
 export type SortingDirection = "asc" | "desc";
-
-// const fileSortingLabels: Record<FileSorting, string> = {
-//   "by-name": "Name",
-//   "by-size": "Size",
-//   "by-recent": "Recent",
-// };
 
 interface ToolbarProps {
   onViewChange: (viewType: FileListView) => void;
   onSortChange: (newSorting: FileSorting, newDirection: SortingDirection) => void;
-  searchFiles: (searchTerm: string) => Promise<IFile[]>;
-  setFilteredFiles: React.Dispatch<React.SetStateAction<IFile[] | null>>;
+  searchFiles: (searchTerm: string) => Promise<IFileInfo[]>;
+  setFilteredFiles: React.Dispatch<React.SetStateAction<IFileInfo[] | null>>;
   onFileSelect: (files: File[]) => void;
   onDeleteFiles: (fileNames: string[]) => Promise<void>;
   selectedFileNames: string[];
   isSelectionMode: boolean;
   enableSmartSearch: boolean;
   defaultFileView: FileListView;
-  onClearSelectedFiles:()=>void;
+  onClearSelectedFiles: () => void;
 }
 
 export default function DragDropToolbar({
@@ -61,11 +55,13 @@ export default function DragDropToolbar({
         return <FaBox className={styles.sortTypeIcon} />;
       case "by-recent":
         return <FaClockRotateLeft className={styles.sortTypeIcon} />;
+      case "by-type":
+        return <FaFile className={styles.sortTypeIcon} />;
     }
   }
 
   function handleSortIconChange() {
-    const sortingOptions: FileSorting[] = ["by-name", "by-size", "by-recent"];
+    const sortingOptions: FileSorting[] = ["by-name", "by-size", "by-recent", "by-type"];
     const currentIndex = sortingOptions.indexOf(selectedSorting);
     const nextIndex = (currentIndex + 1) % sortingOptions.length;
     const newSorting = sortingOptions[nextIndex];

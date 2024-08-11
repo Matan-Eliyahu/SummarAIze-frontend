@@ -3,18 +3,18 @@ import * as pdfjs from "pdfjs-dist";
 import DragDropToolbar, { FileSorting, SortingDirection } from "./DragDropToolbar/DragDropToolbar";
 import { FaClone } from "react-icons/fa6";
 import styles from "./DragDrop.module.scss";
-import { FileListView, IFile } from "../../common/types";
+import { FileListView, IFileInfo } from "../../common/types";
 import FileItem from "./FileItem/FileItem";
 import ProgressBar from "../ProgressBar/ProgressBar";
 
 pdfjs.GlobalWorkerOptions.workerSrc = "node_modules/pdfjs-dist/build/pdf.worker.mjs";
 
 interface DragDropProps {
-  files: IFile[];
+  files: IFileInfo[];
   progress: number;
   onFileDrop: (files: File[]) => void;
-  searchFiles: (searchTerm: string) => Promise<IFile[]>;
-  setFilteredFiles: React.Dispatch<React.SetStateAction<IFile[] | null>>;
+  searchFiles: (searchTerm: string) => Promise<IFileInfo[]>;
+  setFilteredFiles: React.Dispatch<React.SetStateAction<IFileInfo[] | null>>;
   onDeleteFiles: (fileNames: string[]) => Promise<void>;
   enableSmartSearch: boolean;
   defaultFileView: FileListView;
@@ -23,7 +23,7 @@ interface DragDropProps {
 export default function DragDrop({ files, progress, onFileDrop, searchFiles, setFilteredFiles, onDeleteFiles, enableSmartSearch, defaultFileView }: DragDropProps) {
   const [isDraggingOver, setIsDraggingOver] = useState<boolean>(false);
   const [listView, setListView] = useState<FileListView>(defaultFileView);
-  const [sortedFiles, setSortedFiles] = useState<IFile[]>([]);
+  const [sortedFiles, setSortedFiles] = useState<IFileInfo[]>([]);
   const [sorting, setSorting] = useState<FileSorting>("by-recent");
   const [sortingDirection, setSortingDirection] = useState<SortingDirection>("asc");
   const [isSelectionMode, setIsSelectionMode] = useState<boolean>(false);
@@ -82,6 +82,8 @@ export default function DragDrop({ files, progress, onFileDrop, searchFiles, set
         sorted.sort((a, b) =>
           sortingDirection === "asc" ? new Date(a.uploadedAt ?? 0).getTime() - new Date(b.uploadedAt ?? 0).getTime() : new Date(b.uploadedAt ?? 0).getTime() - new Date(a.uploadedAt ?? 0).getTime()
         );
+      } else if (sorting === "by-type") {
+        sorted.sort((a, b) => (sortingDirection === "asc" ? a.type.localeCompare(b.type) : b.type.localeCompare(a.type)));
       }
       setSortedFiles(sorted);
     }

@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import SummaryToolbar, { ModeType } from "./SummaryToolbar/SummaryToolbar";
 import Spinner from "../Spinner/Spinner";
 import { isHebrew } from "../../utils/text";
-// import logo from "../../assets/logo.png";
 import styles from "./SummaryDisplay.module.scss";
+import { Theme } from "../../common/types";
 
 interface SummaryDisplayProps {
   transcribe: string;
@@ -12,15 +12,16 @@ interface SummaryDisplayProps {
   loading: boolean;
   edit: boolean;
   setEdit: React.Dispatch<React.SetStateAction<boolean>>;
+  defaultTheme: Theme;
 }
 
-function SummaryDisplay({ transcribe, summary, onSave, loading, edit, setEdit }: SummaryDisplayProps) {
+function SummaryDisplay({ transcribe, summary, onSave, loading, edit, setEdit, defaultTheme }: SummaryDisplayProps) {
   const [mode, setMode] = useState<ModeType>("summary");
   const [updatedTranscribe, setUpdatedTranscribe] = useState(transcribe);
   const [updatedSummary, setUpdatedSummary] = useState(summary);
   const [isRtl, setIsRtl] = useState(false);
   const [fontSize, setFontSize] = useState(16);
-  const [theme, setTheme] = useState<"light" | "dark">("dark");
+  const [theme, setTheme] = useState<Theme>(defaultTheme);
   const isSummarized = summary !== "";
 
   useEffect(() => {
@@ -56,7 +57,7 @@ function SummaryDisplay({ transcribe, summary, onSave, loading, edit, setEdit }:
     setFontSize(textSize);
   }
 
-  function handleThemeToggle(theme: "light" | "dark") {
+  function handleThemeToggle(theme: Theme) {
     setTheme(theme);
   }
 
@@ -71,6 +72,7 @@ function SummaryDisplay({ transcribe, summary, onSave, loading, edit, setEdit }:
         isEditing={edit}
         isSummarized={isSummarized}
         onFontSizeChange={handleFontSizeChange}
+        defaultTheme={defaultTheme}
       />
       {edit ? (
         <textarea
@@ -93,9 +95,6 @@ function SummaryDisplay({ transcribe, summary, onSave, loading, edit, setEdit }:
           ) : (
             <div className={styles.noSummaryBox}>
               <div className={styles.noSummaryText}>Summary not generated</div>
-              {/* <button className={styles.summarizeButton}>
-                <img src={logo} alt="logo" style={{ width: 130 }} />
-              </button> */}
             </div>
           )}
         </div>
