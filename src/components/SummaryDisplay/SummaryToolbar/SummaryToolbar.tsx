@@ -15,7 +15,7 @@ interface SummaryToolbarProps {
   isSummarized: boolean;
   isEditing: boolean;
   loading: boolean;
-  defaultTheme:Theme;
+  defaultTheme: Theme;
 }
 
 export default function SummaryToolbar({ onModeChange, onEditToggle, onCancelEdit, onFontSizeChange, onThemeToggle, isEditing, isSummarized, loading, defaultTheme }: SummaryToolbarProps) {
@@ -53,24 +53,24 @@ export default function SummaryToolbar({ onModeChange, onEditToggle, onCancelEdi
     <div className={styles.summaryToolbarBox}>
       <div className={styles.fontSizeBox}>
         <button className={styles.fontSizeButton} onClick={handleDecreaseFontSize}>
-          <FaMinus />
+          <FaMinus className={styles.fontSizeIcon} />
         </button>
         <div className={styles.seperator} />
         <div className={styles.fontSizeText}>{fontSize}</div>
         <div className={styles.seperator} />
         <button className={styles.fontSizeButton} onClick={handleIncreaseFontSize}>
-          <FaPlus />
+          <FaPlus className={styles.fontSizeIcon} />
         </button>
       </div>
       <div className={styles.editButtonBox}>
+        <button className={styles.themeButton} onClick={toggleTheme}>
+          {theme === "dark" ? <MdOutlineLightMode className={styles.themeIcon} /> : <MdOutlineDarkMode className={styles.themeIcon} />}
+        </button>
         {isEditing && (
           <button className={styles.cancelButton} onClick={onCancelEdit}>
             Cancel
           </button>
         )}
-        <button className={styles.themeButton} onClick={toggleTheme}>
-          {theme === "dark" ? <MdOutlineLightMode className={styles.themeIcon} /> : <MdOutlineDarkMode className={styles.themeIcon} />}
-        </button>
         {(mode === "summary" && !isSummarized) || loading ? null : (
           <button className={isEditing ? styles.saveButton : styles.editButton} onClick={onEditToggle}>
             {isEditing ? (

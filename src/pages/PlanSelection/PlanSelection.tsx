@@ -1,14 +1,14 @@
 import { useState } from "react";
+import { useAuth } from "../../hooks/useAuth";
+import { useAlert } from "../../hooks/useAlert";
+import { AxiosError } from "axios";
+import UserService from "../../services/UserService";
 import { IUser, PLANS, PlanType } from "../../common/types";
 import Layout from "../../components/Layout/Layout";
 import PlanCard from "../../components/PlanCard/PlanCard";
-import { useError } from "../../hooks/useError";
-import styles from "./PlanSelection.module.scss";
-import { useAuth } from "../../hooks/useAuth";
-import { AxiosError } from "axios";
-import UserService from "../../services/UserService";
-import { SignUpFormData } from "../Signup/Signup";
 import { GoogleSignupData } from "../Login/Login";
+import { SignUpFormData } from "../Signup/Signup";
+import styles from "./PlanSelection.module.scss";
 
 interface PlanSelectionProps {
   signupFormData?: SignUpFormData;
@@ -17,7 +17,7 @@ interface PlanSelectionProps {
 
 export default function PlanSelection({ signupFormData, googleSignupData }: PlanSelectionProps) {
   const { register, login, googleLogin } = useAuth();
-  const { setAlert } = useError();
+  const { setAlert } = useAlert();
   const [loading, setLoading] = useState(false);
 
   async function hanldeRegister(plan: PlanType) {
@@ -41,6 +41,7 @@ export default function PlanSelection({ signupFormData, googleSignupData }: Plan
         fullName: firstName + " " + lastName,
         imageUrl: "https://static.vecteezy.com/system/resources/previews/009/292/244/original/default-avatar-icon-of-social-media-user-vector.jpg",
         password,
+        registrationMethod: "manual",
       };
       setLoading(true);
       try {
@@ -64,12 +65,12 @@ export default function PlanSelection({ signupFormData, googleSignupData }: Plan
   return (
     <Layout fullPage loading={loading}>
       <div className={styles.planSelectionBox}>
-        <h2>Choose Your Plan</h2>
+        <div className={styles.title}>Choose Your Plan</div>
         <div className={styles.planSelectionButtonBox}>
           {(Object.keys(PLANS) as PlanType[])
             .filter((planType) => planType != "none")
             .map((planType, index) => (
-              <PlanCard planType={planType} key={index} onChoosePlan={hanldeRegister} loading={loading} />
+              <PlanCard planType={planType} key={index} onChoosePlan={hanldeRegister} loading={loading} width="20%" />
             ))}
         </div>
       </div>

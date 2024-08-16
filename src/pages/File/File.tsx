@@ -1,29 +1,29 @@
-import Layout from "../../components/Layout/Layout";
-import { useEffect, useState } from "react";
-import { FileStatus, IFile, ISummaryOptions, IUpdate } from "../../common/types";
-import { fileIconMap } from "../../common/icons";
-import styles from "./File.module.scss";
-import { useNavigate, useParams } from "react-router-dom";
-import FileService, { AxiosError } from "../../services/FileService";
-import { useError } from "../../hooks/useError";
-import { FaBell, FaBox, FaFileArrowDown, FaTrash, FaTriangleExclamation, FaUpload } from "react-icons/fa6";
 import moment from "moment";
-import Spinner from "../../components/Spinner/Spinner";
-import { capitalizeFirstLetter, truncateFileName } from "../../utils/text";
-import { useDownloadFile } from "../../hooks/useDownloadFile";
-import useWebSocket from "../../hooks/useWebSocket";
-import SummaryDisplay from "../../components/SummaryDisplay/SummaryDisplay";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useAlert } from "../../hooks/useAlert";
 import { useStore } from "../../hooks/useStore";
+import { useWebSocket } from "../../hooks/useWebSocket";
+import { useDownload } from "../../hooks/useDownload";
+import { FileStatus, IFile, ISummaryOptions, IUpdate } from "../../common/types";
+import FileService, { AxiosError } from "../../services/FileService";
+import Layout from "../../components/Layout/Layout";
+import SummaryDisplay from "../../components/SummaryDisplay/SummaryDisplay";
 import SummaryService from "../../services/SummaryService";
 import SummaryOptions from "../../components/SummaryOptions/SummaryOptions";
+import Spinner from "../../components/Spinner/Spinner";
+import { capitalizeFirstLetter, truncateFileName } from "../../utils/text";
+import { FaBell, FaBox, FaFileArrowDown, FaTrash, FaTriangleExclamation, FaUpload } from "react-icons/fa6";
+import { fileIconMap } from "../../common/icons";
+import styles from "./File.module.scss";
 
 export default function File() {
   const { fileName } = useParams<{ fileName: string }>();
   const { settings } = useStore();
-  const { setAlert, clearAlert } = useError();
+  const { setAlert, clearAlert } = useAlert();
   const navigate = useNavigate();
-  const socket = useWebSocket();
-  const download = useDownloadFile();
+  const {socket} = useWebSocket();
+  const download = useDownload();
   const [file, setFile] = useState<IFile | null>(null);
   const [loading, setLoading] = useState(false);
   const [updateFileloading, setUpdateFileLoading] = useState(false);
@@ -151,7 +151,7 @@ export default function File() {
   }
 
   return (
-    <Layout loading={loading}>
+    <Layout loading={loading} text="Loading file...">
       {file && (
         <>
           <div className={styles.fileContainer}>

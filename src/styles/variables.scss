@@ -52,14 +52,16 @@ $dark: rgb(27, 27, 27);
 }
 
 .primaryButton {
-  background-color: $primary;
+  padding: 8px 12px;
+  background-color: $primary-hover;
 
   &:hover {
-    background-color: $primary-hover;
+    background-color: $primary;
   }
 }
 
 .secondaryButton {
+  @extend .primaryButton;
   background-color: $secondary-hover;
 
   &:hover {
@@ -68,33 +70,71 @@ $dark: rgb(27, 27, 27);
 }
 
 .successButton {
-  background-color: $success;
+  @extend .primaryButton;
+  background-color: $success-hover;
 
   &:hover {
-    background-color: $success-hover;
+    background-color: $success;
   }
 }
 
 .dangerButton {
-  background-color: $danger;
+  @extend .primaryButton;
+  background-color: $danger-hover;
 
   &:hover {
-    background-color: $danger-hover;
+    background-color: $danger;
   }
 }
 
 .createButton {
-  background-color: $create;
+  @extend .primaryButton;
+  background-color: $create-hover;
 
   &:hover {
-    background-color: $create-hover;
+    background-color: $create;
   }
 }
 
 .cancelButton {
+  @extend .primaryButton;
   background-color: $background-soft;
 
   &:hover {
     background-color: $input;
+  }
+}
+
+.scrollPrimary {
+  &::-webkit-scrollbar {
+    width: 0.7rem;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: $background-dark;
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: $background-soft;
+    border: 2px solid $background-dark;
+  }
+}
+
+.scrollSecondary {
+  &::-webkit-scrollbar {
+    width: 0.7rem;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: $dark;
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: $background;
+    border: 2px solid $dark;
   }
 }

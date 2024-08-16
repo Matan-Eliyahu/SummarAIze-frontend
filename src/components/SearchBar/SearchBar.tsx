@@ -7,9 +7,10 @@ interface SearchBarProps<T> {
   fetchFunction: (searchTerm: string) => Promise<T[]>;
   setData: React.Dispatch<React.SetStateAction<T[] | null>>;
   placeholder: string;
+  disableHoverFocus?: boolean;
 }
 
-function SearchBar<T>({ fetchFunction, setData, placeholder }: SearchBarProps<T>) {
+function SearchBar<T>({ fetchFunction, setData, placeholder, disableHoverFocus }: SearchBarProps<T>) {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [loading, setLoading] = useState(false);
 
@@ -35,7 +36,7 @@ function SearchBar<T>({ fetchFunction, setData, placeholder }: SearchBarProps<T>
 
   return (
     <div className={styles.searchBarBox}>
-      <input className={`${styles.searchBarInput} no-hover-focus`} type="text" placeholder={placeholder} value={searchTerm} onChange={handleInputChange} />
+      <input className={`${styles.searchBarInput} ${disableHoverFocus ? styles.noHoverFocus : ""}`} type="text" placeholder={placeholder} value={searchTerm} onChange={handleInputChange} />
       {loading ? (
         <div className={styles.spinnerBox}>
           <Spinner size="s" />

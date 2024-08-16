@@ -19,7 +19,7 @@ function SummaryDisplay({ transcribe, summary, onSave, loading, edit, setEdit, d
   const [mode, setMode] = useState<ModeType>("summary");
   const [updatedTranscribe, setUpdatedTranscribe] = useState(transcribe);
   const [updatedSummary, setUpdatedSummary] = useState(summary);
-  const [isRtl, setIsRtl] = useState(false);
+  const [isRtl, setIsRtl] = useState<boolean | null>(null);
   const [fontSize, setFontSize] = useState(16);
   const [theme, setTheme] = useState<Theme>(defaultTheme);
   const isSummarized = summary !== "";
@@ -33,7 +33,7 @@ function SummaryDisplay({ transcribe, summary, onSave, loading, edit, setEdit, d
     setMode(newMode);
   }
 
-  function toggleEdit() {
+  function handleToggleEdit() {
     setEdit((prev) => !prev);
     if (edit) {
       onSave(updatedTranscribe, updatedSummary);
@@ -66,7 +66,7 @@ function SummaryDisplay({ transcribe, summary, onSave, loading, edit, setEdit, d
       <SummaryToolbar
         loading={loading}
         onModeChange={handleModeChange}
-        onEditToggle={toggleEdit}
+        onEditToggle={handleToggleEdit}
         onThemeToggle={handleThemeToggle}
         onCancelEdit={handleCancelEdit}
         isEditing={edit}
@@ -76,14 +76,14 @@ function SummaryDisplay({ transcribe, summary, onSave, loading, edit, setEdit, d
       />
       {edit ? (
         <textarea
-          className={`${styles.textAreaBox} ${isRtl ? styles.rtl : ""}`}
+          className={`${theme === "light" ? styles.lightTextAreaBox : styles.textAreaBox} ${isRtl ? styles.rtl : ""}`}
           style={{ fontSize }}
           value={mode === "transcribe" ? updatedTranscribe : updatedSummary}
           onChange={handleTextAreaChange}
         />
       ) : loading ? (
         <div className={styles.loadingBox}>
-          Processing...
+          Summarizing...
           <Spinner size="m" />
         </div>
       ) : (

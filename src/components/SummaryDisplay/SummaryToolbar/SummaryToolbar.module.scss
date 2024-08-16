@@ -1,7 +1,7 @@
 .summaryToolbarBox {
   @extend .hbox;
   justify-content: center;
-  min-height: 4rem;
+  min-height: 3.5rem;
   width: 100%;
   height: 8%;
   gap: 8px;
@@ -39,10 +39,10 @@
 .saveButton {
   @extend .editButton;
   color: $text;
-  background-color: $secondary;
+  background-color: $secondary-hover;
 
   &:hover {
-    background-color: $secondary-hover;
+    background-color: $secondary;
   }
 }
 
@@ -68,6 +68,7 @@
   gap: 8px;
   background-color: transparent;
   font-size: 14px;
+  font-weight: 600;
   color: $text-dark;
 
   &:hover {
@@ -128,10 +129,14 @@
   @extend .hbox;
   justify-content: center;
   gap: 6px;
-  font-size: 16px;
+  font-size: 14px;
   color: $text-dark;
   padding: 0 12px;
   height: 100%;
+}
+
+.fontSizeIcon {
+  font-size: 14px;
 }
 
 .seperator {

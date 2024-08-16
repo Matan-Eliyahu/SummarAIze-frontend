@@ -1,0 +1,65 @@
+.widgetBox {
+  @extend .vbox;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 16px 8px;
+  padding-bottom: 8px;
+  gap: 0.5rem;
+  background-color: $dark;
+  width: 95%;
+  border-radius: 12px;
+  opacity: 0;
+  animation: fadeIn 0.9s forwards;
+  animation-delay: calc(0.1s * var(--i));
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+.title {
+  @extend .hbox;
+  gap: 8px;
+  width: 95%;
+  font-size: 20px;
+  font-weight: 500;
+  color: $shadow;
+}
+
+.titleIcon {
+  font-size: 18px;
+  color: $input;
+}
+
+.badgeBox {
+  font-size: 14px;
+  color: $text-dark;
+  font-weight: 500;
+  padding: 4px 16px;
+  border-radius: 4px;
+  background-color: $background-dark;
+  margin-left: auto;
+}
+
+.badgeLabel {
+  font-size: 14px;
+  color: $shadow;
+  margin-right: 2px;
+}
+
+.contentBox {
+  @extend .vbox;
+  justify-content: center;
+  gap: 8px;
+  background-color: $background-dark;
+  padding: 12px 16px;
+  border-radius: 8  px;
+  width: 87%;
+}
+
+.spinnerBox {
+  @extend .contentBox;
+  height: 5vh;
+}

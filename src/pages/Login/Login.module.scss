@@ -24,12 +24,6 @@
   // margin-bottom: 0.5rem;
 }
 
-.buttonBox {
-  @extend .vbox;
-  justify-content: center;
-  padding: 16px;
-  width: 100%;
-}
 
 .lightText {
   text-align: center;
@@ -43,82 +37,4 @@
   width: 500px;
 }
 
-.boxSeparator {
-  @extend .hbox;
-  width: 100%;
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
-}
 
-.singinBox {
-  @extend .vbox;
-  justify-content: center;
-  gap: 2rem;
-  padding: 48px 64px;
-  background: linear-gradient(to bottom, $background-dark, $dark);
-  border-radius: 16px;
-  opacity: 0;
-  transition: opacity 0.5s ease-in-out;
-
-  &.visible {
-    opacity: 1;
-  }
-}
-
-.signupBox {
-  @extend .hbox;
-  padding: 8px;
-  gap: 0.5rem;
-  font-size: 1.2rem;
-  justify-content: center;
-  width: 100%;
-}
-
-.boxSeparator {
-  @extend .hbox;
-  width: 110%;
-  margin: -16px;
-}
-
-.boxSeparatorItem {
-  font-size: 14px;
-  margin: 16px 0px;
-  flex: 1;
-  min-width: 30%;
-  box-sizing: border-box; 
-  text-align: center; 
-  color: $text-dark;
-}
-
-.boxSeparatorLine {
-  flex: 1;
-  width: 33.33%;
-  box-sizing: border-box;
-  text-align: center;
-  height: 1px;
-  background-color: $input;
-}
-
-.buttonBox {
-  @extend .vbox;
-  padding: 8px;
-}
-
-.googleButton {
-  color: $text-dark;
-  gap: 6px;
-  padding: 8px;
-  width: 60%;
-  background-color: transparent;
-  border: 2px solid rgb(212, 212, 212);
-  transition: border 0.2s ease,box-shadow 0.2s ease;
-  &:hover {
-    // background-color: rgb(212, 212, 212);
-    border: 2px solid white;
-    box-shadow: 0 0 8px 2px rgba(255, 255, 255, 0.568);
-  }
-}
-
-.googleIcon {
-  font-size: 22px;
-}

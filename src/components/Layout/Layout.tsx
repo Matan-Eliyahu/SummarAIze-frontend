@@ -8,15 +8,16 @@ interface LayoutProps {
   fullPage?: boolean;
   loading?: boolean;
   text?: string;
+  breadcrumbsLoading?: boolean;
 }
 
-function Layout({ children, loading = false, text, fullPage }: LayoutProps) {
+function Layout({ children, loading = false, text, fullPage,breadcrumbsLoading }: LayoutProps) {
   const shouldShowLoading = !fullPage && loading;
 
   return (
     <div className={fullPage ? styles.fullPageLayout : styles.pageLayout}>
-      {!fullPage && <Breadcrumbs loading={shouldShowLoading} />}
-      {shouldShowLoading ? <Spinner size="m" fullPage text={text} /> : children}
+      {!fullPage && <Breadcrumbs loading={breadcrumbsLoading ?? shouldShowLoading} />}
+      {shouldShowLoading ? <Spinner size="l" fullPage text={text} /> : children}
     </div>
   );
 }

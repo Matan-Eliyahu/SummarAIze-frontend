@@ -1,0 +1,39 @@
+.radioButtonBox {
+  @extend .hbox;
+  gap: 12px;
+}
+
+.radioInput {
+  display: none;
+}
+
+.customRadio {
+  width: 16px;
+  height: 16px;
+  border: 1px solid $input;
+  border-radius: 50%;
+  position: relative;
+  transition: border-color 0.2s ease;
+  cursor: pointer;
+}
+
+.customRadio::after {
+  content: "";
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background-color: $text;
+  opacity: 0;
+}
+
+.radioInput:checked + .customRadio::after {
+  opacity: 1;
+}
+
+.radioInput:checked + .customRadio {
+  background-color: $primary-hover;
+}

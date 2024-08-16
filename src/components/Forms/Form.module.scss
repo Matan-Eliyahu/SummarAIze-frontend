@@ -8,7 +8,7 @@
 
 .inputLabel {
   @extend .vbox;
-  width: 95%;
+  width: 90%;
   align-items: start;
   font-size: 14px;
   color: $text-dark;
@@ -32,4 +32,19 @@
 
 .link {
   font-weight: 500;
+}
+
+.primaryFormButton {
+  @extend .primaryButton;
+  padding: 8px 32px;
+}
+
+.secondaryFormButton {
+  @extend .secondaryButton;
+  padding: 8px 32px;
+}
+
+.successFormButton {
+  @extend .successButton;
+  padding: 8px 32px;
 }

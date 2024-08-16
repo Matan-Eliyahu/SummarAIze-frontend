@@ -8,13 +8,14 @@ interface SpinnerProps {
 }
 
 function Spinner({ size, fullPage, text }: SpinnerProps) {
+  const fontSize = size == "xs" ? "0.8rem" : size == "s" ? "1rem" : size == "m" ? "1.2rem" : "1.8rem";
   return fullPage ? (
     <div className={styles.fullPageBox}>
       {text && text}
-      <FaCircleNotch className={styles.spinnerIcon} style={{ fontSize: size == "xs" ? "0.8rem" : size == "s" ? "1rem" : size == "m" ? "1.8rem" : "2.2rem" }} />
+      <FaCircleNotch className={styles.spinnerIcon} style={{ fontSize }} />
     </div>
   ) : (
-    <FaCircleNotch className={styles.spinnerIcon} style={{ fontSize: size == "xs" ? "0.8rem" : size == "s" ? "1rem" : size == "m" ? "1.8rem" : "2.2rem" }} />
+    <FaCircleNotch className={styles.spinnerIcon} style={{ fontSize }} />
   );
 }
 

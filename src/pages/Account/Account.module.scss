@@ -1,15 +1,18 @@
 .titleIcon {
-    font-size: 2rem;
-    color: $input;
+  font-size: 2rem;
+  color: $input;
 }
 
 .accountBox {
-    @extend .hbox;
-    width: 85%;
-    height: 100%;
+  @extend .hbox;
+  align-items: start;
+  width: 85%;
+  height: 100%;
 }
 
 .sidebarBox {
-    width: 20%;
-    height: 100%;
+  width: 20%;
+  height: 100%;
 }
+
+

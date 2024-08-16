@@ -9,12 +9,13 @@ import { useAuth } from "../../hooks/useAuth";
 import { useStore } from "../../hooks/useStore";
 import { IUser, PlanType } from "../../common/types";
 import { AxiosError } from "../../services/UserService";
-import { useError } from "../../hooks/useError";
+import { useAlert } from "../../hooks/useAlert";
+import UploadService from "../../services/UploadService";
 
 export default function Account() {
-  const { loadingAuth } = useAuth();
+  const { logout } = useAuth();
   const { account, refreshStore, updateUser, updateUserPlan } = useStore();
-  const { setAlert } = useError();
+  const { setAlert } = useAlert();
   const [loading, setLoading] = useState(false);
   const [currentSection, setCurrentSection] = useState<AccountSection>("my-account");
 
@@ -47,17 +48,38 @@ export default function Account() {
     }
   }
 
+  async function handleUploadUserImage(image: File) {
+    try {
+      const respose = await UploadService.uploadProfilePicture(image).request;
+      return respose.data.imageUrl;
+    } catch (error) {
+      if (error instanceof AxiosError) setAlert({ error });
+      return "";
+    }
+  }
+
+  async function handleLogout() {
+    setLoading(true);
+    try {
+      await logout();
+    } catch (error) {
+      if (error instanceof AxiosError) setAlert({ error });
+    } finally {
+      setLoading(false);
+    }
+  }
+
   return (
-    <Layout loading={loadingAuth || loading} text="Loading account...">
-      <div className="pageTitleBox">
-        <FaUserCircle className={styles.titleIcon} />
-        Account
-      </div>
+    <Layout loading={loading} text="Loading account...">
       <div className={styles.accountBox}>
         <div className={styles.sidebarBox}>
-          <Sidebar items={sidebarItems} onSelect={(settings) => setCurrentSection(settings as AccountSection)} />
+          <div className="pageTitleBox">
+            <FaUserCircle className={styles.titleIcon} />
+            Account
+          </div>
+          <Sidebar items={sidebarItems} onSelect={(settings) => setCurrentSection(settings as AccountSection)} isAccountSidebar onLogout={handleLogout} />
         </div>
-        <AccountForm set={account!} onUserChange={handleUpdateUser} onPlanChange={handleUpdatePlan} section={currentSection} />
+        <AccountForm set={account!} onUserChange={handleUpdateUser} onPlanChange={handleUpdatePlan} onImageUpload={handleUploadUserImage} section={currentSection} />
       </div>
     </Layout>
   );

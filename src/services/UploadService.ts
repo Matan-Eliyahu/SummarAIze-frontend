@@ -4,9 +4,12 @@ export { CanceledError, AxiosError };
 class UploadService {
   private path = "/upload";
 
-  uploadFiles(files: File[], onProgress: (progress: number) => void) {
+  uploadFiles(files: File[], onProgress: (progress: number) => void, folderId?: string) {
     const controller = new AbortController();
     const formData = new FormData();
+    if (folderId) {
+      formData.append("folderId", folderId);
+    }
     files.forEach((file) => {
       formData.append("files", file);
     });
@@ -31,7 +34,7 @@ class UploadService {
     const controller = new AbortController();
     const formData = new FormData();
     formData.append("profile-picture", image);
-    const request = apiClient.post(`${this.path}/profile-picture`, formData, { signal: controller.signal });
+    const request = apiClient.post<{ imageUrl: string }>(`${this.path}/profile-picture`, formData, { signal: controller.signal });
     return { request, cancel: () => controller.abort() };
   }
 }

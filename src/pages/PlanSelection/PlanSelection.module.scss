@@ -1,16 +1,19 @@
 .planSelectionBox {
   @extend .vbox;
-  justify-content: center;
-  gap: 10%;
-  width: 80%;
+  padding: 8px;
+  gap: 1rem;
+  width: 90%;
   height: 100%;
+}
+
+.title {
+  font-size: 3rem;
+  color: $primary;
 }
 
 .planSelectionButtonBox {
   @extend .hbox;
-  margin: 0;
-  padding: 0;
   justify-content: center;
-  gap: 2rem;
-  overflow: auto;
+  width: 100%;
+  gap: 1rem;
 }

@@ -17,11 +17,11 @@ function Error({ text, buttonText, onButtonClick, secondButtonText, onSecondButt
   function iconSwitch(icon?: "error" | "upload") {
     switch (icon) {
       case "error":
-        return <FaCircleExclamation size={20} />;
+        return <FaCircleExclamation className={styles.errorIcon} />;
       case "upload":
-        return <FaCloudArrowUp size={20} />;
+        return <FaCloudArrowUp className={styles.errorIcon} />;
       default:
-        return <FaCircleExclamation size={20} />;
+        return <FaCircleExclamation className={styles.errorIcon} />;
     }
   }
   return (

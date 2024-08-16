@@ -1,14 +1,24 @@
+export type RegistrationMethod = "manual" | "google" | "github";
+
 export interface IAccount {
   fullName: string;
   email: string;
   plan: PlanType;
   imageUrl: string;
+  registrationMethod: RegistrationMethod;
   _id?: string;
 }
 
 export interface IUser extends IAccount {
   password: string;
   refreshTokens?: string[];
+}
+
+export interface IUserSearchResult {
+  fullName: string;
+  email: string;
+  imageUrl: string;
+  _id:string;
 }
 
 export interface IAuth {
@@ -60,6 +70,21 @@ export interface IFile extends IFileInfo {
   transcribe: string;
   summary: string;
 }
+
+export interface IFolder {
+  name: string;
+  userId: string;
+  filesId: string[];
+  sharedWith: string[];
+  isPrivate: boolean;
+  totalSize: number;
+  status: FileStatus;
+  description?: string;
+  createdAt: Date;
+  updatedAt?: Date;
+  _id?: string;
+}
+
 export interface IStorage {
   totalSize: number;
   pdfCount: number;

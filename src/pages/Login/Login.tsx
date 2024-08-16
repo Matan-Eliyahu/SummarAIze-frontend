@@ -1,42 +1,23 @@
-import { useAuth } from "../../hooks/useAuth";
-import Form, { FormElement } from "../../components/Forms/Form";
-import Welcome from "../../components/Welcome/Welcome";
-import { useEffect, useState } from "react";
-import Layout from "../../components/Layout/Layout";
-import { FcGoogle } from "react-icons/fc";
+import { useState } from "react";
 import { TokenResponse, useGoogleLogin } from "@react-oauth/google";
+import { useAuth } from "../../hooks/useAuth";
+import { useAlert } from "../../hooks/useAlert";
 import { AxiosError } from "axios";
-import { useError } from "../../hooks/useError";
-import styles from "./Login.module.scss";
+import Layout from "../../components/Layout/Layout";
+import Welcome from "../../components/Welcome/Welcome";
+import LoginForm from "../../components/Forms/LoginForm/LoginForm";
 import PlanSelection from "../PlanSelection/PlanSelection";
+import styles from "./Login.module.scss";
 
 export interface GoogleSignupData {
   tokenResponse: TokenResponse;
 }
 
-function Home() {
+function Login() {
   const { login, googleLogin } = useAuth();
-  const { setAlert, clearAlert } = useError();
+  const { setAlert, clearAlert } = useAlert();
   const [loading, setLoading] = useState(false);
-  const [isVisible, setIsVisible] = useState(false);
   const [googleSignupData, setGoogleSignupData] = useState<GoogleSignupData | null>(null);
-
-  useEffect(() => {
-    setIsVisible(true);
-  }, []);
-
-  const signinElements: FormElement[] = [
-    {
-      label: "Email Address",
-      key: "email",
-      type: "email",
-    },
-    {
-      label: "Password",
-      key: "password",
-      type: "password",
-    },
-  ];
 
   const handleGoogleLogin = useGoogleLogin({
     onSuccess: async (tokenResponse: TokenResponse) => {
@@ -84,30 +65,10 @@ function Home() {
         <div className={styles.welcomeBox}>
           <Welcome mode="home" />
         </div>
-
-        <div className={`${styles.singinBox} ${isVisible ? styles.visible : ""}`}>
-          <div>Log in to your account</div>
-
-          <Form elements={signinElements} buttonText="Log In" onSubmit={handleLogin} loading={loading} />
-          <div className={styles.boxSeparator}>
-            <div className={styles.boxSeparatorLine}></div>
-            <span className={styles.boxSeparatorItem}>Or sign with</span>
-            <div className={styles.boxSeparatorLine}></div>
-          </div>
-          <div className={styles.buttonBox}>
-            <button className={styles.googleButton} onClick={() => handleGoogleLogin()}>
-              <FcGoogle className={styles.googleIcon} />
-              Google
-            </button>
-          </div>
-          <div className={styles.signupBox}>
-            <div className={styles.lightText}>Don't have an account?</div>
-            <a href="/signup">Sign Up</a>
-          </div>
-        </div>
+        <LoginForm onLogin={handleLogin} onGoogleLogin={handleGoogleLogin} loading={loading} />
       </div>
     </Layout>
   );
 }
 
-export default Home;
+export default Login;

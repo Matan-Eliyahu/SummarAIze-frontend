@@ -3,7 +3,7 @@ import styles from "./Form.module.scss";
 import PasswordInput from "./PasswordInput/PasswordInput";
 import Spinner from "../Spinner/Spinner";
 import CheckBox from "../CheckBox/CheckBox";
-import { useError } from "../../hooks/useError";
+import { useAlert } from "../../hooks/useAlert";
 import { getErrorMessage, validators } from "../../utils/validators";
 
 export type FieldType = "text" | "email" | "password";
@@ -15,6 +15,7 @@ export interface FormProps {
   onSubmit: (formData: { [key: string]: string }) => void;
   loading?: boolean;
   isSignUp?: boolean;
+  buttonWidth?: string | number;
 }
 
 export type FormElement = {
@@ -23,8 +24,8 @@ export type FormElement = {
   type: FieldType;
 };
 
-function Form({ elements, buttonText, theme, onSubmit, loading, isSignUp }: FormProps) {
-  const { setAlert } = useError();
+function Form({ elements, buttonText, theme, onSubmit, loading, isSignUp, buttonWidth }: FormProps) {
+  const { setAlert } = useAlert();
   const [formData, setFormData] = useState<{ [key: string]: string }>({});
   const [isTermCheck, setIsTermCheck] = useState(false);
   const [formError, setFormError] = useState<string | null>(null);
@@ -69,16 +70,14 @@ function Form({ elements, buttonText, theme, onSubmit, loading, isSignUp }: Form
   }
 
   function getButtonClassName(buttonTheme?: "primary" | "secondary" | "success") {
-    if (!buttonTheme) return styles.primaryButton;
+    if (!buttonTheme) return styles.primaryFormButton;
     switch (buttonTheme) {
       case "primary":
-        return styles.primaryButton;
+        return styles.primaryFormButton;
       case "secondary":
-        return styles.secondaryButton;
+        return styles.secondaryFormButton;
       case "success":
-        return styles.successButton;
-      default:
-        return styles.primaryButton;
+        return styles.successFormButton;
     }
   }
 
@@ -88,7 +87,7 @@ function Form({ elements, buttonText, theme, onSubmit, loading, isSignUp }: Form
         return (
           <label className={styles.inputLabel} key={index}>
             {elem.label}
-            <input key={elem.key} type={elem.type} name={elem.key} value={formData[elem.key] || ""} onChange={handleInputChange} disabled={loading} required autoComplete="email" />
+            <input key={elem.key} type={elem.type} name={elem.key} value={formData[elem.key] || ""} onChange={handleInputChange} disabled={loading} required autoComplete="off" />
           </label>
         );
       case "text":
@@ -137,9 +136,9 @@ function Form({ elements, buttonText, theme, onSubmit, loading, isSignUp }: Form
       </form>
       <div className={styles.buttonBox}>
         {loading ? (
-          <Spinner size="m" />
+          <Spinner size="l" />
         ) : (
-          <button className={getButtonClassName(theme)} onClick={handleClick} disabled={isSignUp && !isTermCheck}>
+          <button className={getButtonClassName(theme)} onClick={handleClick} disabled={isSignUp && !isTermCheck} style={{ width: buttonWidth }}>
             {buttonText}
           </button>
         )}

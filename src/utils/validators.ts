@@ -6,7 +6,7 @@ export const validators: Record<FieldType, (value: string) => boolean> = {
     return emailRegex.test(value);
   },
   password: (value: string): boolean => {
-    return value.length > 8;
+    return value.length >= 8;
   },
   text: (value: string): boolean => {
     return value.length > 0;

@@ -1,4 +1,4 @@
-import { IAccount, IUser, PlanType } from "../common/types";
+import { IAccount, IUser, IUserSearchResult, PlanType } from "../common/types";
 import apiClient, { CanceledError, AxiosError } from "./apiClient";
 export { CanceledError, AxiosError };
 
@@ -8,6 +8,15 @@ class UserService {
   getUser() {
     const controller = new AbortController();
     const request = apiClient.get<IAccount>(this.path, { signal: controller.signal });
+    return { request, cancel: () => controller.abort() };
+  }
+
+  searchUsers(query: string) {
+    const controller = new AbortController();
+    const request = apiClient.get<IUserSearchResult[]>(`${this.path}/search`, {
+      params: { query },
+      signal: controller.signal,
+    });
     return { request, cancel: () => controller.abort() };
   }
 

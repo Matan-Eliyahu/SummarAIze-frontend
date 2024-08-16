@@ -1,4 +1,4 @@
-import { FileType } from "../common/types";
+import { FileType, ISettings } from "../common/types";
 
 export function getFileType(mimeType: string): FileType {
   if (mimeType.startsWith("image/")) {
@@ -32,4 +32,9 @@ export function getFileTypeByName(fileName: string): FileType | null {
   } else {
     return null; // or throw an error if preferred
   }
+}
+
+export function fileTypeAllowed(file: File, settings: ISettings) {
+  const type = getFileType(file.type);
+  return settings.allowedFileTypes.includes(type);
 }

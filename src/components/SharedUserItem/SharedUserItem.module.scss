@@ -1,0 +1,95 @@
+.userItemButton {
+  @extend .hbox;
+  justify-content: start;
+  padding: 8px 12px;
+  gap: 8px;
+  width: 100%;
+  border-radius: 4px;
+  background-color: $background;
+  transition: none;
+
+  &:hover {
+    background-color: $background-soft;
+
+    .addIcon {
+      display: flex;
+    }
+  }
+}
+
+.userItemButtonSelected {
+  @extend .userItemButton;
+  background: linear-gradient(to left, $primary, $primary-hover);
+}
+
+.userImage {
+  border-radius: 50%;
+  height: 25px;
+  width: 25px;
+}
+
+.textBox {
+  @extend .vbox;
+  align-items: start;
+}
+
+.nameText {
+  color: $text;
+  font-weight: 500;
+  margin-bottom: -2px;
+}
+
+.emailText {
+  font-size: 12px;
+  color: $text-dark;
+  font-weight: 500;
+}
+
+.emailTextSelected {
+  @extend .emailText;
+  color: $background-dark;
+}
+
+.addIcon {
+  margin-left: auto;
+  color: $shadow;
+  display: none;
+}
+
+.removeIcon {
+  @extend .addIcon;
+  color: $dark;
+}
+
+.selectedUserButton {
+  padding: 0;
+  background-color: transparent;
+  position: relative;
+  transition: none;
+
+  &:hover {
+    .selectedUserImage {
+      filter: brightness(0.1);
+    }
+
+    .removeImageIcon {
+      opacity: 1;
+    }
+  }
+}
+
+.selectedUserImage {
+  border-radius: 50%;
+  height: 35px;
+  width: 35px;
+  filter: brightness(1);
+  transition: filter 0.2s ease-in-out;
+}
+
+.removeImageIcon {
+  position: absolute;
+  opacity: 0;
+  color: $text-dark;
+  font-size: 18px;
+  transition: opacity 0.2s ease-in-out;
+}

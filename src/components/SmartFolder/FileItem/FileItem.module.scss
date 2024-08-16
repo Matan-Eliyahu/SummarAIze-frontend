@@ -1,0 +1,173 @@
+.fileItemBox {
+  @extend .vbox;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 8.5rem;
+  height: 8rem;
+  // padding: 16px;
+  margin: 0;
+  padding: 0;
+  border-radius: 16px;
+  background-color: $background-dark;
+  position: relative;
+
+  &:hover {
+    background-color: $background;
+
+    .fileNameText {
+      color: $shadow;
+    }
+  }
+}
+
+.fileItemBoxSelected {
+  @extend .fileItemBox;
+  background-color: $background;
+  transition: none; // Remove transition for this specific class
+  &:hover {
+    background-color: $background;
+  }
+}
+
+.fileStatusBox {
+  @extend .vbox;
+  width: 25px;
+  height: 25px;
+  top: 10%;
+  left: 60%;
+  position: absolute;
+}
+
+.fileListStatusBox {
+  @extend .vbox;
+  min-width: 2%;
+  //   background-color: red;
+}
+
+.fileIcon {
+  width: 50px;
+}
+
+.fileListImage {
+  width: 25px;
+}
+
+.fileNameText {
+  // @extend .hbox;
+  // justify-content: center;
+  //   background-color: red;
+  width: 95%;
+  font-size: 16px;
+  color: $text-dark;
+  font-weight: 500;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.fileListNameText {
+  @extend .hbox;
+  font-size: 16px;
+  width: 40%;
+  color: $text-dark;
+  font-weight: 500;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.errorIcon {
+  font-size: 18px;
+  color: $danger;
+}
+
+.unprocessedIcon {
+  @extend .errorIcon;
+  color: $create;
+}
+
+.selectIcon {
+  font-size: 20px;
+  color: $shadow;
+}
+
+.summarizedIcon {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: linear-gradient(45deg, $secondary-hover, $secondary, $primary, $primary-hover);
+  opacity: 0;
+  animation: fadeIn 0.9s forwards;
+  animation-delay: calc(0.1s * var(--i));
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+.fileListBox {
+  @extend .hbox;
+  gap: 1rem;
+  height: 2rem;
+  border-radius: 8px;
+  padding: 12px 22px;
+  background-color: rgba(255, 255, 255, 0.01);
+  cursor: pointer;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.055);
+
+    .fileListNameText {
+      color: $shadow;
+    }
+  }
+}
+
+.fileListIcon {
+  color: $input;
+  margin-right: 8px;
+}
+
+.fileListBoxSelected {
+  @extend .fileListBox;
+  background-color: $background;
+  transition: none;
+
+  &:hover {
+    background-color: $background;
+  }
+}
+
+.fileSizeText {
+  @extend .fileListNameText;
+  gap: 4px;
+  width: 20%;
+}
+
+.seperator {
+  background-color: $background-soft;
+  height: 100%;
+  width: 1px;
+}
+
+.seperatorSelected {
+  @extend .seperator;
+  background-color: $background-dark;
+}
+
+.recentListBox {
+  @extend .fileListBox;
+  width: 90%;
+}
+
+.fileRecentNameText {
+  font-size: 16px;
+  width: 100%;
+  color: $text-dark;
+  font-weight: 500;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}

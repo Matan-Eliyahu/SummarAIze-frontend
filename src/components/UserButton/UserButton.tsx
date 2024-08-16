@@ -5,10 +5,12 @@ import styles from "./UserButton.module.scss";
 import { useNavigate } from "react-router-dom";
 import { FaUserCircle } from "react-icons/fa";
 import { useStore } from "../../hooks/useStore";
+import { useAlert } from "../../hooks/useAlert";
 
 export default function UserButton() {
   const { logout } = useAuth();
-  const {account} = useStore()
+  const { setAlert, clearAlert } = useAlert();
+  const { account } = useStore();
   const navigate = useNavigate();
   const [tooltipVisible, setTooltipVisible] = useState(false);
   const [buttonHover, setButtonHover] = useState(false);
@@ -36,7 +38,16 @@ export default function UserButton() {
 
   async function handleLogout() {
     setTooltipVisible(false);
-    await logout();
+    setAlert({
+      text: "Are you sure you want to log out?",
+      buttonColor: "cancel",
+      secondButtonText: "Logout",
+      secondButtonColor: "danger",
+      onSecondButtonClick: async () => {
+        clearAlert();
+        await logout();
+      },
+    });
   }
 
   return (

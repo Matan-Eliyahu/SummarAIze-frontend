@@ -29,7 +29,7 @@ export default function Select({ options, set, defaultValue, onChange }: SelectP
 
   return (
     <div className={styles.selectBox}>
-      <select value={selectedValue} onChange={handleChange} className={styles.select}>
+      <select value={selectedValue} onChange={handleChange} className={styles.selectInput}>
         {options.map((option) => (
           <option key={option.value} value={option.value}>
             {option.label}

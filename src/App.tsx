@@ -10,6 +10,7 @@ import Account from "./pages/Account/Account";
 import { StoreProvider } from "./context/StoreContext";
 import PrivacyPolicy from "./pages/PrivacyPolicy/PrivacyPolicy";
 import TermsOfService from "./pages/TermsOfService/TermsOfService";
+import { WebSocketProvider } from "./context/WebSocketContext";
 
 function App() {
   const { auth } = useAuth();
@@ -27,19 +28,21 @@ function App() {
       </Router>
     );
   }
-  
+
   return (
     <Router>
       <StoreProvider>
-        <Header />
-        <Routes>
-          <Route path="/" element={<Navigate to="dashboard" />} />
-          <Route path="/dashboard" Component={Dashboard} />
-          <Route path="/dashboard/settings" Component={Settings} />
-          <Route path="/dashboard/account" Component={Account} />
-          <Route path="/dashboard/:fileName" Component={File} />
-          <Route path="/*" element={<Navigate to="dashboard" />} />
-        </Routes>
+        <WebSocketProvider>
+          <Header />
+          <Routes>
+            <Route path="/" element={<Navigate to="dashboard" />} />
+            <Route path="/dashboard" Component={Dashboard} />
+            <Route path="/dashboard/settings" Component={Settings} />
+            <Route path="/dashboard/account" Component={Account} />
+            <Route path="/dashboard/:fileName" Component={File} />
+            <Route path="/*" element={<Navigate to="dashboard" />} />
+          </Routes>
+        </WebSocketProvider>
       </StoreProvider>
     </Router>
   );

@@ -1,16 +1,18 @@
 import React, { createContext, useEffect, useState, ReactNode } from "react";
 import { AxiosError } from "axios";
-import { IAccount, IFileInfo, ISettings, IStorage, IUser, PlanType } from "../common/types";
+import { IAccount, IFileInfo, IFolder, ISettings, IStorage, IUser, PlanType } from "../common/types";
 import FileService from "../services/FileService";
 import SettingsService from "../services/SettingsService";
 import StorageService from "../services/StorageService";
 import UploadService from "../services/UploadService";
-import { useError } from "../hooks/useError";
+import { useAlert } from "../hooks/useAlert";
 import UserService from "../services/UserService";
+import FolderService from "../services/FolderService";
 
 interface StoreContextProps {
   account: IAccount | null;
   files: IFileInfo[];
+  folders: IFolder[];
   settings: ISettings | null;
   storage: IStorage | null;
   initialLoading: boolean;
@@ -24,9 +26,10 @@ interface StoreContextProps {
 export const StoreContext = createContext<StoreContextProps | undefined>(undefined);
 
 export const StoreProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const { setAlert } = useError();
+  const { setAlert } = useAlert();
   const [account, setAccount] = useState<IAccount | null>(null);
   const [files, setFiles] = useState<IFileInfo[]>([]);
+  const [folders, setFolders] = useState<IFolder[]>([]);
   const [settings, setSettings] = useState<ISettings | null>(null);
   const [storage, setStorage] = useState<IStorage | null>(null);
   const [initialLoading, setInitialLoading] = useState(false);
@@ -42,11 +45,13 @@ export const StoreProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     try {
       const accountResponse = await UserService.getUser().request;
       const filesResponse = await FileService.getUserFiles().request;
+      const foldersResponse = await FolderService.getUserFolders().request;
       const storageResponse = await StorageService.getUserStorage().request;
       const settingsResponse = await SettingsService.getSettingsByUserId().request;
 
       setAccount(accountResponse.data);
       setFiles(filesResponse.data);
+      setFolders(foldersResponse.data);
       setStorage(storageResponse.data);
       setSettings(settingsResponse.data);
     } catch (error) {
@@ -107,5 +112,7 @@ export const StoreProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     await fetchUserData();
   }
 
-  return <StoreContext.Provider value={{ account, files, settings, storage, initialLoading, loading, uploadFiles, refreshStore, updateUser, updateUserPlan }}>{children}</StoreContext.Provider>;
+  return (
+    <StoreContext.Provider value={{ account, files, folders, settings, storage, initialLoading, loading, uploadFiles, refreshStore, updateUser, updateUserPlan }}>{children}</StoreContext.Provider>
+  );
 };

@@ -3,7 +3,7 @@ import { IFile, ISummaryOptions, summaryLanguageOptions, summaryToneOptions } fr
 import Select from "../Select/Select";
 import Slider from "../Slider/Slider";
 import styles from "./SummaryOptions.module.scss";
-import { FaXmark } from "react-icons/fa6";
+import { FaSliders, FaXmark } from "react-icons/fa6";
 
 interface SummaryOptionsProps {
   initSummaryOptions: ISummaryOptions;
@@ -35,8 +35,11 @@ export default function SummaryOptions({ initSummaryOptions, file, onSummarize, 
 
   return (
     <div className={styles.optionsBox}>
-      <div className={styles.summaryOptionsTitle}>Summary Options</div>
-      <div className={disabled ? styles.disabledOptionsContainer:styles.optionsContainer}>
+      <div className={styles.summaryOptionsTitle}>
+        <FaSliders className={styles.summaryOptionsIcon} />
+        Summary Options
+      </div>
+      <div className={disabled ? styles.disabledOptionsContainer : styles.optionsContainer}>
         <div className={styles.titleOptionsBox}>
           <div className={styles.titleBox}>Language</div>
           <div className={styles.sliderBox}>

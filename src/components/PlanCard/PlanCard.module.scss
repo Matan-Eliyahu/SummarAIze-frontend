@@ -1,10 +1,9 @@
 .planCardBox {
   @extend .vbox;
+  flex-wrap: wrap;
   justify-content: center;
-  gap: 1.5rem;
-  padding: 32px 16px;
-  width: 20rem;
-  //   height: 100%;
+  gap: 1rem;
+  padding: 24px 16px;
   background: linear-gradient(to bottom, $background-dark, $dark);
   border-radius: 16px;
   opacity: 0;
@@ -14,7 +13,8 @@
 
 .planCardBoxSelected {
   @extend .planCardBox;
-  border: 3px solid $primary-hover;
+  // outline: 3px solid $secondary-hover;
+  box-shadow: 0px 0px 5px $text-dark;
 }
 
 .headerBox {
@@ -24,11 +24,16 @@
   color: $shadow;
 }
 
+.descriptionBox {
+  @extend .vbox;
+  height: 43vh;
+}
+
 .descriptionText {
   @extend .hbox;
   width: 80%;
-  height: 14rem;
   flex-wrap: wrap;
+  white-space: wrap;
   background-color: $background;
   padding: 16px 24px;
   line-height: 1.5;
@@ -39,13 +44,14 @@
 
 .priceBox {
   @extend .hbox;
+  margin-bottom: 16px;
   gap: 8px;
-  font-size: 24px;
+  font-size: 18px;
   font-weight: 400;
 }
 
 .priceText {
-  font-size: 2.2rem;
+  font-size: 32px;
   color: $primary;
   font-weight: bold;
 }
@@ -63,6 +69,7 @@
 .maxStorageBox {
   @extend .hbox;
   justify-content: center;
+  white-space: nowrap;
   padding: 16px;
   width: 80%;
   gap: 8px;
@@ -82,7 +89,7 @@
 
 .choosePlanButton {
   @extend .secondaryButton;
-  width: 80%;
+  width: 90%;
   font-weight: 500;
 }
 

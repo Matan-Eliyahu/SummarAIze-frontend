@@ -22,8 +22,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #ccc;
-  transition: 0.4s;
+  background: linear-gradient(to left, $text, $shadow);
   border-radius: 20px;
 }
 
@@ -35,12 +34,12 @@
   left: 2px;
   bottom: 2px;
   background-color: white;
-  transition: 0.4s;
+  transition: transform 0.4s ease;
   border-radius: 50%;
 }
 
 input:checked + .slider {
-  background-color: $primary-hover;
+  background: linear-gradient(to left, $primary, $primary-hover);
 }
 
 input:checked + .slider:before {

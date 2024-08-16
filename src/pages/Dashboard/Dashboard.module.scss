@@ -3,12 +3,12 @@
   align-items: start;
   min-width: 100%;
   min-height: 100%;
-}
+  }
 
-.dragDropContainer {
+.smartFolderBox {
   @extend .hbox;
   align-items: start;
-  padding: 0px 16px;
+  padding: 0 8px;
   height: 90%;
   width: 80%;
   opacity: 0;
@@ -17,49 +17,13 @@
   animation-delay: calc(0.1s * var(--i));
 }
 
-.dragDropBox {
-  width: 100%;
-  height: 85vh;
-}
-
-@keyframes fadeIn {
-  to {
-    opacity: 1;
-  }
-}
-
-.infoBox {
+.widgetsBox {
   @extend .vbox;
-  padding-left: 16px;
+  padding: 0 8px;
   gap: 8px;
   height: 90%;
   width: 20%;
   overflow: auto;
+  overflow-x: hidden;
 }
 
-.totalSizeLoadingBox {
-  @extend .vbox;
-  justify-content: center;
-  gap: 0.5rem;
-  background-color: $background-dark;
-  min-width: 100%;
-  margin-right: auto;
-  border-radius: 16px;
-  min-height: 15vh;
-}
-
-.doughnutChartLoadingBox {
-  @extend .totalSizeLoadingBox;
-  min-height: 24vh;
-}
-
-.recentFilesLoadingBox {
-  @extend .totalSizeLoadingBox;
-  min-height: 20vh;
-}
-
-.searchBarBox {
-  position: absolute;
-  @extend .hbox;
-  height: 10vh;
-}

@@ -6,7 +6,7 @@
 .sidebarListBox {
   @extend .vbox;
   margin: 0;
-  width: 85%;
+  width: 100%;
   height: 100%;
   gap: 8px;
   padding: 1rem;
@@ -16,7 +16,8 @@
   @extend .hbox;
   justify-content: center;
   gap: 8px;
-  width: 75%;
+  width: 90%;
+  max-width: 210px;
   height: 25px;
   padding: 8px;
   border-radius: 8px;
@@ -30,13 +31,20 @@
   }
 }
 
+ .textContainer {
+    overflow: hidden; /* Hides text overflow */
+    white-space: nowrap; /* Prevents text from wrapping to the next line */
+    text-overflow: ellipsis; /* Displays "..." when text overflows */
+    width: 100%; /* Adjust as needed */
+  }
+
 .sidebarItemLabel {
   @extend .hbox;
   gap: 8px;
   width: 75%;
   font-size: 16px;
   font-weight: 600;
-  white-space: nowrap;
+  // white-space: nowrap;
 }
 
 .selectedSidebarItem {
@@ -58,4 +66,26 @@
   border-radius: 2px;
   position: absolute;
   right: 92%;
+}
+
+.logoutItem {
+  @extend .sidebarItem;
+  background-color: rgba(255, 0, 0, 0.418);
+  margin-top: 2rem;
+  width: 40%;
+  
+  &:hover {
+    background-color: $danger-hover;
+  }
+}
+
+.logoutItemLabel {
+  @extend .sidebarItemLabel;
+  color: $text;
+  font-weight: 500;
+}
+
+.logoutIcon {
+  @extend .sidebarIcon;
+  color: $text;
 }

@@ -15,27 +15,24 @@
 .buttonBox {
   @extend .hbox;
   justify-content: end;
-  gap: 1rem;
+  gap: 8px;
   width: 100%;
   height: 15%;
   margin-top: auto;
 }
 
 .saveButton {
-  background-color: $primary-hover;
-
-  &:hover {
-    background-color: $primary;
-  }
+  @extend .primaryButton;
+  width: 7%;
 }
 
 .editButton {
-  @extend .saveButton;
+  @extend .secondaryButton;
+  width: 7%;
 }
 
 .cancelButton {
   @extend .cancelButton;
-  width: 10%;
 }
 
 .sectionBox {
@@ -73,6 +70,7 @@
 
 .plansBox {
     @extend .hbox;
+    align-items: start;
     width: 100%;
     height: 100%;
     gap: 1rem;
