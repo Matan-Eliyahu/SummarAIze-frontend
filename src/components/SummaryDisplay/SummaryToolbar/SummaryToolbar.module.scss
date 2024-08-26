@@ -3,7 +3,7 @@
   justify-content: center;
   min-height: 3.5rem;
   width: 100%;
-  height: 8%;
+  height: 3.5rem;
   gap: 8px;
   // justify-content: center;
   background-color: $dark;
@@ -14,15 +14,16 @@
   @extend .hbox;
   justify-content: center;
   gap: 8px;
+  height: 50%;
   margin-left: auto;
   margin-right: 1rem;
 }
 
 .editButton {
-  padding: 8px 24px;
+  padding: 8px 16px;
   border-radius: 8px;
   color: $text-dark;
-  font-size: 16px;
+  font-size: 14px;
 
   background-color: rgba(255, 255, 255, 0.014);
 
@@ -33,7 +34,6 @@
 
 .cancelButton {
   @extend .editButton;
-  padding: 8px 16px;
 }
 
 .saveButton {
@@ -49,7 +49,7 @@
 .summaryButtonBox {
   @extend .hbox;
   border-radius: 8px;
-  height: 70%;
+  height: 60%;
   overflow: hidden;
   background-color: rgba(255, 255, 255, 0.014);
   position: absolute;
@@ -63,9 +63,9 @@
 }
 
 .summaryButton {
-  padding: 8px 14px;
+  padding: 0px 12px;
   border-radius: 0;
-  gap: 8px;
+  gap: 4px;
   background-color: transparent;
   font-size: 14px;
   font-weight: 600;
@@ -81,14 +81,14 @@
   background-color: $background;
 }
 
-.transcribeButtonIcon {
+.transcribeIcon {
   color: $shadow;
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .summarizedIcon {
-  width: 14px;
-  height: 14px;
+  width: 12px;
+  height: 12px;
   border-radius: 50%;
   background: linear-gradient(45deg, $secondary-hover, $secondary, $primary, $primary-hover);
 }
@@ -100,11 +100,11 @@
   margin: 0 16px;
 }
 
-.fontSizeBox {
+.fontSizeButtonBox {
   @extend .hbox;
   justify-content: center;
   // gap: 8px;
-  height: 60%;
+  height: 50%;
   border-radius: 8px;
   overflow: hidden;
   background-color: $background;
@@ -113,6 +113,7 @@
 
 .fontSizeButton {
   gap: 8px;
+  padding: 8px;
   border-radius: 8px;
   background-color: transparent;
   font-size: 16px;
@@ -122,7 +123,6 @@
   &:hover {
     background-color: rgba(255, 255, 255, 0.055);
   }
-  padding: 8px;
 }
 
 .fontSizeText {
@@ -131,12 +131,12 @@
   gap: 6px;
   font-size: 14px;
   color: $text-dark;
-  padding: 0 12px;
+  padding: 0 8px;
   height: 100%;
 }
 
 .fontSizeIcon {
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .seperator {
@@ -146,12 +146,55 @@
   width: 2px;
 }
 
-
 .themeButton {
   @extend .fontSizeButton;
-  padding: 8px 12px;
+  padding: 0px 10px 0px 10px;
 }
 
 .themeIcon {
   font-size: 20px;
+}
+
+.searchBarBox {
+  @extend .hbox;
+  width: 25%;
+  height: 35px;
+  top: 1%;
+  position: absolute;
+  left: 73%;
+}
+
+.searchInput {
+  height: 40%;
+  border: none;
+}
+
+.searchInput:hover,
+.searchInput:focus {
+  box-shadow: none;
+}
+
+.searchInputLight {
+  @extend .searchInput;
+  background-color: rgba(255, 255, 255, 0.622);
+  color: black;
+  &::placeholder {
+    color: $shadow;
+  }
+}
+
+.searchIcon {
+  position: absolute;
+  font-size: 16px;
+  right: 10px;
+  color: $input;
+}
+
+.searchIconLight {
+  @extend .searchIcon;
+  color: $shadow;
+}
+
+.textEditorBox {
+  position: relative;
 }

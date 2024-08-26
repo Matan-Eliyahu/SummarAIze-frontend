@@ -1,0 +1,148 @@
+.infoBox {
+  @extend .hbox;
+  justify-content: center;
+  width: 100%;
+}
+
+.infoIconBox {
+  @extend .vbox;
+  justify-content: center;
+  width: 30%;
+  color: $input;
+  font-size: 12px;
+  font-weight: 500;
+  text-align: center;
+}
+
+.statusIconBox {
+  @extend .vbox;
+  padding: 16px;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: $dark;
+}
+
+.infoTextBox {
+  @extend .vbox;
+  align-items: end;
+  justify-content: center;
+  gap: 4px;
+  width: 70%;
+  height: 100%;
+  text-align: center;
+}
+
+.badgeBox {
+  @extend .hbox;
+  width: 100%;
+}
+
+.editButton {
+  background-color: rgba(255, 255, 255, 0.03);
+  font-size: 14px;
+  gap: 4px;
+  color: $text-dark;
+  min-height: 100%;
+  padding: 8px 12px;
+  margin-left: auto;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.06);
+  }
+}
+
+.createdAtBadge {
+  @extend .hbox;
+  flex-wrap: wrap;
+  gap: 4px;
+  color: $input;
+  background-color: $dark;
+  // border: 2px solid $background;
+  font-size: 12px;
+  padding: 6px 8px;
+  border-radius: 4px;
+}
+
+.dateLabel {
+  color: $text-dark;
+}
+
+.descriptionBox {
+  @extend .vbox;
+  align-items: start;
+  // height: 100%;
+  width: 85%;
+  font-size: 12px;
+  font-weight: 500;
+  color: $input;
+  padding: 8px;
+  // max-height: 50%;
+  // background-color: red;
+  border-radius: 4px;
+  background-color: $dark;
+}
+
+.descriptionText {
+  font-size: 14px;
+  color: $text-dark;
+  width: 90%;
+  text-align: start;
+  overflow: hidden;
+  white-space: normal;
+  padding: 4px;
+}
+
+.sizeBox {
+  @extend .vbox;
+  min-height: 40px;
+  justify-content: center;
+  width: 100%;
+  border-radius: 4px;
+  padding: 8px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.sizeLabel {
+  @extend .hbox;
+  width: 90%;
+  font-weight: 500;
+  padding: 8px;
+  color: $text-dark;
+}
+
+.sizeInfoLabel {
+  @extend .hbox;
+  color: $shadow;
+  font-weight: 500;
+  margin-left: auto;
+}
+
+.sizeDarkLabel {
+  color: $input;
+  font-size: 14px;
+  margin-left: 2px;
+}
+
+.progressBarBox {
+  @extend .vbox;
+  width: 90%;
+  justify-content: center;
+  gap: 8px;
+  color: $shadow;
+  padding: 8px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.emptyFolderBox {
+  @extend .hbox;
+  justify-content: center;
+  gap: 6px;
+  font-weight: 500;
+  color: $background-soft;
+}
+
+.emptyFolderIcon {
+  font-size: 18px;
+}

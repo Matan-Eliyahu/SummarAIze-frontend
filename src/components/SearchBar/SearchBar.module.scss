@@ -5,6 +5,17 @@
   height: 34px;
   width: 100%;
   position: relative;
+
+  &:hover {
+    .searchBarInput::placeholder {
+      color: $text-dark;
+    }
+  }
+}
+
+.searchBarBoxDisabled {
+  @extend .searchBarBox;
+  opacity: 0.5;
 }
 
 .searchBarInput {
@@ -12,15 +23,15 @@
   margin: 16px 0px;
   padding: 8px 12px;
   width: 100%;
-  background-color: $background;
-  color: $text;
   font-size: 16px;
   font-weight: 500;
+  border: none;
 
   &::placeholder {
-    color: $text-dark;
+    color: $input;
     font-size: 16px;
     font-weight: 500;
+    transition: color 0.3s ease-in-out;
   }
 }
 
@@ -40,9 +51,45 @@
   position: absolute;
   font-size: 16px;
   right: 16px;
-  color: $background-soft;
+  color: $input;
 }
 
 .spinnerBox {
-  @extend .searchIcon;
+  @extend .vbox;
+  right: 16px;
+  position: absolute;
+}
+
+.smartSearchBox {
+  position: absolute;
+  left: 8px;
+}
+
+.smartSearchButtonBox {
+  @extend .vbox;
+  background-color: red;
+  position: absolute;
+  height: 30px;
+  width: 30px;
+  right: 10px;
+}
+
+.smartSearchButton {
+  position: absolute;
+  right: 8px;
+  background-color: $dark;
+  border-radius: 50%;
+  padding: 0;
+  width: 32px;
+  min-height: 32px;
+  // width: 45px;
+  // height: 30px;
+
+  &:hover {
+    background-color: $background-dark;
+  }
+}
+
+.smartSearchIcon {
+  font-size: 14px;
 }

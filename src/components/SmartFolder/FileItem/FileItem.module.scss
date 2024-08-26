@@ -34,7 +34,7 @@
   width: 25px;
   height: 25px;
   top: 10%;
-  left: 60%;
+  left: 63%;
   position: absolute;
 }
 
@@ -78,7 +78,7 @@
 
 .errorIcon {
   font-size: 18px;
-  color: $danger;
+  color: $danger-hover;
 }
 
 .unprocessedIcon {
@@ -88,7 +88,12 @@
 
 .selectIcon {
   font-size: 20px;
-  color: $shadow;
+  color: $text;
+}
+
+.nonSelectIcon {
+  @extend .selectIcon;
+  color: $input;
 }
 
 .summarizedIcon {

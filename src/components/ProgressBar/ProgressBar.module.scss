@@ -12,5 +12,24 @@
   border-radius: 4px;
   background: linear-gradient(to left, $primary, $primary-hover);
   transition: width 0.3s ease;
-  // margin-top: -16px;  
+  // margin-top: -16px;
+}
+
+.progressBar.primary {
+  @extend .progressBar;
+}
+
+.progressBar.secondary {
+  @extend .progressBar;
+  background: linear-gradient(to left, $secondary, $secondary-hover);
+}
+
+.progressBar.danger {
+  @extend .progressBar;
+  background: linear-gradient(to left, $danger, $danger-hover);
+}
+
+.progressBar.create {
+  @extend .progressBar;
+  background: linear-gradient(to left, $create, $create-hover);
 }

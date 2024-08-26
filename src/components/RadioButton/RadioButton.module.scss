@@ -8,6 +8,8 @@
 }
 
 .customRadio {
+  min-width: 16px;
+  min-height: 16px;
   width: 16px;
   height: 16px;
   border: 1px solid $input;
@@ -20,8 +22,8 @@
 .customRadio::after {
   content: "";
   position: absolute;
-  width: 8px;
-  height: 8px;
+  width: 7px;
+  height: 7px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -35,5 +37,5 @@
 }
 
 .radioInput:checked + .customRadio {
-  background-color: $primary-hover;
+  background-color: $header;
 }

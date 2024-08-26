@@ -1,6 +1,5 @@
 import { FaBox, FaFolder, FaRegCalendar } from "react-icons/fa6";
 import { FileListView, IFolder } from "../../../common/types";
-import { useNavigate } from "react-router-dom";
 import { useRef, useState } from "react";
 import styles from "./FolderItem.module.scss";
 import { statusIconSwitch } from "../FileItem/iconUtils";
@@ -10,15 +9,16 @@ interface FolderItemProps {
   folder: IFolder;
   listView: FileListView;
   isSelected: boolean;
+  onClick: (folder: IFolder) => void;
   onLongPress: (folderId: string) => void;
   onSelectToggle: (folderId: string) => void;
   isSelectionMode: boolean;
 }
 
-export default function FolderItem({ folder, listView, isSelected, onLongPress, onSelectToggle, isSelectionMode }: FolderItemProps) {
-  const navigate = useNavigate();
+export default function FolderItem({ folder, listView, isSelected, onClick, onLongPress, onSelectToggle, isSelectionMode }: FolderItemProps) {
   const timerRef = useRef<number | null>(null);
   const [clickDelayed, setClickDelayed] = useState<boolean>(false);
+  const isEmpty = folder.filesId.length === 0;
 
   function handleFolderClick() {
     if (clickDelayed) {
@@ -28,7 +28,7 @@ export default function FolderItem({ folder, listView, isSelected, onLongPress, 
     if (isSelectionMode) {
       onSelectToggle(folder._id!);
     } else {
-      navigate(`/folders/${folder._id}`); // Adjust the route as needed
+      onClick(folder);
     }
   }
 
@@ -38,8 +38,8 @@ export default function FolderItem({ folder, listView, isSelected, onLongPress, 
     }
     timerRef.current = window.setTimeout(() => {
       onLongPress(folder._id!);
-      setClickDelayed(true); // Set clickDelayed to true when long press is detected
-    }, 300); // Long press duration
+      setClickDelayed(true);
+    }, 300);
   }
 
   function handleMouseUp() {
@@ -50,9 +50,14 @@ export default function FolderItem({ folder, listView, isSelected, onLongPress, 
 
   if (listView === "icons")
     return (
-      <button className={isSelected ? styles.folderItemBoxSelected : styles.folderItemBox} onClick={handleFolderClick} onMouseDown={handleMouseDown} onMouseUp={handleMouseUp}>
+      <button className={isSelected ? styles.folderIconButtonSelected : styles.folderIconButton} onClick={handleFolderClick} onMouseDown={handleMouseDown} onMouseUp={handleMouseUp}>
+        {
+          <div className={isSelected || isSelectionMode ? styles.selectedFolderStatusBox : isEmpty ? styles.emptyFolderStatusBox : styles.folderStatusBox}>
+            {statusIconSwitch(folder.status, isSelectionMode, isSelected)}
+          </div>
+        }
         <div className={styles.folderIconBox}>
-          <FaFolder className={styles.folderIcon} />
+          <FaFolder className={folder.isPrivate ? styles.folderIcon : styles.folderIconShared} />
         </div>
         <div className={styles.folderNameText}>{folder.name}</div>
       </button>
@@ -60,25 +65,20 @@ export default function FolderItem({ folder, listView, isSelected, onLongPress, 
 
   return (
     <div className={isSelected ? styles.folderListBoxSelected : styles.folderListBox} onClick={handleFolderClick} onMouseDown={handleMouseDown} onMouseUp={handleMouseUp}>
-      {/* <div className={styles.fileListStatusBox}>
-        <FaFolder className={styles.folderListIcon} />
-      </div>
-      <div className={isSelected ? styles.seperatorSelected : styles.seperator} />
-      <div className={styles.folderNameText}>{folder.name}</div> */}
       <div className={styles.fileListStatusBox}>{statusIconSwitch(folder.status, isSelectionMode, isSelected)}</div>
       <div className={isSelected ? styles.seperatorSelected : styles.seperator} />
-      <FaFolder className={styles.folderListIcon} />
+      <FaFolder className={folder.isPrivate ? styles.privateListIcon : styles.sharedListIcon} />
       <div className={isSelected ? styles.seperatorSelected : styles.seperator} />
       <div className={styles.fileListNameText}>{folder.name}</div>
       <div className={isSelected ? styles.seperatorSelected : styles.seperator} />
 
       <div className={styles.fileSizeText}>
-        <FaBox className={styles.fileListIcon} />
-        {`${folder.totalSize} MB`}
+        <FaBox className={styles.listIcon} />
+        {folder.totalSize === 0 ? "Empty" : `${folder.totalSize.toFixed(2)} MB`}
       </div>
       <div className={isSelected ? styles.seperatorSelected : styles.seperator} />
       <div className={styles.fileSizeText}>
-        <FaRegCalendar className={styles.fileListIcon} />
+        <FaRegCalendar className={styles.listIcon} />
         {moment(folder.updatedAt).format("DD/MM/YYYY HH:mm:ss")}
       </div>
     </div>

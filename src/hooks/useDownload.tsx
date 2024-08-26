@@ -1,7 +1,7 @@
 import { useCallback } from "react";
 import UploadsService from "../services/UploadsService";
 
-export const useDownload = () => {
+export function useDownload() {
   const downloadFile = useCallback(async (filePath: string) => {
     try {
       const { request } = UploadsService.getStaticFileByPath(filePath);
@@ -12,17 +12,16 @@ export const useDownload = () => {
 
       const link = document.createElement("a");
       link.href = url;
-      link.download = filePath; // Set the download attribute with the filename
+      link.download = filePath;
       document.body.appendChild(link);
       link.click();
 
       document.body.removeChild(link);
-      window.URL.revokeObjectURL(url); // Clean up the URL object
+      window.URL.revokeObjectURL(url);
     } catch (error) {
       console.error("Error downloading file:", error);
-      // You can also implement more sophisticated error handling here (e.g., show a notification to the user)
     }
   }, []);
 
-  return  downloadFile ;
-};
+  return downloadFile;
+}

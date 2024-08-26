@@ -1,0 +1,32 @@
+.starsIcon {
+  background: linear-gradient(45deg, $secondary-hover, $secondary, $primary, $primary-hover);
+  mask: url("../../../assets/smart-search-icon.svg") no-repeat center;
+  -webkit-mask: url("../../../assets/smart-search-icon.svg") no-repeat center;
+  transition: filter 0.2s ease-in-out;
+  cursor: pointer;
+  animation: fadeIn 0.5s forwards, adjustBrightness 0.7s forwards;
+  animation-delay: calc(0.1s * var(--i));
+}
+
+@keyframes adjustBrightness {
+  0% {
+    filter: brightness(0.2); // Normal brightness at start
+  }
+  66% {
+    filter: brightness(1.5); // Increase brightness to 1.5
+  }
+  100% {
+    filter: brightness(1); // Return brightness to normal
+  }
+}
+
+.starsIconOff {
+  @extend .starsIcon;
+  transition: none;
+  animation: none;
+  filter: grayscale(1);
+
+  &:hover {
+    filter: grayscale(0);
+  }
+}

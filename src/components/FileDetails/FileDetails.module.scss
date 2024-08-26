@@ -1,0 +1,89 @@
+.titleBox {
+  @extend .hbox;
+  justify-content: start;
+  padding: 16px;
+  gap: 12px;
+  width: 85%;
+  border-radius: 8px;
+  //   background-color: $background-dark;
+  background: linear-gradient(to bottom, $background-dark, $dark);
+  //   border: 2px solid $dark;
+  color: $shadow;
+  font-size: 18px;
+  opacity: 0;
+  animation: fadeIn 0.4s forwards;
+  animation-delay: calc(0.1s * var(--i));
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+.smallTextTitleBox {
+  @extend .titleBox;
+  color: $text-dark;
+  font-size: 16px;
+  width: 75%;
+}
+
+.fileTitleIcon {
+  width: 24px;
+}
+
+.downloadButton {
+  background-color: $background-soft;
+  width: 40%;
+  gap: 8px;
+  outline: 1px solid $dark;
+  margin-top: 8px;
+  border-radius: 8px;
+  // color: $text-dark;
+  color: $shadow;
+  padding: 8px;
+
+  &:hover {
+    background-color: $input;
+  }
+}
+
+.downloadButtonIcon {
+  font-size: 18px;
+  color: $shadow;
+}
+
+.deleteButton {
+  @extend .downloadButton;
+  margin-top: -4px;
+  color: $text;
+  background-color: $danger-hover;
+  opacity: 0;
+  animation: fadeIn 0.8s forwards;
+  animation-delay: calc(0.1s * var(--i));
+
+  &.fade-out {
+    animation: fadeOut 0.8s forwards;
+  }
+
+  &:hover {
+    background-color: $danger;
+  }
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+  }
+}
+
+.deleteButtonIcon {
+  color: $text;
+  font-size: 16px;
+}

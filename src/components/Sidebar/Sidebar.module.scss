@@ -1,13 +1,15 @@
 .sidebarBox {
   @extend .vbox;
-  height: 100%;
+  height: 90%;
+  overflow: auto;
+  overflow-x: hidden;
 }
 
 .sidebarListBox {
   @extend .vbox;
   margin: 0;
-  width: 100%;
-  height: 100%;
+  width: 90%;
+  height: 90%;
   gap: 8px;
   padding: 1rem;
 }
@@ -36,6 +38,7 @@
     white-space: nowrap; /* Prevents text from wrapping to the next line */
     text-overflow: ellipsis; /* Displays "..." when text overflows */
     width: 100%; /* Adjust as needed */
+    font-weight: 500;
   }
 
 .sidebarItemLabel {
@@ -68,21 +71,10 @@
   right: 92%;
 }
 
-.logoutItem {
-  @extend .sidebarItem;
-  background-color: rgba(255, 0, 0, 0.418);
-  margin-top: 2rem;
-  width: 40%;
-  
-  &:hover {
-    background-color: $danger-hover;
-  }
-}
-
-.logoutItemLabel {
-  @extend .sidebarItemLabel;
-  color: $text;
-  font-weight: 500;
+.logoutButton {
+  @extend .dangerButton;
+  width: 30%;
+  margin-top: 10%;
 }
 
 .logoutIcon {

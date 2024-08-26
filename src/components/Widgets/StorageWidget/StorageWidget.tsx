@@ -6,7 +6,7 @@ import styles from "./StorageWidget.module.scss";
 interface StorageWidgetProps {
   storage: number;
   totalStorage: number;
-  loading: boolean;
+  loading?: boolean;
 }
 
 export default function StorageWidget({ storage, totalStorage, loading }: StorageWidgetProps) {
@@ -21,7 +21,7 @@ export default function StorageWidget({ storage, totalStorage, loading }: Storag
         <ProgressBar progress={progress} />
       </div>
       <div className={styles.label}>
-        <span className={styles.storageSize}>{storage}</span> <span className={styles.sizeUnitLabel}>MB</span> / <span className={styles.totalStorage}>{totalStorage}</span>{" "}
+        <span className={styles.storageSize}>{storage.toFixed(2)}</span> <span className={styles.sizeUnitLabel}>MB</span> / <span className={styles.totalStorage}>{totalStorage}</span>{" "}
         <span className={styles.sizeUnitLabel}>{isGB ? "GB" : "MB"}</span>
       </div>
     </Widget>

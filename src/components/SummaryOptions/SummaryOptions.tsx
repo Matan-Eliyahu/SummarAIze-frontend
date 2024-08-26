@@ -73,10 +73,10 @@ export default function SummaryOptions({ initSummaryOptions, file, onSummarize, 
             </div>
           ))}
         </div>
-      </div>
       <button className={styles.summarizeButton} onClick={() => onSummarize(summaryOptions)} disabled={disabled}>
         Summarize
       </button>
+      </div>
     </div>
   );
 }

@@ -38,7 +38,7 @@ export default function AccountForm({ set, onUserChange, section, onPlanChange, 
         return (
           <div className={styles.sectionBox}>
             <div className={styles.accountNameBox}>
-              <ImageSelector initialImgUrl={user.imageUrl} onImageSelect={setNewImage} edit={edit} />
+              <ImageSelector imageUrl={user.imageUrl} fullName={user.fullName} onImageSelect={setNewImage} edit={edit} />
               {edit ? <input className={styles.accountInput} type="text" value={user.fullName} onChange={handleFullNameChange} /> : user.fullName}
             </div>
             <div className={styles.accountInputBox}>
@@ -68,7 +68,7 @@ export default function AccountForm({ set, onUserChange, section, onPlanChange, 
               {(Object.keys(PLANS) as PlanType[])
                 .filter((planType) => planType != "none")
                 .map((planType, index) => (
-                  <PlanCard planType={planType} key={index} onChoosePlan={onPlanChange} loading={false} selected={planType === user.plan} width="30%"/>
+                  <PlanCard planType={planType} key={index} onChoosePlan={onPlanChange} loading={false} selected={planType === user.plan} width="30%" />
                 ))}
             </div>
           </div>

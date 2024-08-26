@@ -1,7 +1,7 @@
 .userItemButton {
   @extend .hbox;
   justify-content: start;
-  padding: 8px 12px;
+  padding: 6px 12px;
   gap: 8px;
   width: 100%;
   border-radius: 4px;
@@ -12,25 +12,26 @@
     background-color: $background-soft;
 
     .addIcon {
+      opacity: 1;
       display: flex;
+    }
+
+    .selectedBadgeBox {
+      opacity: 0;
+      display: none;
     }
   }
 }
 
 .userItemButtonSelected {
   @extend .userItemButton;
-  background: linear-gradient(to left, $primary, $primary-hover);
-}
-
-.userImage {
-  border-radius: 50%;
-  height: 25px;
-  width: 25px;
+  background-color: $background-soft;
 }
 
 .textBox {
   @extend .vbox;
   align-items: start;
+  width: 55%;
 }
 
 .nameText {
@@ -47,49 +48,30 @@
 
 .emailTextSelected {
   @extend .emailText;
-  color: $background-dark;
+  color: $text-dark;
 }
 
 .addIcon {
   margin-left: auto;
   color: $shadow;
+  opacity: 0;
   display: none;
+  transition: opacity 0.2s ease-in-out;
 }
 
 .removeIcon {
   @extend .addIcon;
+  font-size: 20px;
+}
+
+.selectedBadgeBox {
+  background-color: $shadow;
   color: $dark;
-}
-
-.selectedUserButton {
-  padding: 0;
-  background-color: transparent;
-  position: relative;
-  transition: none;
-
-  &:hover {
-    .selectedUserImage {
-      filter: brightness(0.1);
-    }
-
-    .removeImageIcon {
-      opacity: 1;
-    }
-  }
-}
-
-.selectedUserImage {
-  border-radius: 50%;
-  height: 35px;
-  width: 35px;
-  filter: brightness(1);
-  transition: filter 0.2s ease-in-out;
-}
-
-.removeImageIcon {
-  position: absolute;
-  opacity: 0;
-  color: $text-dark;
-  font-size: 18px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  margin-left: auto;
+  opacity: 1;
   transition: opacity 0.2s ease-in-out;
 }

@@ -6,10 +6,26 @@
   // display: inline-block;
 }
 
+.loadingBox {
+  @extend .hbox;
+  justify-content: center;
+  gap: 8px;
+  position: relative;
+  color: $text;
+  font-weight: 500;
+  user-select: none;
+  font-size: 14px;
+  height: 100%;
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: 4px;
+  // background-color: $primary-hover;
+  filter: opacity(0.7);
+}
+
 .userTagButton {
   @extend .hbox;
-  padding: 8px 10px;
-  min-height: 0.7rem;
+  padding: 8px;
   gap: 8px;
   border-radius: 6px;
   background-color: rgba(255, 255, 255, 0.192);
@@ -19,11 +35,11 @@
   &:hover {
     background-color: rgba(255, 255, 255, 0.438);
   }
-}
 
-.userTagImage {
-  width: 24px;
-  border-radius: 50%;
+  &.loading {
+    // cursor: not-allowed;
+    background-color: rgba(0, 0, 0, 0.438);
+  }
 }
 
 .userNameText {
@@ -34,24 +50,25 @@
   @extend .vbox;
   // align-items: start;
   // justify-content: center;
-  gap: 1rem;
+  gap: 12px;
   position: absolute;
   min-width: 200px;
   // height: 100px;
   top: calc(2rem + 12px);
   right: 0px;
-  background: linear-gradient(to bottom, $background, $background-dark);
+  // background: linear-gradient(to bottom, $background, $background-dark);
+  background-color: $background;
   border: 2px solid $background-soft;
   font-size: 16px;
   font-weight: 400;
-  border-radius: 12px;
+  border-radius: 8px;
   padding: 16px;
   // box-shadow: 0 0 4px 2px $background-soft;
   z-index: 1;
   white-space: nowrap;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
+  transition: opacity 0.4s ease-in-out, visibility 0.4s ease-in-out;
 }
 
 .tooltip.visible {
@@ -86,7 +103,7 @@
   font-size: 14px;
   gap: 4px;
   font-weight: 400;
-  border-radius: 8px;
+  border-radius: 6px;
   background-color: rgba(255, 0, 0, 0.418);
 
   &:hover {

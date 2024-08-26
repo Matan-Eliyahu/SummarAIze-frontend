@@ -1,32 +1,43 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IFolder, IUserSearchResult } from "../../../common/types";
 import SearchBar from "../../SearchBar/SearchBar";
 import SharedUserItem from "../../SharedUserItem/SharedUserItem";
 import RadioButton from "../../RadioButton/RadioButton";
-import { FaFolder, FaLock, FaUser, FaUsers } from "react-icons/fa6";
+import { FaCircleInfo, FaFolder, FaLock, FaUsers } from "react-icons/fa6";
 import styles from "./NewFolderForm.module.scss";
+import { useAlert } from "../../../hooks/useAlert";
+import SharedUsersList from "../../SharedUserItem/SharedUsersList/SharedUsersList";
+import { capitalizeFirstLetter } from "../../../utils/text";
 
 interface NewFolderFormProps {
+  folders: IFolder[];
+  editFolder?: { folder: IFolder; sharedUsers: IUserSearchResult[]; onUdatedFolder: (folder: IFolder) => void };
   onSubmit: (folder: IFolder) => void;
   onSearchUsers: (query: string) => Promise<IUserSearchResult[]>;
   onCacnel: () => void;
 }
 
-export default function NewFolderForm({ onSubmit, onSearchUsers, onCacnel }: NewFolderFormProps) {
-  const [folder, setFolder] = useState<IFolder>({
-    name: "",
-    userId: "",
-    filesId: [],
-    sharedWith: [],
-    totalSize: 0,
-    status: "not-summarized",
-    isPrivate: true,
-    createdAt: new Date(),
-  });
-  const [isShared, setIsShared] = useState(false);
+export default function NewFolderForm({ folders, editFolder, onSubmit, onSearchUsers, onCacnel }: NewFolderFormProps) {
+  const { setAlert, clearModal } = useAlert();
+  const [folder, setFolder] = useState<IFolder>(
+    editFolder
+      ? editFolder.folder
+      : {
+          name: "",
+          userId: "",
+          filesId: [],
+          sharedWith: [],
+          totalSize: 0,
+          status: "not-summarized",
+          isPrivate: true,
+          createdAt: new Date(),
+        }
+  );
+  const [isShared, setIsShared] = useState(!folder.isPrivate);
   const [findUsers, setFindUsers] = useState<IUserSearchResult[] | null>(null);
-  const [selectedUsers, setSelectedUsers] = useState<IUserSearchResult[]>([]);
+  const [selectedUsers, setSelectedUsers] = useState<IUserSearchResult[]>(editFolder ? editFolder.sharedUsers.filter((user) => folder.sharedWith.some((id) => id.toString() === user._id)) : []);
   const [findUsersVisable, setFindUsersVisable] = useState(false);
+  const [clearSearch, setClearSearch] = useState(false);
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = event.target;
@@ -34,7 +45,7 @@ export default function NewFolderForm({ onSubmit, onSearchUsers, onCacnel }: New
     if (name === "name") {
       setFolder((prevFolder) => ({
         ...prevFolder,
-        name: value,
+        name: capitalizeFirstLetter(value),
       }));
     } else if (name === "description") {
       setFolder((prevFolder) => {
@@ -64,7 +75,7 @@ export default function NewFolderForm({ onSubmit, onSearchUsers, onCacnel }: New
     if (value === "private") {
       return (
         <div className={styles.privacyBox}>
-          <FaLock className={styles.privacyIcon} />
+          <FaLock className={styles.privateIcon} />
           <div className={styles.privacyTextBox}>
             <div className={styles.privactTitle}>Private</div>
             <div className={styles.privactTitleDark}>This folder is accessible only to you.</div>
@@ -74,7 +85,7 @@ export default function NewFolderForm({ onSubmit, onSearchUsers, onCacnel }: New
     } else {
       return (
         <div className={styles.privacyBox}>
-          <FaUsers className={styles.privacyIcon} />
+          <FaUsers className={styles.publicIcon} />
           <div className={styles.privacyTextBox}>
             <div className={styles.privactTitle}>Shared</div>
             <div className={styles.privactTitleDark}>Allow others to access this folder.</div>
@@ -85,7 +96,22 @@ export default function NewFolderForm({ onSubmit, onSearchUsers, onCacnel }: New
   }
 
   function handleSubmit() {
-    onSubmit(folder);
+    const { name, isPrivate, sharedWith } = folder;
+    if (name === "") {
+      setAlert({ text: "Please enter a folder name." });
+    } else if (!isPrivate && sharedWith.length === 0) {
+      setAlert({ text: `Please select at least one user to share files with, or choose a private folder instead.` });
+    } else if (folders.some((folder) => folder.name === name)) {
+      setAlert({ text: `A folder with this name already exists. Please pick a different name.` });
+    } else {
+      if (editFolder) {
+        console.log(folder);
+        editFolder.onUdatedFolder(folder);
+      } else {
+        onSubmit(folder);
+      }
+      clearModal();
+    }
   }
 
   function handleUserClick(user: IUserSearchResult) {
@@ -108,13 +134,26 @@ export default function NewFolderForm({ onSubmit, onSearchUsers, onCacnel }: New
       }
     });
     setFindUsersVisable(false);
+    setClearSearch(true);
   }
+
+  useEffect(() => {
+    if (clearSearch) {
+      setClearSearch(false);
+    }
+  }, [clearSearch]);
+
+  const titleIconClassName = editFolder ? (editFolder.folder.isPrivate ? styles.privateTitleIcon : styles.sharedTitleIcon) : styles.titleIcon;
 
   return (
     <div className={styles.folderFormBox}>
       <div className={styles.title}>
-        <FaFolder className={styles.titleIcon} />
-        New Folder
+        <FaFolder className={titleIconClassName} />
+        {editFolder ? `Edit "${editFolder.folder.name}"` : "New Folder"}
+        <button className={styles.infoButton}>
+          <FaCircleInfo className={styles.infoIcon} />
+          <div className={styles.hoverText}>Folder allows you to group up to 10 files, share it with other users and perform smart search on the files</div>
+        </button>
       </div>
       <div className={styles.titleSeperator} />
       <div className={styles.formBox}>
@@ -126,51 +165,39 @@ export default function NewFolderForm({ onSubmit, onSearchUsers, onCacnel }: New
           <div className={styles.inputLabel}>
             Description <span className={styles.inputLabelDark}> (optional)</span>
           </div>
-          <input type="text" name="description" value={folder.description} onChange={handleChange} className={styles.textInput} autoComplete="off"/>
+          <input type="text" name="description" value={folder.description || ""} onChange={handleChange} className={styles.textInput} autoComplete="off" />
         </div>
-        <RadioButton name="private" value="private" content={getRadioButtonContent("private")} checked={folder.isPrivate} onChange={handlePrivacyChange} />
-        <RadioButton name="shared" value="shared" content={getRadioButtonContent("shared")} checked={!folder.isPrivate} onChange={handlePrivacyChange} />
+        <div className={editFolder ? styles.disableRadioButtonBox : styles.radioButtonBox}>
+          <RadioButton name="private" value="private" content={getRadioButtonContent("private")} checked={folder.isPrivate} onChange={handlePrivacyChange} />
+          <RadioButton name="shared" value="shared" content={getRadioButtonContent("shared")} checked={!folder.isPrivate} onChange={handlePrivacyChange} />
+        </div>
       </div>
-      {/* {selectedUsers.length > 0 && (
-        <div className={styles.selectedUsersContainer}>
-          <div className={styles.selectedUsersLabel}>
-            <FaUser className={styles.selectedUsersLabelIcon} />
-            Share with
-          </div>
-          <div className={styles.selectedUsersBox}>
-            {selectedUsers.map((user, index) => (
-              <SharedUserItem key={index} user={user} onClick={handleUserClick} selected />
-            ))}
-          </div>
-        </div>
-      )} */}
-      {
-        <div className={`${styles.usersBox} ${isShared ? styles.open : ""}`}>
-          <div className={styles.selectedUsersLabel}>
-            <FaUser className={styles.selectedUsersLabelIcon} />
-            Share with
-          </div>
-          <div className={styles.selectedUsersBox}>
-            {selectedUsers.map((user, index) => (
-              <SharedUserItem key={index} user={user} onClick={handleUserClick} selected />
-            ))}
-          </div>
-          <div className={styles.searchBarBox}>
-            <SearchBar fetchFunction={handleSearchUsers} setData={setFindUsers} placeholder="Search for users..." disableHoverFocus />
-          </div>
+
+      <div className={`${styles.usersBox} ${isShared ? styles.open : ""}`}>
+        <div className={styles.searchBarBox}>
+          <SearchBar fetchFunction={handleSearchUsers} setData={setFindUsers} placeholder="Search for users..." clearSearchTerm={clearSearch} disableHoverFocus />
           {findUsers && findUsersVisable && (
-            <div className={styles.usersListBox}>
-              {findUsers.length === 0 ? "No users found..." : findUsers.map((user, index) => <SharedUserItem key={index} user={user} onClick={handleUserClick} />)}
+            <div className={styles.userResultsBox}>
+              {findUsers.length === 0 ? (
+                <div className={styles.noUsersText}>{"No users found..."}</div>
+              ) : (
+                findUsers.map((user, index) => <SharedUserItem mode="list" key={index} user={user} onClick={handleUserClick} selected={selectedUsers.some((u) => u._id === user._id)} />)
+              )}
             </div>
           )}
         </div>
-      }
+        {selectedUsers.length > 0 && (
+          <div className={styles.sharedUsersList}>
+            <SharedUsersList users={selectedUsers} edit onClick={handleUserClick} />
+          </div>
+        )}
+      </div>
       <div className={styles.buttonBox}>
         <button className={styles.cancelButton} onClick={onCacnel}>
-          Cancel
+          {editFolder ? "Cancel" : "Close"}
         </button>
         <button className={styles.secondaryButton} onClick={handleSubmit}>
-          Create folder
+          {editFolder ? "Save changes" : "Create folder"}
         </button>
       </div>
     </div>

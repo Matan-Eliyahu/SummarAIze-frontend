@@ -37,6 +37,12 @@ class UserService {
     const request = apiClient.put<IUser>(`${this.path}/plan`, { newPlan }, { signal: controller.signal });
     return { request, cancel: () => controller.abort() };
   }
+
+  getSharedFolderUsers() {
+    const controller = new AbortController();
+    const request = apiClient.get<IUserSearchResult[]>(`${this.path}/shared-folders`, { signal: controller.signal });
+    return { request, cancel: () => controller.abort() };
+  }
 }
 
 export default new UserService();

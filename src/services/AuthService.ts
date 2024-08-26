@@ -8,6 +8,15 @@ export const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
 class AuthService {
   private path = "/auth";
 
+  checkEmail(email: string) {
+    const controller = new AbortController();
+    const request = apiClient.get(`${this.path}/check-email`, {
+      params: { email },
+      signal: controller.signal,
+    });
+    return { request, cancel: () => controller.abort() };
+  }
+
   register(user: IUser) {
     const controller = new AbortController();
     const request = apiClient.post<{ _id: string }>(`${this.path}/register`, user, { signal: controller.signal });
@@ -23,6 +32,12 @@ class AuthService {
   googleLogin(tokenResponse: TokenResponse) {
     const controller = new AbortController();
     const request = apiClient.post<IAuth>(`${this.path}/google`, tokenResponse, { signal: controller.signal });
+    return { request, cancel: () => controller.abort() };
+  }
+
+  facebookLogin(accessToken: string) {
+    const controller = new AbortController();
+    const request = apiClient.post<IAuth>(`${this.path}/facebook`, { accessToken }, { signal: controller.signal });
     return { request, cancel: () => controller.abort() };
   }
 

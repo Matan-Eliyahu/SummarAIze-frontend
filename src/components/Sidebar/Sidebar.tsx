@@ -53,14 +53,10 @@ export default function Sidebar({ items, onSelect, isAccountSidebar, onLogout }:
           </li>
         ))}
         {isAccountSidebar && (
-          <li className={styles.logoutItem} onClick={handleLogout}>
-            <div className={styles.logoutItemLabel}>
-              <span className={styles.logoutIcon}>
-                <FaRightFromBracket />
-              </span>
-              Logout
-            </div>
-          </li>
+          <button className={styles.logoutButton} onClick={handleLogout}>
+            <FaRightFromBracket className={styles.logoutIcon} />
+            Logout
+          </button>
         )}
       </ul>
     </div>

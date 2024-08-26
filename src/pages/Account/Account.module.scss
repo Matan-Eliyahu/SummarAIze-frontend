@@ -1,12 +1,7 @@
-.titleIcon {
-  font-size: 2rem;
-  color: $input;
-}
-
 .accountBox {
   @extend .hbox;
   align-items: start;
-  width: 85%;
+  width: 95%;
   height: 100%;
 }
 

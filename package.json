@@ -10,17 +10,22 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@greatsumini/react-facebook-login": "^3.3.3",
     "@react-oauth/google": "^0.12.1",
+    "@supabase/supabase-js": "^2.45.1",
     "@types/react-router-dom": "^5.3.3",
     "axios": "^1.7.2",
     "chart.js": "^4.4.3",
     "moment": "^2.30.1",
     "pdfjs-dist": "^4.2.67",
+    "quill": "^2.0.2",
     "react": "^18.2.0",
     "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^5.2.0",
-    "react-router-dom": "^6.23.0"
+    "react-quill-new": "^3.3.0",
+    "react-router-dom": "^6.23.0",
+    "summaraize-frontend": "file:"
   },
   "devDependencies": {
     "@types/react": "^18.2.66",

@@ -1,49 +1,52 @@
-import { FaA, FaArrowDown, FaArrowUp, FaBox, FaCircleCheck, FaClockRotateLeft, FaFile, FaFolder, FaList, FaPlus, FaTrash } from "react-icons/fa6";
+import { FaA, FaArrowDown, FaArrowUp, FaBox, FaChevronLeft, FaCircleCheck, FaClockRotateLeft, FaFile, FaFolder, FaList, FaPlus, FaTrash } from "react-icons/fa6";
 import { BsGridFill } from "react-icons/bs";
 import { useState, useRef } from "react";
-import { FileListView, IFileInfo } from "../../../common/types";
+import { FileListView, FileSorting, IFileInfo, IFolder, SortingDirection } from "../../../common/types";
 import SearchBar from "../../SearchBar/SearchBar";
-import { useAlert } from "../../../hooks/useAlert";
 import styles from "./SmartFolderToolbar.module.scss";
 
-export type FileSorting = "by-name" | "by-size" | "by-recent" | "by-type";
-export type SortingDirection = "asc" | "desc";
-
 interface SmartFolderToolbar {
+  folder: IFolder | null;
+  selectedItemsCount: number;
+  isSelectionMode: boolean;
+  defaultFileView: FileListView;
+  smartSearch?: boolean;
   onViewChange: (viewType: FileListView) => void;
   onSortChange: (newSorting: FileSorting, newDirection: SortingDirection) => void;
-  onFilesSearch: (searchTerm: string) => Promise<IFileInfo[]>;
-  setFilteredFiles: React.Dispatch<React.SetStateAction<IFileInfo[] | null>>;
-  onFileSelect: (files: File[]) => void;
+  onSearchFiles: (searchTerm: string) => Promise<(IFileInfo | IFolder)[]>;
+  onSmartSearchFiles?: (searchTerm: string) => Promise<(IFileInfo | IFolder)[]>;
+  setFilteredFiles: React.Dispatch<React.SetStateAction<(IFileInfo | IFolder)[] | null>>;
+  onUploadFiles: (files: File[]) => void;
   onCreateFolder: () => void;
   onGoBack: () => void;
-  onDeleteFiles: (fileNames: string[]) => Promise<void>;
-  selectedFileNames: string[];
-  isSelectionMode: boolean;
-  enableSmartSearch: boolean;
-  defaultFileView: FileListView;
+  onDeleteItems: () => void;
   onClearSelectedFiles: () => void;
+  loading?: boolean;
+  clearSearchTerm?:boolean;
 }
 
 export default function SmartFolderToolbar({
   onViewChange,
   onSortChange,
-  onFilesSearch,
+  onSearchFiles,
+  onSmartSearchFiles,
   setFilteredFiles,
-  onFileSelect,
+  onUploadFiles,
   onCreateFolder,
   onGoBack,
+  folder,
   isSelectionMode,
-  onDeleteFiles,
-  selectedFileNames,
-  enableSmartSearch,
+  onDeleteItems,
+  selectedItemsCount,
   defaultFileView,
+  smartSearch,
   onClearSelectedFiles,
+  loading,
+  clearSearchTerm,
 }: SmartFolderToolbar) {
-  const { setAlert, clearAlert } = useAlert();
   const [selectedView, setSelectedView] = useState<FileListView>(defaultFileView);
   const [selectedSorting, setSelectedSorting] = useState<FileSorting>("by-recent");
-  const [sortingDirection, setSortingDirection] = useState<SortingDirection>("asc");
+  const [sortingDirection, setSortingDirection] = useState<SortingDirection>("desc");
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   function handleListViewChange(listView: FileListView) {
@@ -95,58 +98,58 @@ export default function SmartFolderToolbar({
 
   function handleFileInputChange(event: React.ChangeEvent<HTMLInputElement>) {
     if (event.target.files) {
-      onFileSelect(Array.from(event.target.files));
+      onUploadFiles(Array.from(event.target.files));
     }
 
     event.target.value = "";
-  }
-
-  function handleDeleteButtonClick() {
-    if (selectedFileNames.length > 0) {
-      setAlert({
-        text: `Are you sure you want to permanently delete ${selectedFileNames.length > 1 ? `${selectedFileNames.length} files` : selectedFileNames[0]} ?`,
-        secondButtonText: "Delete",
-        secondButtonColor: "danger",
-        onSecondButtonClick: () => {
-          clearAlert();
-          onDeleteFiles(selectedFileNames);
-        },
-      });
-    }
   }
 
   return (
     <div className={styles.toolbarBox}>
       {isSelectionMode ? (
         <div className={styles.addFileBox}>
-          <button className={styles.deleteFilesButton} onClick={handleDeleteButtonClick}>
+          <button className={styles.deleteFilesButton} onClick={onDeleteItems} disabled={loading}>
             <FaTrash className={styles.deleteFileIcon} />
           </button>
-          <button className={styles.clearSelectionButton} onClick={onClearSelectedFiles}>
+          <button className={styles.clearSelectionButton} onClick={onClearSelectedFiles} disabled={loading}>
             <FaCircleCheck className={styles.clearSelectionIcon} />
-            {`Selected (${selectedFileNames.length})`}
+            {`Selected (${selectedItemsCount})`}
           </button>
         </div>
       ) : (
         <div className={styles.addFileBox}>
-          <button className={styles.addFileButton} onClick={() => fileInputRef.current?.click()}>
+          {folder && (
+            <button className={styles.backButton} onClick={onGoBack} disabled={loading}>
+              <FaChevronLeft className={styles.backIcon} />
+              Dashboard
+            </button>
+          )}
+          {!folder && (
+            <button className={styles.addFolderButton} onClick={onCreateFolder} disabled={loading}>
+              <FaFolder className={styles.addFolderIcon} />
+              New folder
+            </button>
+          )}
+          <button className={styles.addFileButton} onClick={() => fileInputRef.current?.click()} disabled={loading}>
             <FaPlus className={styles.addFileIcon} />
             <div className={styles.hoverText}>Upload files</div>
           </button>
           <input type="file" multiple ref={fileInputRef} style={{ display: "none" }} onChange={handleFileInputChange} />
-          <button className={styles.addFolderButton} onClick={onCreateFolder}>
-            <FaFolder className={styles.addFolderIcon} />
-            New folder
-            {/* <div className={styles.hoverText}>New Folder</div> */}
-          </button>
         </div>
       )}
 
-      {enableSmartSearch && (
-        <div className={styles.searchBarBox}>
-          <SearchBar fetchFunction={onFilesSearch} setData={setFilteredFiles} placeholder="Search files..." />
-        </div>
-      )}
+      <div className={styles.searchBarBox}>
+        <SearchBar
+          fetchFunction={onSearchFiles}
+          clearSearchTerm={clearSearchTerm}
+          smartSearchFetchFunction={onSmartSearchFiles}
+          setData={setFilteredFiles}
+          placeholder="Search files..."
+          smartSearch={smartSearch}
+          disabled={loading}
+        />
+      </div>
+
       <div className={styles.sortButtonBox}>
         <button className={styles.sortTypeButton} onClick={handleSortIconChange}>
           <div className={styles.sortingLabel}>{sortIconSwitch(selectedSorting)}</div>

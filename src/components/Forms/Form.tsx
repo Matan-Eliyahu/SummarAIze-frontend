@@ -41,7 +41,10 @@ function Form({ elements, buttonText, theme, onSubmit, loading, isSignUp, button
   function handleClick(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     event.preventDefault();
     if (validateForm()) {
+      console.log("submiting: ", formData);
       onSubmit(formData);
+    } else {
+      console.log("not valid");
     }
   }
 
@@ -60,7 +63,7 @@ function Form({ elements, buttonText, theme, onSubmit, loading, isSignUp, button
       const value = formData[element.key] || "";
       const isValidField = validators[element.type](value);
       if (!isValidField) {
-        error = getErrorMessage(element.type);
+        error = getErrorMessage(element);
         setFormError(error);
         return false;
       }
@@ -136,7 +139,7 @@ function Form({ elements, buttonText, theme, onSubmit, loading, isSignUp, button
       </form>
       <div className={styles.buttonBox}>
         {loading ? (
-          <Spinner size="l" />
+          <Spinner size="m" />
         ) : (
           <button className={getButtonClassName(theme)} onClick={handleClick} disabled={isSignUp && !isTermCheck} style={{ width: buttonWidth }}>
             {buttonText}

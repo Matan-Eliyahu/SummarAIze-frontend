@@ -12,7 +12,14 @@
   border-radius: 100%;
   width: 70px;
   height: 70px;
-  background-color: $primary;
+  font-size: 32px;
+  font-weight: 500;
+  color: $text;
+  background-color: $header;
+}
+
+.defaultImageBox {
+  @extend .imageBox;
 }
 
 .editImageBox {

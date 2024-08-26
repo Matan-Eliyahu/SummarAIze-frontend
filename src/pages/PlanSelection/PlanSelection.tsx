@@ -6,17 +6,18 @@ import UserService from "../../services/UserService";
 import { IUser, PLANS, PlanType } from "../../common/types";
 import Layout from "../../components/Layout/Layout";
 import PlanCard from "../../components/PlanCard/PlanCard";
-import { GoogleSignupData } from "../Login/Login";
+import { FacebookSignupData, GoogleSignupData } from "../Login/Login";
 import { SignUpFormData } from "../Signup/Signup";
 import styles from "./PlanSelection.module.scss";
 
 interface PlanSelectionProps {
   signupFormData?: SignUpFormData;
   googleSignupData?: GoogleSignupData;
+  facebookSignupData?: FacebookSignupData;
 }
 
-export default function PlanSelection({ signupFormData, googleSignupData }: PlanSelectionProps) {
-  const { register, login, googleLogin } = useAuth();
+export default function PlanSelection({ signupFormData, googleSignupData, facebookSignupData }: PlanSelectionProps) {
+  const { register, login, googleLogin, facebookLogin } = useAuth();
   const { setAlert } = useAlert();
   const [loading, setLoading] = useState(false);
 
@@ -33,13 +34,25 @@ export default function PlanSelection({ signupFormData, googleSignupData }: Plan
       } finally {
         setLoading(false);
       }
+    } else if (facebookSignupData) {
+      const { accessToken } = facebookSignupData;
+      const { request } = UserService.updateUserPlan(plan);
+      setLoading(true);
+      try {
+        await request;
+        await facebookLogin(accessToken);
+      } catch (error) {
+        if (error instanceof AxiosError) handleAlert(error);
+      } finally {
+        setLoading(false);
+      }
     } else if (signupFormData) {
       const { email, firstName, lastName, password } = signupFormData;
       const user: IUser = {
         email,
         plan: plan,
         fullName: firstName + " " + lastName,
-        imageUrl: "https://static.vecteezy.com/system/resources/previews/009/292/244/original/default-avatar-icon-of-social-media-user-vector.jpg",
+        imageUrl: "",
         password,
         registrationMethod: "manual",
       };
@@ -63,7 +76,7 @@ export default function PlanSelection({ signupFormData, googleSignupData }: Plan
   }
 
   return (
-    <Layout fullPage loading={loading}>
+    <Layout fullPage loading={loading} text="Signing up...">
       <div className={styles.planSelectionBox}>
         <div className={styles.title}>Choose Your Plan</div>
         <div className={styles.planSelectionButtonBox}>

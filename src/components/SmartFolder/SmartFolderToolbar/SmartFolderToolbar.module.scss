@@ -36,24 +36,36 @@
   }
 }
 
+.backButton {
+  @extend .addFileButton;
+  min-width: 71%;
+  gap: 4px;
+}
+
+.backIcon {
+  color: $text-dark;
+  font-size: 14px;
+}
+
 .addFileIcon {
   color: $text-dark;
   font-size: 16px;
 }
 
 .addFolderButton {
-  @extend .addFileButton;
-  gap: 6px;
-  background-color: rgba(255, 255, 255, 0.022);
+  @extend .backButton;
 
   &:hover {
-    background-color: rgba(255, 255, 255, 0.047);
+    .addFolderIcon {
+      color: $text-dark;
+    }
   }
 }
 
 .addFolderIcon {
   color: $input;
   font-size: 14px;
+  transition: color 0.2s ease-in-out;
 }
 
 .hoverText {
@@ -61,10 +73,11 @@
   opacity: 0;
   transition: opacity 0.7s ease;
   position: absolute;
-  bottom: -80%;
-  left: 140%;
+  bottom: -85%;
+  left: 155%;
   transform: translateX(-50%);
   background-color: $background;
+  border: 2px solid $background-soft;
   color: $text-dark;
   font-size: 14px;
   font-weight: 500;
@@ -183,7 +196,7 @@
   opacity: 0;
   overflow: hidden;
   width: 0px;
-  transition: width 0.3s ease-out, opacity 0.3s ease-out; 
+  transition: width 0.5s ease-out, opacity 0.5s ease-out;
 }
 
 .sortTypeIcon {

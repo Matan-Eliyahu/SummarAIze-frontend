@@ -3,9 +3,9 @@ import { FileStatus } from "../../../common/types";
 import Spinner from "../../Spinner/Spinner";
 import styles from "./FileItem.module.scss";
 
-export function statusIconSwitch(status: FileStatus, isSelectionMode: boolean, isSelected: boolean) {
+export function statusIconSwitch(status: FileStatus, isSelectionMode?: boolean, isSelected?: boolean) {
   if (isSelectionMode) {
-    return isSelected ? <FaCircleCheck className={styles.selectIcon} /> : <FaCircle className={styles.selectIcon} />;
+    return isSelected ? <FaCircleCheck className={styles.selectIcon} /> : <FaCircle className={styles.nonSelectIcon} />;
   } else {
     switch (status) {
       case "processing":

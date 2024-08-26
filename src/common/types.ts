@@ -1,4 +1,4 @@
-export type RegistrationMethod = "manual" | "google" | "github";
+export type RegistrationMethod = "manual" | "google" | "facebook";
 
 export interface IAccount {
   fullName: string;
@@ -18,12 +18,12 @@ export interface IUserSearchResult {
   fullName: string;
   email: string;
   imageUrl: string;
-  _id:string;
+  _id: string;
 }
 
 export interface IAuth {
   userId: string;
-  isInitial: boolean;
+  isInitialized: boolean;
   tokens: ITokens;
 }
 
@@ -62,6 +62,7 @@ export interface IFileInfo {
   uploadedAt: Date;
   lastOpened?: Date;
   _id?: string;
+  folderId?: string;
 }
 
 export interface IFile extends IFileInfo {
@@ -85,6 +86,9 @@ export interface IFolder {
   _id?: string;
 }
 
+export type FileSorting = "by-name" | "by-size" | "by-recent" | "by-type";
+export type SortingDirection = "asc" | "desc";
+
 export interface IStorage {
   totalSize: number;
   pdfCount: number;
@@ -95,6 +99,7 @@ export interface IStorage {
 
 export interface IUpdate {
   fileName: string;
+  fileId:string;
   status: FileStatus;
 }
 

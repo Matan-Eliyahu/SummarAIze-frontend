@@ -4,6 +4,7 @@ import Spinner from "../Spinner/Spinner";
 import { isHebrew } from "../../utils/text";
 import styles from "./SummaryDisplay.module.scss";
 import { Theme } from "../../common/types";
+import TextEditor from "../TextEditor/TextEditor";
 
 interface SummaryDisplayProps {
   transcribe: string;
@@ -19,21 +20,30 @@ function SummaryDisplay({ transcribe, summary, onSave, loading, edit, setEdit, d
   const [mode, setMode] = useState<ModeType>("summary");
   const [updatedTranscribe, setUpdatedTranscribe] = useState(transcribe);
   const [updatedSummary, setUpdatedSummary] = useState(summary);
-  const [isRtl, setIsRtl] = useState<boolean | null>(null);
+  const [isRtl, setIsRtl] = useState<boolean>(false);
   const [fontSize, setFontSize] = useState(16);
   const [theme, setTheme] = useState<Theme>(defaultTheme);
+  const [toggleMode, setToggleMode] = useState(false);
   const isSummarized = summary !== "";
+  const isTranscribe = transcribe !== "";
 
   useEffect(() => {
     const textToCheck = mode === "transcribe" ? updatedTranscribe : updatedSummary;
     setIsRtl(isHebrew(textToCheck));
   }, [mode, updatedTranscribe, updatedSummary]);
 
+  useEffect(() => {
+    if (toggleMode) setToggleMode(false);
+  }, [toggleMode]);
+
   function handleModeChange(newMode: ModeType) {
+    setToggleMode(true);
     setMode(newMode);
   }
 
   function handleToggleEdit() {
+    setToggleMode(true);
+
     setEdit((prev) => !prev);
     if (edit) {
       onSave(updatedTranscribe, updatedSummary);
@@ -44,12 +54,21 @@ function SummaryDisplay({ transcribe, summary, onSave, loading, edit, setEdit, d
     setEdit((prev) => !prev);
   }
 
-  function handleTextAreaChange(event: React.ChangeEvent<HTMLTextAreaElement>) {
-    const newText = event.target.value;
+  // function handleTextAreaChange(event: React.ChangeEvent<HTMLTextAreaElement>) {
+  //   const newText = event.target.value;
+  //   if (mode === "summary") {
+  //     setUpdatedSummary(newText);
+  //   } else {
+  //     setUpdatedTranscribe(newText);
+  //   }
+  // }
+
+  function handleTextChange(htmlText: string) {
+    if (!edit) return;
     if (mode === "summary") {
-      setUpdatedSummary(newText);
+      setUpdatedSummary(htmlText);
     } else {
-      setUpdatedTranscribe(newText);
+      setUpdatedTranscribe(htmlText);
     }
   }
 
@@ -58,6 +77,8 @@ function SummaryDisplay({ transcribe, summary, onSave, loading, edit, setEdit, d
   }
 
   function handleThemeToggle(theme: Theme) {
+    setToggleMode(true);
+
     setTheme(theme);
   }
 
@@ -71,16 +92,20 @@ function SummaryDisplay({ transcribe, summary, onSave, loading, edit, setEdit, d
         onCancelEdit={handleCancelEdit}
         isEditing={edit}
         isSummarized={isSummarized}
+        isTranscribe={isTranscribe}
         onFontSizeChange={handleFontSizeChange}
         defaultTheme={defaultTheme}
       />
-      {edit ? (
-        <textarea
-          className={`${theme === "light" ? styles.lightTextAreaBox : styles.textAreaBox} ${isRtl ? styles.rtl : ""}`}
-          style={{ fontSize }}
-          value={mode === "transcribe" ? updatedTranscribe : updatedSummary}
-          onChange={handleTextAreaChange}
-        />
+      {/* {edit ? (
+        // <textarea
+        //   className={`${theme === "light" ? styles.lightTextAreaBox : styles.textAreaBox} ${isRtl ? styles.rtl : ""}`}
+        //   style={{ fontSize }}
+        //   value={mode === "transcribe" ? updatedTranscribe : updatedSummary}
+        //   onChange={handleTextAreaChange}
+        // />
+        <div className={styles.textEditorBox} style={{ fontSize }}>
+          <TextEditor text={mode === "transcribe" ? updatedTranscribe : updatedSummary} edit={edit} theme={theme} onChange={handleTextChange} />
+        </div>
       ) : loading ? (
         <div className={styles.loadingBox}>
           Summarizing...
@@ -89,14 +114,30 @@ function SummaryDisplay({ transcribe, summary, onSave, loading, edit, setEdit, d
       ) : (
         <div className={`${theme === "light" ? styles.lightTextBox : styles.textBox} ${isRtl ? styles.rtl : ""}`} style={{ fontSize }}>
           {mode === "transcribe" ? (
-            updatedTranscribe
+            updatedTranscribe ? (
+              removeHtmlTags(updatedTranscribe)
+            ) : (
+              <div className={styles.noSummaryBox}>
+                <div className={styles.noSummaryText}>Transcribe not generated</div>
+              </div>
+            )
           ) : isSummarized ? (
-            updatedSummary
+            removeHtmlTags(updatedSummary)
           ) : (
             <div className={styles.noSummaryBox}>
               <div className={styles.noSummaryText}>Summary not generated</div>
             </div>
           )}
+        </div>
+      )} */}
+      {loading ? (
+        <div className={styles.loadingBox}>
+          Loading...
+          <Spinner size="m" />
+        </div>
+      ) : (
+        <div className={styles.textEditorBox} style={{ fontSize }}>
+          <TextEditor text={mode === "transcribe" ? updatedTranscribe : updatedSummary} edit={edit} theme={theme} toggleMode={toggleMode} alignRight={isRtl} onChange={handleTextChange} />
         </div>
       )}
     </div>

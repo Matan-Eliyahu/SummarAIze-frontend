@@ -116,10 +116,12 @@ button {
 
   &:disabled {
     cursor: default;
-    background-color: $input;
+    // background-color: $input;
+    filter: brightness(0.5);
 
     &:hover {
-      background-color: $input;
+      background-color: $text-dark;
+      cursor: not-allowed;
     }
   }
 }
@@ -131,13 +133,20 @@ input {
   border: none;
   font-size: 1rem;
   font-weight: bold;
-  color: $background;
-  // background-color: $text;
+  background-color: $background;
+  border: 2px solid $background-soft;
+  font-weight: 500;
+  color: $text;
   border-radius: 6px;
   padding: 10px;
   white-space: nowrap;
   width: 90%;
   transition: box-shadow 0.2s ease;
+
+  &:disabled {
+    background-color: $input;
+    border: 2px solid $input;
+  }
 }
 
 input:hover,

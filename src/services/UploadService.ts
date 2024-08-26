@@ -7,15 +7,13 @@ class UploadService {
   uploadFiles(files: File[], onProgress: (progress: number) => void, folderId?: string) {
     const controller = new AbortController();
     const formData = new FormData();
-    if (folderId) {
-      formData.append("folderId", folderId);
-    }
     files.forEach((file) => {
       formData.append("files", file);
     });
 
     const request = apiClient.post(`${this.path}/files`, formData, {
       signal: controller.signal,
+      params: { folderId },
       onUploadProgress: (event) => {
         if (event.lengthComputable) {
           const percent = Math.round((event.loaded / (event.total ?? event.loaded)) * 100);

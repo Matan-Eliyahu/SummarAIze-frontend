@@ -13,12 +13,24 @@ interface SummaryToolbarProps {
   onCancelEdit: () => void;
   onFontSizeChange: (textSize: number) => void;
   isSummarized: boolean;
+  isTranscribe: boolean;
   isEditing: boolean;
   loading: boolean;
   defaultTheme: Theme;
 }
 
-export default function SummaryToolbar({ onModeChange, onEditToggle, onCancelEdit, onFontSizeChange, onThemeToggle, isEditing, isSummarized, loading, defaultTheme }: SummaryToolbarProps) {
+export default function SummaryToolbar({
+  onModeChange,
+  onEditToggle,
+  onCancelEdit,
+  onFontSizeChange,
+  onThemeToggle,
+  isEditing,
+  isSummarized,
+  isTranscribe,
+  loading,
+  defaultTheme,
+}: SummaryToolbarProps) {
   const [mode, setMode] = useState<ModeType>("summary");
   const [fontSize, setFontSize] = useState(16);
   const [theme, setTheme] = useState<Theme>(defaultTheme);
@@ -35,7 +47,7 @@ export default function SummaryToolbar({ onModeChange, onEditToggle, onCancelEdi
 
   useEffect(() => {
     onThemeToggle(theme);
-  }, [theme, onThemeToggle]);
+  }, [theme]);
 
   function handleIncreaseFontSize() {
     setFontSize((prev) => (prev === 32 ? prev : prev + 2));
@@ -49,9 +61,13 @@ export default function SummaryToolbar({ onModeChange, onEditToggle, onCancelEdi
     setTheme((prev) => (prev === "dark" ? "light" : "dark"));
   }
 
+  function handleEditToggle() {
+    onEditToggle();
+  }
+
   return (
     <div className={styles.summaryToolbarBox}>
-      <div className={styles.fontSizeBox}>
+      <div className={styles.fontSizeButtonBox}>
         <button className={styles.fontSizeButton} onClick={handleDecreaseFontSize}>
           <FaMinus className={styles.fontSizeIcon} />
         </button>
@@ -71,8 +87,8 @@ export default function SummaryToolbar({ onModeChange, onEditToggle, onCancelEdi
             Cancel
           </button>
         )}
-        {(mode === "summary" && !isSummarized) || loading ? null : (
-          <button className={isEditing ? styles.saveButton : styles.editButton} onClick={onEditToggle}>
+        {(mode === "summary" && !isSummarized) || (mode === "transcribe" && !isTranscribe) || loading ? null : (
+          <button className={isEditing ? styles.saveButton : styles.editButton} onClick={handleEditToggle}>
             {isEditing ? (
               "Save"
             ) : (
@@ -91,7 +107,7 @@ export default function SummaryToolbar({ onModeChange, onEditToggle, onCancelEdi
         </button>
         <div className={styles.seperator} />
         <button className={mode === "transcribe" ? styles.summaryButtonSelected : styles.summaryButton} onClick={handleModeChange}>
-          <FaFileLines className={styles.transcribeButtonIcon} />
+          <FaFileLines className={styles.transcribeIcon} />
           Transcribe
         </button>
       </div>

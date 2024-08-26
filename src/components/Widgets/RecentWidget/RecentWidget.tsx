@@ -7,7 +7,7 @@ import Widget from "../Widget";
 interface RecentWidgetProps {
   files: IFileInfo[];
   recentFileNames: string[];
-  loading: boolean;
+  loading?: boolean;
 }
 
 export default function RecentWidget({ files, recentFileNames, loading }: RecentWidgetProps) {
@@ -18,7 +18,7 @@ export default function RecentWidget({ files, recentFileNames, loading }: Recent
       {recentFiles.length === 0 ? (
         <div className={styles.noFilesText}>No Recent files</div>
       ) : (
-        recentFiles.map((file, index) => <FileItem key={index} file={file} listView="recent" isSelected={false} onLongPress={() => {}} onSelectToggle={() => {}} isSelectionMode={false} />)
+        recentFiles.map((file, index) => <FileItem key={index} file={file} listView="recent" isSelected={false} onClick={()=>{}} onLongPress={() => {}} onSelectToggle={() => {}} isSelectionMode={false} />)
       )}
     </Widget>
   );

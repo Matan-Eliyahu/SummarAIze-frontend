@@ -1,4 +1,4 @@
-.folderItemBox {
+.folderIconButton {
   @extend .vbox;
   justify-content: center;
   gap: 0.5rem;
@@ -17,10 +17,47 @@
     .fileNameText {
       color: $shadow;
     }
+
+    .folderStatusBox {
+      opacity: 1;
+    }
   }
 }
 
-.folderItemBoxSelected {
+.folderIconButtonSelected {
+  @extend .folderIconButton;
+  background-color: $background;
+  transition: none; // Remove transition for this specific class
+  &:hover {
+    background-color: $background;
+  }
+}
+
+.folderStatusBox {
+  @extend .vbox;
+  width: 25px;
+  height: 25px;
+  top: 10%;
+  left: 63%;
+  position: absolute;
+  opacity: 0;
+  transition: opacity 0.4s ease-in-out;
+}
+
+.selectedFolderStatusBox {
+  @extend .folderStatusBox;
+  transition: none;
+  opacity: 1;
+}
+
+.emptyFolderStatusBox {
+  @extend .vbox;
+  width: 25px;
+  height: 25px;
+  top: 10%;
+  left: 63%;
+  position: absolute;
+  opacity: 0;
 }
 
 .folderListBox {
@@ -42,6 +79,13 @@
 }
 
 .folderListBoxSelected {
+  @extend .folderListBox;
+  background-color: $background;
+  transition: none;
+
+  &:hover {
+    background-color: $background;
+  }
 }
 
 .folderIconBox {
@@ -53,12 +97,22 @@
 
 .folderIcon {
   font-size: 50px;
+  color: $create-hover;
+}
+
+.folderIconShared {
+  @extend .folderIcon;
   color: $primary;
 }
 
-.folderListIcon {
+.privateListIcon {
   @extend .folderIcon;
   font-size: 26px;
+}
+
+.sharedListIcon {
+  @extend .privateListIcon;
+  color: $primary;
 }
 
 .folderNameText {
@@ -105,7 +159,7 @@
   width: 20%;
 }
 
-.fileListIcon {
+.listIcon {
   color: $input;
   margin-right: 8px;
 }

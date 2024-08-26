@@ -8,7 +8,8 @@
 .welcomeText {
   font-family: "Caveat", sans-serif;
   color: $text-dark;
-  font-size: 2rem;
+  // background-color: red;
+  font-size: 1.8rem;
   font-weight: 400;
   margin-bottom: -2rem;
 }
@@ -22,29 +23,25 @@
 .catchwordBox {
   @extend .vbox;
   justify-content: center;
-  gap: 1rem;
-  padding: 14px 56px;
+  gap: 8px;
+  padding: 12px 48px;
   background: linear-gradient(to bottom, $background-dark, $dark);
-  border-radius: 16px;
+  border-radius: 12px;
   opacity: 0;
-  user-select: none;
-  transition: opacity 0.9s ease-in-out;
-
-  &.visible {
-    opacity: 1;
-  }
+  animation: fadeIn 0.4s forwards;
+  animation-delay: calc(0.1s * var(--i));
 }
 
 .catchwordText {
   font-family: "Caveat", sans-serif;
   color: $primary;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
 }
 
 .iconBox {
   @extend .hbox;
   justify-content: center;
-  gap: 0.1rem;
+  gap: 8px;
 }
 
 .icon {
@@ -57,11 +54,14 @@
   color: $input;
   font-weight: 400;
   font-size: 18px;
-  width: 500px;
+  width: 30vw;
 }
 
 .signupText {
   @extend .descriptionText;
   font-size: 20px;
   text-align: start;
+  opacity: 0;
+  animation: fadeIn 0.6s forwards;
+  animation-delay: calc(0.1s * var(--i));
 }

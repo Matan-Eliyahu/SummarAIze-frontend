@@ -2,29 +2,39 @@ import React, { useState } from "react";
 import styles from "./ImageSelector.module.scss";
 
 interface ImageSelectorProps {
-  initialImgUrl: string;
+  imageUrl: string;
+  fullName: string;
   onImageSelect: (file: File | null) => void;
   edit: boolean;
 }
 
-export default function ImageSelector({ onImageSelect, initialImgUrl, edit }: ImageSelectorProps) {
-  const [previewUrl, setPreviewUrl] = useState<string | null>(initialImgUrl);
+export default function ImageSelector({ onImageSelect, imageUrl, fullName, edit }: ImageSelectorProps) {
+  const [previewUrl, setPreviewUrl] = useState<string | null>(imageUrl);
+  const [isImageSelected, setIsImageSelected] = useState<boolean>(!!imageUrl);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0] || null;
     if (file) {
       setPreviewUrl(URL.createObjectURL(file));
-      onImageSelect(file); // Pass the file to the parent component
+      setIsImageSelected(true);
+      onImageSelect(file);
     } else {
-      setPreviewUrl(initialImgUrl);
-      onImageSelect(null); // Clear the file if no file is selected
+      setPreviewUrl(imageUrl);
+      setIsImageSelected(false);
+      onImageSelect(null);
     }
   };
 
   return (
     <div className={styles.imageSelectorBox}>
       {edit && <input className={styles.imageInput} type="file" accept="image/*" onChange={handleFileChange} id="fileInput" />}
-      <label htmlFor="fileInput" className={edit ? styles.editImageBox:styles.imageBox} style={{ backgroundImage: previewUrl ? `url(${previewUrl})` : "", backgroundSize: "cover" }} />
+      <label
+        htmlFor="fileInput"
+        className={edit ? styles.editImageBox : imageUrl ? styles.imageBox : styles.defaultImageBox}
+        style={{ backgroundImage: previewUrl ? `url(${previewUrl})` : "", backgroundSize: "cover" }}
+      >
+        {!isImageSelected && !imageUrl && fullName[0].toUpperCase()}
+      </label>
     </div>
   );
 }

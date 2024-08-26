@@ -1,19 +1,14 @@
 import { fileIconMap } from "../../common/icons";
 import logo from "../../assets/logo3.png";
 import styles from "./Welcome.module.scss";
-import { useEffect, useState } from "react";
 
 interface WelcomeProps {
   mode: "home" | "sign-up";
 }
 
 function Welcome({ mode }: WelcomeProps) {
-  const [isVisible, setIsVisible] = useState(false);
-  const logoWidth = mode == "home" ? 400 : 320;
+  const logoWidth = mode == "home" ? 360 : 320;
 
-  useEffect(() => {
-    setIsVisible(true);
-  }, []);
   return (
     <div className={styles.welcomeBox}>
       {mode == "home" && <div className={styles.welcomeText}>Welcome to</div>}
@@ -21,7 +16,7 @@ function Welcome({ mode }: WelcomeProps) {
         <img style={{ width: logoWidth }} src={logo} alt="logo" />
       </div>
       {mode == "home" && (
-        <div className={`${styles.catchwordBox} ${isVisible ? styles.visible : ""}`}>
+        <div className={styles.catchwordBox}>
           <div className={styles.catchwordText}>Transforming Text with AI</div>
           <div className={styles.iconBox}>
             {Object.values(fileIconMap).map((iconSrc, index) => (
@@ -32,7 +27,7 @@ function Welcome({ mode }: WelcomeProps) {
       )}
       <div className={mode == "home" ? styles.descriptionText : styles.signupText}>
         {mode == "home"
-          ? "Start summarizing documents, photos, and recordings effortlessly. Experience the power of AI-driven summaries tailored to your needs"
+          ? "Start summarizing PDFs, images, and audio recordings with AI-driven accuracy. Customize summaries to your needs and explore your files with smart search."
           : "Discover SummarAIze, your ultimate platform for effortless document management and insight. Effortlessly upload PDFs, images, and audio files, and watch as SummarAIze employs cutting-edge AI to generate concise summaries. Dive deeper with our smart file search feature, allowing you to explore, edit, and fine-tune summaries to perfection. Gain unprecedented efficiency as you seamlessly toggle between summarized highlights and detailed original content presented as text, all made possible through the transformative power of artificial intelligence."}
       </div>
     </div>

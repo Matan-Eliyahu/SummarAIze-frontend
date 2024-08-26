@@ -7,7 +7,7 @@ class FileService {
 
   getUserFiles() {
     const controller = new AbortController();
-    const request = apiClient.get<IFileInfo[]>(`${this.path}/`, { signal: controller.signal });
+    const request = apiClient.get<IFileInfo[]>(`${this.path}`, { signal: controller.signal });
     return { request, cancel: () => controller.abort() };
   }
 
@@ -20,27 +20,27 @@ class FileService {
     return { request, cancel: () => controller.abort() };
   }
 
-  getFileByName(fileName: string) {
+  getFileById(fileId: string) {
     const controller = new AbortController();
-    const request = apiClient.get<IFile>(`${this.path}/${fileName}`, { signal: controller.signal });
+    const request = apiClient.get<IFile>(`${this.path}/${fileId}`, { signal: controller.signal });
     return { request, cancel: () => controller.abort() };
   }
 
-  updateFileByName(fileName: string, transcribe: string, summary: string) {
+  updateFileById(fileId: string, transcribe: string, summary: string) {
     const controller = new AbortController();
-    const request = apiClient.put<IFile>(`${this.path}/${fileName}`, { transcribe, summary }, { signal: controller.signal });
+    const request = apiClient.put<IFile>(`${this.path}/${fileId}`, { transcribe, summary }, { signal: controller.signal });
     return { request, cancel: () => controller.abort() };
   }
 
-  deleteFileByName(fileName: string) {
+  deleteFileById(fileId: string) {
     const controller = new AbortController();
-    const request = apiClient.delete(`${this.path}/${fileName}`, { signal: controller.signal });
+    const request = apiClient.delete(`${this.path}/${fileId}`, { signal: controller.signal });
     return { request, cancel: () => controller.abort() };
   }
 
-  deleteFilesByName(fileNames: string[]) {
+  deleteMultipleFilesById(filesId: string[]) {
     const controller = new AbortController();
-    const request = apiClient.post<{ fileName: string; status: string }[]>(`${this.path}/delete-multiple`, { fileNames }, { signal: controller.signal });
+    const request = apiClient.post<{ fileId: string; status: string }[]>(`${this.path}/delete-multiple`, { filesId }, { signal: controller.signal });
     return { request, cancel: () => controller.abort() };
   }
 }

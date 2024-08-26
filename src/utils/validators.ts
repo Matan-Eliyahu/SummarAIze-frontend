@@ -1,4 +1,4 @@
-import { FieldType } from "../components/Forms/Form";
+import { FieldType, FormElement } from "../components/Forms/Form";
 
 export const validators: Record<FieldType, (value: string) => boolean> = {
   email: (value: string): boolean => {
@@ -13,14 +13,14 @@ export const validators: Record<FieldType, (value: string) => boolean> = {
   },
 };
 
-export function getErrorMessage(type: FieldType): string {
-  switch (type) {
+export function getErrorMessage(element: FormElement): string {
+  switch (element.type) {
     case "email":
       return "Please enter a valid email address";
-    case "password":
+    case "password": 
       return "Password must be at least 8 characters";
     case "text":
-      return "Text field is required";
+      return `${element.label} field is required`;
     default:
       return "Invalid input";
   }

@@ -1,17 +1,17 @@
 import Widget from "../Widget";
-import { FaChartPie } from "react-icons/fa6";
-import styles from "./FileWidget.module.scss";
+import { FaFileLines } from "react-icons/fa6";
+import styles from "./FilesWidget.module.scss";
 
-interface FileWidgetProps {
+interface FilesWidgetProps {
   fileTypeCounts: {
     pdf: number;
     image: number;
     audio: number;
   };
-  loading: boolean;
+  loading?: boolean;
 }
 
-export default function FileWidget({ fileTypeCounts, loading }: FileWidgetProps) {
+export default function FilesWidget({ fileTypeCounts, loading }: FilesWidgetProps) {
   const total = fileTypeCounts.pdf + fileTypeCounts.image + fileTypeCounts.audio;
   const pdfPercentage = (fileTypeCounts.pdf / total) * 100 || 0;
   const imagePercentage = (fileTypeCounts.image / total) * 100 || 0;
@@ -24,7 +24,7 @@ export default function FileWidget({ fileTypeCounts, loading }: FileWidgetProps)
   )`;
 
   return (
-    <Widget title="Files" icon={FaChartPie} badge={{ value: total.toString(), label: "files stored" }} loading={loading}>
+    <Widget title="Files" icon={FaFileLines} badge={{ value: total.toString(), label: `file${total > 1 ? "s" : ""} stored` }} loading={loading}>
       <div className={styles.doughnutCircle} style={{ background: total > 0 ? gradient : "" }}>
         <div className={styles.circleCenter}>{total} files</div>
       </div>

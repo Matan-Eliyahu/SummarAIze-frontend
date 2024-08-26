@@ -1,18 +1,3 @@
-.spinnerIcon {
-  color: $primary;
-  font-size: 2.6rem;
-  animation: animate 1.8s infinite;
-}
-
-@keyframes animate {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(720deg);
-  }
-}
-
 .fullPageBox {
   @extend .vbox;
   gap: 1.4rem;
@@ -21,3 +6,24 @@
   justify-content: center;
   height: 100%;
 }
+
+.spinner {
+  background: linear-gradient(45deg, $secondary-hover, $secondary, $primary, $primary-hover);
+  animation: rotate 1.2s linear infinite;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg) scale(0.2);
+    border-radius: 20%;
+  }
+  50% {
+    transform: rotate(180deg) scale(1.5);
+    border-radius: 50%;
+  }
+  100% {
+    transform: rotate(360deg) scale(0.2);
+    border-radius: 20%;
+  }
+}
+  

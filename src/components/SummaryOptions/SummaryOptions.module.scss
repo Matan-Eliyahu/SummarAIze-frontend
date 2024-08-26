@@ -3,11 +3,11 @@
   background-color: $background-dark;
   border-radius: 12px;
   width: 90%;
-  padding-bottom: 2rem;
-  max-height: 88%;
-  overflow: auto;
-  overflow-y: hidden;
-}
+  // padding-bottom: 2rem;
+  // height: 90%;
+  max-height: calc(100vh - 150px);
+  overflow: hidden;
+  }
 
 .summaryOptionsTitle {
   @extend .hbox;
@@ -17,20 +17,21 @@
   height: 8%;
   width: 100%;
   background-color: $dark;
-  font-size: 1.2rem;
+  font-size: 16px;
 }
 
 .summaryOptionsIcon {
-  font-size: 18px;
+  font-size: 16px;
   color: $input;
 }
 
 .optionsContainer {
   @extend .vbox;
-  padding: 8px 0;
   width: 100%;
-  gap: 1rem;
-  overflow: auto;
+  gap: 16px;
+  padding: 1rem 0;
+  // overflow: auto;
+  @extend .scrollSecondary;
 }
 
 .disabledOptionsContainer {
@@ -42,7 +43,7 @@
 .titleOptionsBox {
   @extend .hbox;
   gap: 1rem;
-  min-height: 10%;
+  // min-height: 10%;
   width: 70%;
   padding: 8px;
 }
@@ -52,7 +53,7 @@
   //   justify-content: center;
   height: 100%;
   width: 40%;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 500;
   color: $text-dark;
   white-space: nowrap;
@@ -70,7 +71,10 @@
   justify-content: center;
   gap: 1rem;
   width: 80%;
+  height: 25%;
+  // max-height: 00px;
   flex-wrap: wrap;
+  overflow: auto;
   padding: 8px;
 }
 
@@ -104,6 +108,5 @@
 
 .summarizeButton {
   @extend .secondaryButton;
-  width: 25%;
-  margin-top: 1rem;
+  margin: 1rem 0;
 }

@@ -5,6 +5,7 @@
   width: 100vw;
   height: 100vh;
   top: 0;
+  z-index: 9999;
   animation: fadeInBlur 0.4s ease-in-out forwards;
 }
 
@@ -25,7 +26,8 @@
   outline: 2px solid $background-soft;
   background: linear-gradient(to bottom, $background, $background-dark);
   min-width: 25vw;
-  // height: 20%;
+  max-width: 25vw;
+  z-index: 10000;
   animation: fadeIn 0.4s ease-in-out forwards;
 }
 
@@ -42,22 +44,26 @@
   @extend .hbox;
   align-items: start;
   justify-content: start;
-  gap: 10px;
+  gap: 8px;
   padding: 16px;
   width: 95%;
-  min-height: 40px;
+  // min-height: 40px;
 }
 
 .errorTextBox {
   @extend .vbox;
   align-items: start;
+  // padding: 0 8px;
   color: $shadow;
+  // max-width: 20vw;
+  // min-width: 15vw;
+  min-height: 4vh;
   font-size: 16px;
   font-weight: 500;
 }
 
 .errorIcon {
-  font-size: 20px;
+  font-size: 18px;
   color: $input;
 }
 

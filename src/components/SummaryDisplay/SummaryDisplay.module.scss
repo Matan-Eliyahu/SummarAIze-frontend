@@ -1,6 +1,6 @@
 .summaryDisplayBox {
   @extend .vbox;
-  height: 93%;
+  height: 99%;
   width: 100%;
   background-color: $background-dark;
   // border: 4px solid $dark;
@@ -8,30 +8,28 @@
   overflow: hidden;
 }
 
-.textBox {
+.textEditorBox {
   height: 100%;
-  width: 93%;
-  padding: 20px 32px;
+  width: 100%;
   color: $text;
   font-weight: 500;
   line-height: 1.5;
   white-space: pre-wrap;
+}
+
+.textBox {
+  @extend .textEditorBox;
+  width: 96%;
+  padding: 12px 32px;
   overflow: auto;
 }
 
 .lightTextBox {
   @extend .textBox;
-  background-color: rgb(238, 238, 238);
+  background-color: $text;
   color: $dark;
 
-  &::-webkit-scrollbar-track {
-    background: rgb(238, 238, 238);
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background: $dark;
-    border: 2px solid rgb(238, 238, 238);
-  }
+  @extend .scrollLight
 }
 
 .textAreaBox {

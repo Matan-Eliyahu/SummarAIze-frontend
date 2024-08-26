@@ -2,9 +2,10 @@
   @extend .hbox;
   // justify-content: center;
   // background: $primary-hover;
-    background: linear-gradient(to bottom, $primary, $primary-hover);
+  background: linear-gradient(to bottom, $primary, $primary-hover);
   width: 100vw;
-  height: 2rem;
+  height: 32px;
+  max-height: 32px;
   padding: 8px;
   position: absolute;
   top: 0;
@@ -12,8 +13,10 @@
 
 .buttonBox {
   @extend .hbox;
+  height: 40px;
+  // background-color: yellow;
   gap: 8px;
-  padding: 8px 20px;
+  margin-right: 1%;
   margin-left: auto;
 }
 

@@ -2,7 +2,7 @@
   @extend .vbox;
   justify-content: center;
   gap: 2rem;
-  padding: 48px 64px;
+  padding: 32px 64px;
   background: linear-gradient(to bottom, $background-dark, $dark);
   border-radius: 16px;
   opacity: 0;
@@ -10,11 +10,33 @@
   animation-delay: calc(0.1s * var(--i));
 }
 
+.title {
+  margin-top: 8px;
+  font-size: 24px;
+  font-weight: 500;
+  color: $text;
+  opacity: 0;
+  filter: brightness(0.3); // Start with normal brightness
+  animation: fadeIn 0.5s forwards, adjustBrightness 1s forwards;
+  animation-delay: calc(0.1s * var(--i));
+}
+
+@keyframes adjustBrightness {
+  0% {
+    filter: brightness(0.8); // Normal brightness at start
+  }
+  66% {
+    filter: brightness(3); // Increase brightness to 1.5
+  }
+  100% {
+    filter: brightness(0.8); // Return brightness to normal
+  }
+}
+
+
 .boxSeparator {
   @extend .hbox;
   width: 100%;
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
 }
 
 .boxSeparatorLine {
@@ -38,28 +60,10 @@
 
 .buttonBox {
   @extend .vbox;
+  gap: 12px;
   justify-content: center;
   width: 100%;
-  margin-top: -16px;
-}
-
-.googleButton {
-  color: $text-dark;
-  gap: 6px;
-  padding: 8px;
-  width: 60%;
-  background-color: transparent;
-  border: 2px solid rgb(212, 212, 212);
-  transition: border 0.3s ease, box-shadow 0.3s ease;
-  &:hover {
-    // background-color: rgb(212, 212, 212);
-    border: 2px solid white;
-    box-shadow: 0 0 8px 2px rgba(255, 255, 255, 0.568);
-  }
-}
-
-.googleIcon {
-  font-size: 22px;
+  margin-top: -1rem;
 }
 
 .signupBox {

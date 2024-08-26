@@ -1,4 +1,4 @@
-import { FaCircleNotch } from "react-icons/fa6";
+// import { FaCircleNotch } from "react-icons/fa6";
 import styles from "./Spinner.module.scss";
 
 interface SpinnerProps {
@@ -8,14 +8,17 @@ interface SpinnerProps {
 }
 
 function Spinner({ size, fullPage, text }: SpinnerProps) {
-  const fontSize = size == "xs" ? "0.8rem" : size == "s" ? "1rem" : size == "m" ? "1.2rem" : "1.8rem";
+  const fontSize = size == "xs" ? "0.5rem" : size == "s" ? "0.8rem" : size == "m" ? "1rem" : "1.5rem";
+
   return fullPage ? (
     <div className={styles.fullPageBox}>
       {text && text}
-      <FaCircleNotch className={styles.spinnerIcon} style={{ fontSize }} />
+      <span className={styles.spinner} style={{ width: fontSize, height: fontSize }} />
     </div>
   ) : (
-    <FaCircleNotch className={styles.spinnerIcon} style={{ fontSize }} />
+    <>
+      <span className={styles.spinner} style={{ width: fontSize, height: fontSize }} />
+    </>
   );
 }
 

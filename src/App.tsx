@@ -15,7 +15,7 @@ import { WebSocketProvider } from "./context/WebSocketContext";
 function App() {
   const { auth } = useAuth();
 
-  if (!auth) {
+  if (auth == null) {
     return (
       <Router>
         <Routes>
@@ -27,25 +27,24 @@ function App() {
         </Routes>
       </Router>
     );
-  }
-
-  return (
-    <Router>
-      <StoreProvider>
-        <WebSocketProvider>
+  } else
+    return (
+      <Router>
+        <StoreProvider>
+          <WebSocketProvider>
           <Header />
-          <Routes>
-            <Route path="/" element={<Navigate to="dashboard" />} />
-            <Route path="/dashboard" Component={Dashboard} />
-            <Route path="/dashboard/settings" Component={Settings} />
-            <Route path="/dashboard/account" Component={Account} />
-            <Route path="/dashboard/:fileName" Component={File} />
-            <Route path="/*" element={<Navigate to="dashboard" />} />
-          </Routes>
-        </WebSocketProvider>
-      </StoreProvider>
-    </Router>
-  );
+            <Routes>
+              <Route path="/" element={<Navigate to="dashboard" />} />
+              <Route path="/dashboard" Component={Dashboard} />
+              <Route path="/dashboard/settings" Component={Settings} />
+              <Route path="/dashboard/account" Component={Account} />
+              <Route path="/dashboard/:fileId" Component={File} />
+              <Route path="/*" element={<Navigate to="dashboard" />} />
+            </Routes>
+          </WebSocketProvider>
+        </StoreProvider>
+      </Router>
+    );
 }
 
 export default App;

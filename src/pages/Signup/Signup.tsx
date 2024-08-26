@@ -1,9 +1,11 @@
 import Form, { FormElement } from "../../components/Forms/Form";
 import Welcome from "../../components/Welcome/Welcome";
 import styles from "./Signup.module.scss";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Layout from "../../components/Layout/Layout";
 import PlanSelection from "../PlanSelection/PlanSelection";
+import AuthService, { AxiosError } from "../../services/AuthService";
+import { useAlert } from "../../hooks/useAlert";
 
 export interface SignUpFormData {
   email: string;
@@ -13,12 +15,9 @@ export interface SignUpFormData {
 }
 
 function Signup() {
-  const [isVisible, setIsVisible] = useState(false);
+  const { setAlert } = useAlert();
   const [signupFormDate, sestSignupFormData] = useState<SignUpFormData | null>(null);
-
-  useEffect(() => {
-    setIsVisible(true);
-  }, []);
+  const [loading, setLoading] = useState(false);
 
   const signupElements: FormElement[] = [
     {
@@ -44,6 +43,20 @@ function Signup() {
   ];
 
   async function handleRegister(formData: { [key: string]: string }) {
+    const email = formData.email;
+    if (!email) return;
+
+    setLoading(true);
+    const { request } = AuthService.checkEmail(email);
+    try {
+      await request;
+    } catch (error) {
+      if (error instanceof AxiosError) setAlert({ error });
+      return;
+    } finally {
+      setLoading(false);
+    }
+
     const signupFormData: SignUpFormData = {
       email: formData.email,
       firstName: formData.firstName,
@@ -56,10 +69,10 @@ function Signup() {
   if (signupFormDate !== null) return <PlanSelection signupFormData={signupFormDate} />;
 
   return (
-    <Layout fullPage>
+    <Layout fullPage loading={loading} text="Signing up...">
       <div className={styles.signupContainer}>
-        <div className={`${styles.signupBox} ${isVisible ? styles.visible : ""}`}>
-          <div>Create your account</div>
+        <div className={styles.signupBox}>
+          <div className={styles.title}>Create your account</div>
           <Form isSignUp elements={signupElements} buttonText="Sign Up" theme="secondary" onSubmit={handleRegister} buttonWidth="60%" />
           <div className={styles.signinBox}>
             <div className={styles.lightText}>Already have an account?</div>
